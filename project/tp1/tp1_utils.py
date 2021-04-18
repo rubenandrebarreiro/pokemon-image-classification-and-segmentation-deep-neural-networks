@@ -22,9 +22,18 @@ Module provided by the Instructor(s) with Auxiliary Functions for the Project
 
 """
 
+# Import Python's Modules, Libraries and Packages
+
+# Import the Image Save from the SciKit-Learn.Input/Output Python's Module
 from skimage.io import imsave
+
+# Import the NumPy Python's Library, with the np alias
 import numpy as np
+
+# Import the Pandas Python's Library, with the pd alias
 import pandas as pd
+
+# Import the NumPy Python's Library, with the np alias
 from tensorflow.keras.utils import to_categorical
 
 
