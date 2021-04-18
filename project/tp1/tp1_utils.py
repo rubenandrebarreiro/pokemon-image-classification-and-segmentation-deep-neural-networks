@@ -107,14 +107,14 @@ def overlay_masks(f_name, images, masks, width=20):
 def load_data():
     """
     Returns dictionary with data set, in the following keys:
-        'train_X':      training images, RGB, shape (4000,64,64,3)
-        'test_X':       test images, RGB, shape (500,64,64,3)
-        'train_masks':  training masks, shape (4000,64,64,1)
-        'test_masks':   test masks, shape (500,64,64,1)
-        'train_classes':classes for training, shape (4000,10), one-hot encoded
-        'train_labels': labels for training,  shape (4000,10) with 1 on main and secondary types
-        'test_classes': test classes, shape (500,10), one-hot encoded
-        'test_labels':  test labels,  shape (500,10) with 1 on main and secondary types            
+        'train_X':         training images, RGB, shape (4000,64,64,3)
+        'test_X':          test images, RGB, shape (500,64,64,3)
+        'train_masks':     training masks, shape (4000,64,64,1)
+        'test_masks':      test masks, shape (500,64,64,1)
+        'train_classes':   classes for training, shape (4000,10), one-hot encoded
+        'train_labels':    labels for training, shape (4000,10) with 1 on main and secondary types
+        'test_classes':    test classes, shape (500,10), one-hot encoded
+        'test_labels':     test labels, shape (500,10) with 1 on main and secondary types
     """
     data = np.load('dataset/data.npz')        
     table = pd.read_csv('dataset/labels.csv')
