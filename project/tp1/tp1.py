@@ -39,28 +39,52 @@ from tensorflow import keras
 # Import the Sequential from the TensorFlow.Keras.Models Python's Module
 from tensorflow.keras.models import Sequential
 
-# Import the Convolution 2D Layer from the TensorFlow.Keras.Layers Module
+# Import the Convolution 2D Layer from the TensorFlow.Keras.Layers Python's Module
 from tensorflow.keras.layers import Conv2D
 
-# Import the Activation Layer from the TensorFlow.Keras.Layers Module
+# Import the Activation Layer from the TensorFlow.Keras.Layers Python's Module
 from tensorflow.keras.layers import Activation
 
-# Import the Batch Normalization Layer from the TensorFlow.Keras.Layers Module
+# Import the Batch Normalization Layer from the TensorFlow.Keras.Layers Python's Module
 from tensorflow.keras.layers import BatchNormalization
 
-# Import the Max Pooling 2D Layer from the TensorFlow.Keras.Layers Module
+# Import the Max Pooling 2D Layer from the TensorFlow.Keras.Layers Python's Module
 from tensorflow.keras.layers import MaxPooling2D
 
-# Import the Dropout Layer from the TensorFlow.Keras.Layers Module
+# Import the Dropout Layer from the TensorFlow.Keras.Layers Python's Module
 from tensorflow.keras.layers import Dropout
 
-# Import the Flatten Layer from the TensorFlow.Keras.Layers Module
+# Import the Flatten Layer from the TensorFlow.Keras.Layers Python's Module
 from tensorflow.keras.layers import Flatten
 
-# Import the Dense Layer from the TensorFlow.Keras.Layers Module
+# Import the Dense Layer from the TensorFlow.Keras.Layers Python's Module
 from tensorflow.keras.layers import Dense
 
-# Import the Auxiliary Function to Load the Data for the Project, from the TP1_Utils' Module
+# Import the Stochastic Gradient Descent (S.G.D.) Optimizer
+# from the TensorFlow.Keras.Optimizers Python's Module
+from tensorflow.keras.optimizers import SGD
+
+# Import the Root Mean Squared Prop (R.M.S. PROP) Optimizer
+# from the TensorFlow.Keras.Optimizers Python's Module
+from tensorflow.keras.optimizers import RMSprop
+
+# Import the ADAptive Moment estimation (ADA.M.) Optimizer
+# from the TensorFlow.Keras.Optimizers Python's Module
+from tensorflow.keras.optimizers import Adam
+
+# Import the ADAptive GRADient algorithm (ADA.GRAD.) Optimizer
+# from the TensorFlow.Keras.Optimizers Python's Module
+from tensorflow.keras.optimizers import Adagrad
+
+# Import the ADAptive DELTA algorithm (ADA.DELTA) Optimizer
+# from the TensorFlow.Keras.Optimizers Python's Module
+from tensorflow.keras.optimizers import Adadelta
+
+# Import the ADAptive MAX algorithm (ADA.MAX.) Optimizer
+# from the TensorFlow.Keras.Optimizers Python's Module
+from tensorflow.keras.optimizers import Adamax
+
+# Import the Auxiliary Function to Load the Data for the Project, from the TP1_Utils' Python's Module
 from tp1_utils import load_data
 
 
@@ -104,21 +128,21 @@ KERNEL_WIDTH = 3
 
 # The Height of the Pooling Matrix used for the Model of
 # the Convolution Neural Network (C.N.N.)
-POOLING_HEIGHT = 2
+POOLING_HEIGHT = 1
 
 # The Width of the Pooling Matrix used for the Model of
 # the Convolution Neural Network (C.N.N.)
-POOLING_WIDTH = 2
+POOLING_WIDTH = 1
 
 # The Height of the Stride used on
 # the Pooling Matrices used for the Model of
 # the Convolution Neural Network (C.N.N.)
-STRIDE_HEIGHT = 2
+STRIDE_HEIGHT = 1
 
 # The Width of the Stride used on
 # the Pooling Matrices used for the Model of
 # the Convolution Neural Network (C.N.N.)
-STRIDE_WIDTH = 2
+STRIDE_WIDTH = 1
 
 # The Optimisers available to use for the the Model of
 # the Convolution Neural Network (C.N.N.)
@@ -126,11 +150,11 @@ AVAILABLE_OPTIMISERS_LIST = ["SGD", "RMSPROP", "ADAM", "ADAGRAD", "ADADELTA"]
 
 # The Learning Rate for the Optimizer used for
 # the Model of the Convolution Neural Network (C.N.N.)
-INITIAL_LEARNING_RATE = 0.05
+INITIAL_LEARNING_RATE = 0.001
 
 # The Number of Epochs for the Optimiser for
 # the Model of the Convolution Neural Network (C.N.N.)
-NUM_EPOCHS = 1000
+NUM_EPOCHS = 25
 
 # The Size of the Batch for the Model of
 # the Convolution Neural Network (C.N.N.)
@@ -147,28 +171,28 @@ def retrieve_datasets_from_pokemon_data():
     pokemon_datasets = load_data()
 
     # Retrieve the xs (features) of the Pokemons' Datasets, for the Training Set
-    xs_features_training_set = pokemon_datasets['train_X'][:3500]
+    xs_features_training_set = pokemon_datasets['train_X'][:NUM_EXAMPLES_FINAL_TRAINING_SET]
 
     # Retrieve the xs (masks) of the Pokemons' Datasets, for the Training Set
-    xs_masks_training_set = pokemon_datasets['train_masks'][:3500]
+    xs_masks_training_set = pokemon_datasets['train_masks'][:NUM_EXAMPLES_FINAL_TRAINING_SET]
 
     # Retrieve the ys (classes) of the Pokemons' Datasets, for the Training Set
-    ys_classes_training_set = pokemon_datasets['train_classes'][:3500]
+    ys_classes_training_set = pokemon_datasets['train_classes'][:NUM_EXAMPLES_FINAL_TRAINING_SET]
 
     # Retrieve the ys (labels) of the Pokemons' Datasets, for the Training Set
-    ys_labels_training_set = pokemon_datasets['train_labels'][:3500]
+    ys_labels_training_set = pokemon_datasets['train_labels'][:NUM_EXAMPLES_FINAL_TRAINING_SET]
 
     # Retrieve the xs (features) of the Pokemons' Datasets, for the Validation Set
-    xs_features_validation_set = pokemon_datasets['train_X'][3500:]
+    xs_features_validation_set = pokemon_datasets['train_X'][NUM_EXAMPLES_FINAL_TRAINING_SET:]
 
     # Retrieve the xs (masks) of the Pokemons' Datasets, for the Validation Set
-    xs_masks_validation_set = pokemon_datasets['train_masks'][3500:]
+    xs_masks_validation_set = pokemon_datasets['train_masks'][NUM_EXAMPLES_FINAL_TRAINING_SET:]
 
     # Retrieve the ys (classes) of the Pokemons' Datasets, for the Validation Set
-    ys_classes_validation_set = pokemon_datasets['train_classes'][3500:]
+    ys_classes_validation_set = pokemon_datasets['train_classes'][NUM_EXAMPLES_FINAL_TRAINING_SET:]
 
     # Retrieve the ys (labels) of the Pokemons' Datasets, for the Validation Set
-    ys_labels_validation_set = pokemon_datasets['train_labels'][3500:]
+    ys_labels_validation_set = pokemon_datasets['train_labels'][NUM_EXAMPLES_FINAL_TRAINING_SET:]
 
     # Retrieve the xs (features) of the Pokemons' Datasets, for the Testing Set
     xs_features_testing_set = pokemon_datasets['test_X']
@@ -188,7 +212,8 @@ def retrieve_datasets_from_pokemon_data():
         xs_features_testing_set, xs_masks_testing_set, ys_classes_testing_set, ys_labels_testing_set
 
 
-# Create a Model for a feed-forward Convolution Neural Network (C.N.N.)
+# Function to create a Model for a feed-forward Convolution Neural Network (C.N.N.),
+# for the Pokemons' Data, in Image Classification
 def create_cnn_model_in_keras_sequential_api_for_image_classification():
 
     # Create a Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -204,7 +229,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification():
     # Same Padding and an Input Shape of (64 x 64 pixels), as also,
     # 3 Input Dimensions (for each Color Channel - RGB Color)
     convolution_neural_network_tensorflow_keras_sequential_model\
-        .add(Conv2D(NUM_FILTERS[0], (KERNEL_HEIGHT, KERNEL_WIDTH), padding="same",
+        .add(Conv2D(NUM_FILTERS[0], (KERNEL_HEIGHT, KERNEL_WIDTH), padding="valid",
              input_shape=(IMAGES_HEIGHT, IMAGES_WIDTH, NUM_CHANNELS_RGB)))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
@@ -220,7 +245,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification():
     # by re-centering and re-scaling that features and making the Model of
     # the feed-forward Convolution Neural Network (C.N.N.) to be faster and more stable
     convolution_neural_network_tensorflow_keras_sequential_model\
-        .add(BatchNormalization(axis=-1))
+        .add(BatchNormalization())
 
     # Add a second Convolution 2D Layer, for the previous features of the Data/Images of
     # the Pokemons' Dataset given to the Model of the feed-forward
@@ -338,9 +363,9 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification():
     # Add a Dense Layer to the features of the Data/Images of
     # the Pokemons resulted from the previous Layer of
     # the Model of the feed-forward Convolution Neural Network (C.N.N.),
-    # for a total of 512 Units (Weights and Biases)
+    # for a total of 100 Units (Weights and Biases)
     convolution_neural_network_tensorflow_keras_sequential_model\
-        .add(Dense(512))
+        .add(Dense(100))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
     # for the features of the Data/Images of the Pokemons resulted from
@@ -399,3 +424,35 @@ xs_features_training_set_pokemon, xs_masks_training_set_pokemon,\
     xs_features_testing_set_pokemon, xs_masks_testing_set_pokemon,\
     ys_classes_testing_set_pokemon, ys_labels_testing_set_pokemon = \
     retrieve_datasets_from_pokemon_data()
+
+# Initialise the Stochastic Gradient Descent (S.G.D.) Optimizer,
+# with the Learning Rate of 5%, Momentum of 90% and Decay of (INITIAL_LEARNING_RATE / NUM_EPOCHS)
+stochastic_gradient_descent_optimizer = SGD(learning_rate=INITIAL_LEARNING_RATE,
+                                            momentum=0.9)
+
+# Create a Model for a feed-forward Convolution Neural Network (C.N.N.),
+# for the Pokemons' Data, in Image Classification
+cnn_model_in_keras_sequential_api_for_image_classification = \
+    create_cnn_model_in_keras_sequential_api_for_image_classification()
+
+# Compile the Model for the feed-forward Convolution Neural Network (C.N.N.),
+# with the given Categorical Cross Entropy Loss/Error Function and
+# the Stochastic Gradient Descent (S.G.D.) Optimizer
+cnn_model_in_keras_sequential_api_for_image_classification.compile(loss="categorical_crossentropy",
+                                                                   optimizer=stochastic_gradient_descent_optimizer,
+                                                                   metrics=["accuracy"])
+
+# Print the Log for the Fitting of the Model for the feed-forward Convolution Neural Network (C.N.N.)
+print(f"\nFitting/Training the Model for the feed-forward Convolution Neural Network (C.N.N.) for {NUM_EPOCHS} Epochs "
+      f"with a Batch Size of {BATCH_SIZE} and an Initial Learning Rate of {INITIAL_LEARNING_RATE}...\n")
+
+# Train/Fit the Model for the feed-forward Convolution Neural Network (C.N.N.) for the given NUM_EPOCHS,
+# with the Training Set for the Training Data and the Validation Set for the Validation Data
+cnn_model_training_history = \
+    cnn_model_in_keras_sequential_api_for_image_classification\
+    .fit(xs_features_training_set_pokemon, ys_labels_training_set_pokemon,
+         validation_data=(xs_features_validation_set_pokemon, ys_labels_validation_set_pokemon),
+         batch_size=BATCH_SIZE, epochs=NUM_EPOCHS)
+
+# Print the final Log for the Fitting of the Model for the feed-forward Convolution Neural Network (C.N.N.)
+print("\nThe Fitting/Training of the Convolution Neural Network (C.N.N.) Model is complete!!!\n")
