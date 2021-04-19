@@ -36,6 +36,8 @@ operative_system.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 # Import Keras from the TensorFlow Python's Library
 from tensorflow import keras
 
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+
 # Import the Sequential from the TensorFlow.Keras.Models Python's Module
 from tensorflow.keras.models import Sequential
 
@@ -116,7 +118,7 @@ NUM_CHANNELS_GRAY_SCALE = 1
 
 # The Number of Filters for the Model of
 # the Convolution Neural Network (C.N.N.)
-NUM_FILTERS = [32, 32, 64, 64]
+NUM_FILTERS = [16, 32, 64, 128]
 
 # The Height of the Kernel of the Filters used for the Model of
 # the Convolution Neural Network (C.N.N.)
@@ -128,21 +130,21 @@ KERNEL_WIDTH = 3
 
 # The Height of the Pooling Matrix used for the Model of
 # the Convolution Neural Network (C.N.N.)
-POOLING_HEIGHT = 1
+POOLING_HEIGHT = 2
 
 # The Width of the Pooling Matrix used for the Model of
 # the Convolution Neural Network (C.N.N.)
-POOLING_WIDTH = 1
+POOLING_WIDTH = 2
 
 # The Height of the Stride used on
 # the Pooling Matrices used for the Model of
 # the Convolution Neural Network (C.N.N.)
-STRIDE_HEIGHT = 1
+STRIDE_HEIGHT = 2
 
 # The Width of the Stride used on
 # the Pooling Matrices used for the Model of
 # the Convolution Neural Network (C.N.N.)
-STRIDE_WIDTH = 1
+STRIDE_WIDTH = 2
 
 # The Optimisers available to use for the the Model of
 # the Convolution Neural Network (C.N.N.)
@@ -150,15 +152,15 @@ AVAILABLE_OPTIMISERS_LIST = ["SGD", "RMSPROP", "ADAM", "ADAGRAD", "ADADELTA"]
 
 # The Learning Rate for the Optimizer used for
 # the Model of the Convolution Neural Network (C.N.N.)
-INITIAL_LEARNING_RATE = 0.001
+INITIAL_LEARNING_RATE = 0.005
 
 # The Number of Epochs for the Optimiser for
 # the Model of the Convolution Neural Network (C.N.N.)
-NUM_EPOCHS = 25
+NUM_EPOCHS = 50
 
 # The Size of the Batch for the Model of
 # the Convolution Neural Network (C.N.N.)
-BATCH_SIZE = 32
+BATCH_SIZE = 16
 
 
 # Retrieve the Datasets from the Pokemons' Data,
@@ -212,10 +214,62 @@ def retrieve_datasets_from_pokemon_data():
         xs_features_testing_set, xs_masks_testing_set, ys_classes_testing_set, ys_labels_testing_set
 
 
+def image_data_generator_for_preprocessing_with_data_augmentation():
+
+    image_data_generator = ImageDataGenerator(
+        rotation_range=40,
+        width_shift_range=0.2,
+        height_shift_range=0.2,
+        shear_range=0.2,
+        zoom_range=0.2,
+        horizontal_flip=True,
+        fill_mode='nearest')
+
+    return image_data_generator
+
+
 # Function to create a Model for a feed-forward Convolution Neural Network (C.N.N.),
 # for the Pokemons' Data, in Image Classification
 def create_cnn_model_in_keras_sequential_api_for_image_classification():
 
+    model = Sequential()
+    model.add(Conv2D(32, (3, 3), padding="same"))
+    model.add(Activation('relu'))
+    model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+
+    model.add(Conv2D(64, (3, 3), padding="same"))
+    model.add(Activation('relu'))
+    model.add(Conv2D(64, (3, 3), padding="same"))
+    model.add(Activation('relu'))
+    model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+
+    model.add(Conv2D(128, (3, 3), padding="same"))
+    model.add(Activation('relu'))
+    model.add(Conv2D(128, (3, 3), padding="same"))
+    model.add(Activation('relu'))
+    model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+
+    model.add(Conv2D(256, (3, 3), padding="same"))
+    model.add(Activation('relu'))
+    model.add(Conv2D(256, (3, 3), padding="same"))
+    model.add(Activation('relu'))
+    model.add(Conv2D(256, (3, 3), padding="same"))
+    model.add(Activation('relu'))
+    model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+
+    model.add(Flatten())
+    model.add(Dense(512))
+    model.add(Activation('relu'))
+
+    model.add(Dense(512))
+    model.add(Activation('relu'))
+
+    model.add(Dense(10))
+    model.add(Activation('softmax'))
+
+    return model
+
+"""
     # Create a Model for a feed-forward Convolution Neural Network (C.N.N.),
     # which is most appropriate for this type of problem (i.e., Image Classification),
     # using the Tensorflow Keras' Sequential API
@@ -267,7 +321,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification():
     # by re-centering and re-scaling that features and making the Model of
     # the feed-forward Convolution Neural Network (C.N.N.) to be faster and more stable
     convolution_neural_network_tensorflow_keras_sequential_model\
-        .add(BatchNormalization(axis=-1))
+        .add(BatchNormalization())
 
     # Add a Maximum Pooling 2D Sample-Based Discretization Process Layer,
     # for the features of the Data/Images of the Pokemons resulted from
@@ -307,7 +361,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification():
     # by re-centering and re-scaling that features and making the Model of
     # the feed-forward Convolution Neural Network (C.N.N.) to be faster and more stable
     convolution_neural_network_tensorflow_keras_sequential_model\
-        .add(BatchNormalization(axis=-1))
+        .add(BatchNormalization())
 
     # Add a fourth Convolution 2D Layer, for the previous features of the Data/Images of
     # the Pokemons' Dataset given to the Model of the feed-forward
@@ -365,7 +419,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification():
     # the Model of the feed-forward Convolution Neural Network (C.N.N.),
     # for a total of 100 Units (Weights and Biases)
     convolution_neural_network_tensorflow_keras_sequential_model\
-        .add(Dense(100))
+        .add(Dense(128))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
     # for the features of the Data/Images of the Pokemons resulted from
@@ -390,9 +444,9 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification():
     # - Dropout Layer in Convolution Neural Networks is generally, not very useful;
     # - Comment/Uncomment, if you want to try it or not;
     convolution_neural_network_tensorflow_keras_sequential_model\
-        .add(Dropout(0.5))
+        .add(Dropout(0.25))
 
-    # SoftMax Classifier
+    # Softmax Classifier
 
     # Add a Dense Layer to the features of the Data/Images of
     # the Pokemons resulted from the previous Layer of
@@ -410,7 +464,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification():
 
     # Return the Model of the feed-forward Convolution Neural Network (C.N.N.)
     return convolution_neural_network_tensorflow_keras_sequential_model
-
+"""
 
 # Retrieve all the Datasets related to the Pokemons' Data:
 # i) 4000 examples for the initial Training Set, split in:
@@ -425,10 +479,26 @@ xs_features_training_set_pokemon, xs_masks_training_set_pokemon,\
     ys_classes_testing_set_pokemon, ys_labels_testing_set_pokemon = \
     retrieve_datasets_from_pokemon_data()
 
+multi_classes_training_image_data_generator_for_preprocessing_with_data_augmentation = \
+    image_data_generator_for_preprocessing_with_data_augmentation()
+
+multi_classes_training_set_pokemon_data_augmentation_generator = \
+    multi_classes_training_image_data_generator_for_preprocessing_with_data_augmentation\
+    .flow(x=xs_features_training_set_pokemon, batch_size=BATCH_SIZE,
+          y=ys_classes_training_set_pokemon, shuffle=False)
+
+multi_classes_validation_image_data_generator_for_preprocessing_with_data_augmentation = \
+    image_data_generator_for_preprocessing_with_data_augmentation()
+
+multi_classes_validation_set_pokemon_data_augmentation_generator = \
+    multi_classes_validation_image_data_generator_for_preprocessing_with_data_augmentation\
+    .flow(x=xs_features_validation_set_pokemon, batch_size=BATCH_SIZE,
+          y=ys_classes_validation_set_pokemon, shuffle=False)
+
 # Initialise the Stochastic Gradient Descent (S.G.D.) Optimizer,
 # with the Learning Rate of 5%, Momentum of 90% and Decay of (INITIAL_LEARNING_RATE / NUM_EPOCHS)
 stochastic_gradient_descent_optimizer = SGD(learning_rate=INITIAL_LEARNING_RATE,
-                                            momentum=0.9)
+                                            momentum=0.9, decay=(INITIAL_LEARNING_RATE / NUM_EPOCHS))
 
 # Create a Model for a feed-forward Convolution Neural Network (C.N.N.),
 # for the Pokemons' Data, in Image Classification
@@ -450,9 +520,14 @@ print(f"\nFitting/Training the Model for the feed-forward Convolution Neural Net
 # with the Training Set for the Training Data and the Validation Set for the Validation Data
 cnn_model_training_history = \
     cnn_model_in_keras_sequential_api_for_image_classification\
-    .fit(xs_features_training_set_pokemon, ys_labels_training_set_pokemon,
-         validation_data=(xs_features_validation_set_pokemon, ys_labels_validation_set_pokemon),
-         batch_size=BATCH_SIZE, epochs=NUM_EPOCHS)
+    .fit(multi_classes_training_set_pokemon_data_augmentation_generator.x,
+         multi_classes_training_set_pokemon_data_augmentation_generator.y,
+         steps_per_epoch=(NUM_EXAMPLES_FINAL_TRAINING_SET // BATCH_SIZE),
+         epochs=NUM_EPOCHS,
+         validation_data=(multi_classes_validation_set_pokemon_data_augmentation_generator.x,
+                          multi_classes_validation_set_pokemon_data_augmentation_generator.y),
+         validation_steps=(NUM_EXAMPLES_FINAL_VALIDATION_SET // BATCH_SIZE),
+         batch_size=BATCH_SIZE)
 
 # Print the final Log for the Fitting of the Model for the feed-forward Convolution Neural Network (C.N.N.)
-print("\nThe Fitting/Training of the Convolution Neural Network (C.N.N.) Model is complete!!!\n")
+print("\nThe Fitting/Training of the Model for the feed-forward Convolution Neural Network (C.N.N.) is complete!!!\n")
