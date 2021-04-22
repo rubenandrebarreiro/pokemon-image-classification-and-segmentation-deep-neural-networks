@@ -76,6 +76,9 @@ from tensorflow.keras.layers import Flatten
 # Import the Dense Layer from the TensorFlow.Keras.Layers Python's Module
 from tensorflow.keras.layers import Dense
 
+# Import the Dropout Layer from the TensorFlow.Keras.Layers Python's Module
+from tensorflow.keras.layers import Dropout
+
 # Import the Stochastic Gradient Descent (S.G.D.) Optimizer
 # from the TensorFlow.Keras.Optimizers Python's Module
 from tensorflow.keras.optimizers import SGD
@@ -201,7 +204,7 @@ NUM_AVAILABLE_OPTIMISERS = len(AVAILABLE_OPTIMISERS_LIST)
 
 # The Learning Rates for the Optimizer used for
 # the Model of the feed-forward Convolution Neural Network (C.N.N.)
-INITIAL_LEARNING_RATES = [0.005, 0.0005, 0.00041, 0.01, 0.25, 0.001]
+INITIAL_LEARNING_RATES = [0.005, 0.0005, 0.00041, 0.012, 0.25, 0.001]
 
 # The Momentum #1 for the Optimizer used for
 # the Model of the feed-forward Convolution Neural Network (C.N.N.)
@@ -422,7 +425,7 @@ def create_optimiser(optimiser_id):
 
 # Function to create a Model for a feed-forward Convolution Neural Network (C.N.N.),
 # for the Pokemons' Data, in Image Classification
-def create_cnn_model_in_keras_sequential_api_for_image_classification():
+def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_id):
 
     # Create a Model for a feed-forward Convolution Neural Network (C.N.N.),
     # which is most appropriate for this type of problem (i.e., Image Classification),
@@ -626,6 +629,15 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification():
     # for a total of 512 Units (Weights and Biases)
     convolution_neural_network_tensorflow_keras_sequential_model \
         .add(Dense(NUM_UNITS_LAST_DENSE_LAYER))
+
+    # It is being used the ADAptive GRADient algorithm (ADA.GRAD.) Optimizer
+    if optimiser_id == AVAILABLE_OPTIMISERS_LIST[3]:
+
+        # Add a Dropout Layer of 50%, for the Regularization of Hyper-Parameters,
+        # for the features of the Data/Images of the Pokemons resulted from
+        # the previous Layer of the Model of the feed-forward
+        # Convolution Neural Network (C.N.N.)
+        convolution_neural_network_tensorflow_keras_sequential_model.add(Dropout(0.5))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
     # for the features of the Data/Images of the Pokemons resulted from
@@ -988,7 +1000,7 @@ for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
     # Create a Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification
     cnn_model_in_keras_sequential_api_for_image_classification_multi_classes_classification = \
-        create_cnn_model_in_keras_sequential_api_for_image_classification()
+        create_cnn_model_in_keras_sequential_api_for_image_classification(AVAILABLE_OPTIMISERS_LIST[num_optimiser])
 
     # Compile the Model for the feed-forward Convolution Neural Network (C.N.N.),
     # with the given Categorical Cross Entropy Loss/Error Function and
