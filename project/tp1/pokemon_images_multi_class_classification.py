@@ -246,11 +246,11 @@ def create_early_stopping_callbacks():
     # the Loss Cost of the Fitting/Training with Training Set
     training_loss_early_stopping_callback = \
         EarlyStopping(
-            monitor="loss",
+            monitor='loss',
             min_delta=1e-6,
             patience=(NUM_EPOCHS - NUM_LAST_EPOCHS_TO_BE_DISCARDED_FOR_EARLY_STOPPING),
             verbose=1,
-            mode="min",
+            mode='min',
             baseline=0.08,
             restore_best_weights=True
         )
@@ -259,11 +259,11 @@ def create_early_stopping_callbacks():
     # the Accuracy of the Fitting/Training with Training Set
     training_accuracy_early_stopping_callback = \
         EarlyStopping(
-            monitor="loss",
+            monitor='loss',
             min_delta=1e-6,
             patience=(NUM_EPOCHS - NUM_LAST_EPOCHS_TO_BE_DISCARDED_FOR_EARLY_STOPPING),
             verbose=1,
-            mode="min",
+            mode='min',
             baseline=0.96,
             restore_best_weights=True
         )
@@ -272,11 +272,11 @@ def create_early_stopping_callbacks():
     # the Loss Cost of the Fitting/Training with Validation Set
     validation_loss_early_stopping_callback = \
         EarlyStopping(
-            monitor="loss",
+            monitor='loss',
             min_delta=1e-6,
             patience=(NUM_EPOCHS - NUM_LAST_EPOCHS_TO_BE_DISCARDED_FOR_EARLY_STOPPING),
             verbose=1,
-            mode="min",
+            mode='min',
             baseline=0.08,
             restore_best_weights=True
         )
@@ -285,11 +285,11 @@ def create_early_stopping_callbacks():
     # the Accuracy of the Fitting/Training with Validation Set
     validation_accuracy_early_stopping_callback = \
         EarlyStopping(
-            monitor="loss",
+            monitor='loss',
             min_delta=1e-6,
             patience=(NUM_EPOCHS - NUM_LAST_EPOCHS_TO_BE_DISCARDED_FOR_EARLY_STOPPING),
             verbose=1,
-            mode="min",
+            mode='min',
             baseline=0.96,
             restore_best_weights=True
         )
@@ -311,7 +311,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # which is most appropriate for this type of problem (i.e., Image Classification),
     # using the Tensorflow Keras' Sequential API
     convolution_neural_network_tensorflow_keras_sequential_model = \
-        Sequential(name="pokemon-images-multi-classes-classification")
+        Sequential(name='pokemon-images-multi-classes-classification')
 
     # --- 1st Block of Layers for the Model for
     # the feed-forward Convolution Neural Network (C.N.N.) ---
@@ -323,7 +323,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # 3 Input Dimensions (for each Color Channel - RGB Color)
     convolution_neural_network_tensorflow_keras_sequential_model \
         .add(Conv2D(NUM_FILTERS_PER_BLOCK[0], (KERNEL_HEIGHT, KERNEL_WIDTH),
-                    padding="same"))
+                    padding='same'))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
     # for the features of the Data/Images of the Pokemons resulted from
@@ -349,7 +349,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # using 64 Filters of a Kernel 3x3 and Same Padding
     convolution_neural_network_tensorflow_keras_sequential_model \
         .add(Conv2D(NUM_FILTERS_PER_BLOCK[1], (KERNEL_HEIGHT, KERNEL_WIDTH),
-                    padding="same"))
+                    padding='same'))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
     # for the features of the Data/Images of the Pokemons resulted from
@@ -364,7 +364,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # using 64 Filters of a Kernel 3x3 and Same Padding
     convolution_neural_network_tensorflow_keras_sequential_model \
         .add(Conv2D(NUM_FILTERS_PER_BLOCK[1], (STRIDE_HEIGHT, STRIDE_WIDTH),
-                    padding="same"))
+                    padding='same'))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
     # for the features of the Data/Images of the Pokemons resulted from
@@ -390,7 +390,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # using 128 Filters of a Kernel 3x3 and Same Padding
     convolution_neural_network_tensorflow_keras_sequential_model \
         .add(Conv2D(NUM_FILTERS_PER_BLOCK[2], (KERNEL_HEIGHT, KERNEL_WIDTH),
-                    padding="same"))
+                    padding='same'))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
     # for the features of the Data/Images of the Pokemons resulted from
@@ -404,7 +404,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # Convolution Neural Network (C.N.N.), resulted from the previous layer,
     # using 128 Filters of a Kernel 3x3 and Same Padding
     convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(Conv2D(NUM_FILTERS_PER_BLOCK[2], (KERNEL_HEIGHT, KERNEL_WIDTH), padding="same"))
+        .add(Conv2D(NUM_FILTERS_PER_BLOCK[2], (KERNEL_HEIGHT, KERNEL_WIDTH), padding='same'))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
     # for the features of the Data/Images of the Pokemons resulted from
@@ -430,7 +430,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # using 128 Filters of a Kernel 3x3 and Same Padding
     convolution_neural_network_tensorflow_keras_sequential_model \
         .add(Conv2D(NUM_FILTERS_PER_BLOCK[3], (KERNEL_HEIGHT, KERNEL_WIDTH),
-                    padding="same"))
+                    padding='same'))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
     # for the features of the Data/Images of the Pokemons resulted from
@@ -445,7 +445,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # using 128 Filters of a Kernel 3x3 and Same Padding
     convolution_neural_network_tensorflow_keras_sequential_model \
         .add(Conv2D(NUM_FILTERS_PER_BLOCK[3], (KERNEL_HEIGHT, KERNEL_WIDTH),
-                    padding="same"))
+                    padding='same'))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
     # for the features of the Data/Images of the Pokemons resulted from
@@ -460,7 +460,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # using 128 Filters of a Kernel 3x3 and Same Padding
     convolution_neural_network_tensorflow_keras_sequential_model \
         .add(Conv2D(NUM_FILTERS_PER_BLOCK[3], (KERNEL_HEIGHT, KERNEL_WIDTH),
-                    padding="same"))
+                    padding='same'))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
     # for the features of the Data/Images of the Pokemons resulted from
@@ -501,7 +501,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # the previous Layer of the Model of the feed-forward
     # Convolution Neural Network (C.N.N.)
     convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(Activation("relu"))
+        .add(Activation('relu'))
 
     # Add a Dense Layer to the features of the Data/Images of
     # the Pokemons resulted from the previous Layer of
@@ -524,7 +524,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # the previous Layer of the Model of the feed-forward
     # Convolution Neural Network (C.N.N.)
     convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(Activation("relu"))
+        .add(Activation('relu'))
 
     # Add a Dense Layer to the features of the Data/Images of
     # the Pokemons resulted from the previous Layer of
@@ -538,7 +538,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # the previous Layer of the Model of the feed-forward
     # Convolution Neural Network (C.N.N.), for the Multi-Class Classifier
     convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(Activation("softmax"))
+        .add(Activation('softmax'))
 
     # Return the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
@@ -613,16 +613,16 @@ def execute_model_of_multi_class_classification_for_all_available_optimisers():
 
         # Print the information about if the Model will be executed,
         # using High-Performance Computing (with CPUs and GPUs)
-        print("\n")
-        print("It will be used High-Performance Computing (with CPUs and GPUs):")
-        print(" - Num. CPUS: ", NUM_CPU_PROCESSORS_CORES)
-        print(" - Num. GPUS: ", NUM_GPU_DEVICES)
-        print("\n")
+        print('\n')
+        print('It will be used High-Performance Computing (with CPUs and GPUs):')
+        print(' - Num. CPUS: ', NUM_CPU_PROCESSORS_CORES)
+        print(' - Num. GPUS: ', NUM_GPU_DEVICES)
+        print('\n')
 
         # Set the Configuration's Proto, for the given number of Devices (CPUs and GPUs)
         configuration_proto = \
-            tensorflow.compat.v1.ConfigProto(device_count={"CPU": NUM_CPU_PROCESSORS_CORES,
-                                                           "GPU": NUM_GPU_DEVICES})
+            tensorflow.compat.v1.ConfigProto(device_count={'CPU': NUM_CPU_PROCESSORS_CORES,
+                                                           'GPU': NUM_GPU_DEVICES})
 
         # Configure a TensorFlow Session for High-Performance Computing (with CPUs and GPUs)
         session = tensorflow.compat.v1.Session(config=configuration_proto)
@@ -713,22 +713,22 @@ def execute_model_of_multi_class_classification_for_all_available_optimisers():
     for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
         # Print the initial information line
-        print("--------- START OF THE EXECUTION FOR THE %s OPTIMISER ---------"
+        print('--------- START OF THE EXECUTION FOR THE %s OPTIMISER ---------'
               % (AVAILABLE_OPTIMISERS_LIST[num_optimiser]))
 
         # Retrieve the current DateTime, as custom format
-        now_date_time = date_time.utcnow().strftime("%Y%m%d%H%M%S")
+        now_date_time = date_time.utcnow().strftime('%Y%m%d%H%M%S')
 
         # Set the Root Directory for the Logs of the TensorBoard and TensorFlow
-        root_logs_directory = "logs"
+        root_logs_directory = 'logs'
 
         # Set the specific Log Directory,
         # # according to the current executing Optimiser and the current Date and Time (timestamp)
-        logs_directory = "%s/model-multi-classes-%s-optimiser-%s/" \
+        logs_directory = '%s\\model-multi-classes-%s-optimiser-%s\\' \
             % (root_logs_directory, AVAILABLE_OPTIMISERS_LIST[num_optimiser].lower(), now_date_time)
 
         # Set the Root Directory for the Weights of the TensorBoard and TensorFlow
-        root_weights_directory = "files/weights"
+        root_weights_directory = 'files\\weights'
 
         # Set the specified Sub-Directory, according to the Metrics
         # for the Logs of the TensorBoard and TensorFlow
@@ -756,16 +756,16 @@ def execute_model_of_multi_class_classification_for_all_available_optimisers():
         # with the given Categorical Cross Entropy Loss/Error Function and
         # the Stochastic Gradient Descent (S.G.D.) Optimiser
         cnn_model_in_keras_sequential_api_for_image_classification_multi_classes_classification \
-            .compile(loss="categorical_crossentropy",
+            .compile(loss='categorical_crossentropy',
                      optimizer=current_optimiser,
-                     metrics=["accuracy"])
+                     metrics=['accuracy'])
 
         # Print the Log for the Fitting/Training of
         # the Model for the feed-forward Convolution Neural Network (C.N.N.)
-        print(f"\nFitting/Training the Model for "
-              f"the feed-forward Convolution Neural Network (C.N.N.) for {NUM_EPOCHS} Epochs "
-              f"with a Batch Size of {BATCH_SIZE} and\nan Initial Learning Rate of "
-              f"{INITIAL_LEARNING_RATES[num_optimiser]}...\n")
+        print(f'\nFitting/Training the Model for '
+              f'the feed-forward Convolution Neural Network (C.N.N.) for {NUM_EPOCHS} Epochs '
+              f'with a Batch Size of {BATCH_SIZE} and\nan Initial Learning Rate of '
+              f'{INITIAL_LEARNING_RATES[num_optimiser]}...\n')
 
         # Train/Fit the Model for the feed-forward Convolution Neural Network (C.N.N.) for the given NUM_EPOCHS,
         # with the Training Set for the Training Data and the Validation Set for the Validation Data
@@ -793,8 +793,8 @@ def execute_model_of_multi_class_classification_for_all_available_optimisers():
 
         # Print the final Log for the Fitting/Training of
         # the Model for the feed-forward Convolution Neural Network (C.N.N.)
-        print("\nThe Fitting/Training of the Model for "
-              "the feed-forward Convolution Neural Network (C.N.N.) is complete!!!\n")
+        print('\nThe Fitting/Training of the Model for '
+              'the feed-forward Convolution Neural Network (C.N.N.) is complete!!!\n')
 
         # Plot the Training's and Validation's Losses,
         # from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -814,7 +814,7 @@ def execute_model_of_multi_class_classification_for_all_available_optimisers():
 
         # Retrieve the History of the Training Losses for the current Optimiser
         optimiser_training_loss_history = \
-            cnn_model_in_keras_sequential_api_for_image_classification_training_history.history["loss"]
+            cnn_model_in_keras_sequential_api_for_image_classification_training_history.history['loss']
 
         # Retrieve the Number of Epochs History of the Training Losses for the current Optimiser
         num_epochs_optimiser_training_loss_history = len(optimiser_training_loss_history)
@@ -826,7 +826,7 @@ def execute_model_of_multi_class_classification_for_all_available_optimisers():
 
         # Retrieve the History of the Training Accuracies for the current Optimiser
         optimiser_training_accuracy_history = \
-            cnn_model_in_keras_sequential_api_for_image_classification_training_history.history["accuracy"]
+            cnn_model_in_keras_sequential_api_for_image_classification_training_history.history['accuracy']
 
         # Retrieve the Number of Epochs History of the Training Accuracies for the current Optimiser
         num_epochs_optimiser_training_accuracy_history = len(optimiser_training_accuracy_history)
@@ -838,7 +838,7 @@ def execute_model_of_multi_class_classification_for_all_available_optimisers():
 
         # Retrieve the History of the Validation Losses for the current Optimiser
         optimiser_validation_loss_history = \
-            cnn_model_in_keras_sequential_api_for_image_classification_training_history.history["val_loss"]
+            cnn_model_in_keras_sequential_api_for_image_classification_training_history.history['val_loss']
 
         # Retrieve the Number of Epochs History of the Validation Losses for the current Optimiser
         num_epochs_optimiser_validation_loss_history = len(optimiser_validation_loss_history)
@@ -850,7 +850,7 @@ def execute_model_of_multi_class_classification_for_all_available_optimisers():
 
         # Retrieve the History of the Validation Accuracies for the current Optimiser
         optimiser_validation_accuracy_history = \
-            cnn_model_in_keras_sequential_api_for_image_classification_training_history.history["val_accuracy"]
+            cnn_model_in_keras_sequential_api_for_image_classification_training_history.history['val_accuracy']
 
         # Retrieve the Number of Epochs History of the Validation Accuracies for the current Optimiser
         num_epochs_optimiser_validation_accuracy_history = len(optimiser_validation_accuracy_history)
@@ -868,7 +868,7 @@ def execute_model_of_multi_class_classification_for_all_available_optimisers():
         # Save the Weights of the Neurons of the Fitting/Training of
         # the Model for the feed-forward Convolution Neural Network (C.N.N.)
         cnn_model_in_keras_sequential_api_for_image_classification_multi_classes_classification \
-            .save_weights("%s/pokemon-image-classification-training-history-multi-classes-%s-optimiser-%s-weights.h5"
+            .save_weights('%s/pokemon-image-classification-training-history-multi-classes-%s-optimiser-%s-weights.h5'
                           % (root_weights_directory, AVAILABLE_OPTIMISERS_LIST[num_optimiser].lower(), now_date_time))
 
         # Convert the Model for the feed-forward Convolution Neural Network (C.N.N.) to a JSON Object
@@ -876,9 +876,9 @@ def execute_model_of_multi_class_classification_for_all_available_optimisers():
             cnn_model_in_keras_sequential_api_for_image_classification_multi_classes_classification.to_json()
 
         # Write the Model for the feed-forward Convolution Neural Network (C.N.N.) to a JSON Object
-        with open("%s/pokemon-image-classification-training-history-multi-classes-%s-optimiser-%s-weights.json"
+        with open('%s/pokemon-image-classification-training-history-multi-classes-%s-optimiser-%s-weights.json'
                   % (root_weights_directory, AVAILABLE_OPTIMISERS_LIST[num_optimiser].lower(), now_date_time),
-                  "w") as json_file:
+                  'w') as json_file:
 
             # Write the JSON Object
             json_file.write(cnn_model_json_object)
@@ -906,7 +906,7 @@ def execute_model_of_multi_class_classification_for_all_available_optimisers():
                                  ys_classes_testing_set_pokemon_predicted)
 
         # Just print a blank line, for a better and clearer presentation of the results
-        print("\n")
+        print('\n')
 
         # Compute the Mean (Average) of the Training Loss, on the Training Set
         training_loss_mean = \
@@ -916,7 +916,7 @@ def execute_model_of_multi_class_classification_for_all_available_optimisers():
         optimisers_training_loss_means.append(training_loss_mean)
 
         # Print the Mean (Average) of the Training Loss, on the Training Set
-        print("Training Loss Mean (Average): ", training_loss_mean)
+        print('Training Loss Mean (Average): ', training_loss_mean)
 
         # Compute the Mean (Average) of the Training Accuracy, on the Training Set
         training_accuracy_mean = \
@@ -926,7 +926,7 @@ def execute_model_of_multi_class_classification_for_all_available_optimisers():
         optimisers_training_accuracy_means.append(training_accuracy_mean)
 
         # Print the Mean (Average) of the Training Accuracy, on the Training Set
-        print("Training Accuracy (Average): ", training_accuracy_mean)
+        print('Training Accuracy (Average): ', training_accuracy_mean)
 
         # Compute the Mean (Average) of the Validation Loss, on the Validation Set
         validation_loss_mean = \
@@ -936,7 +936,7 @@ def execute_model_of_multi_class_classification_for_all_available_optimisers():
         optimisers_validation_loss_means.append(validation_loss_mean)
 
         # Print the Mean (Average) of the Validation Loss, on the Validation Set
-        print("Validation Loss Mean (Average): ", validation_loss_mean)
+        print('Validation Loss Mean (Average): ', validation_loss_mean)
 
         # Compute the Mean (Average) of the Validation Accuracy, on the Validation Set
         validation_accuracy_mean = \
@@ -946,7 +946,7 @@ def execute_model_of_multi_class_classification_for_all_available_optimisers():
         optimisers_validation_accuracy_means.append(validation_accuracy_mean)
 
         # Print the Mean (Average) of the Validation Accuracy, on the Validation Set
-        print("Validation Accuracy (Average): ", validation_accuracy_mean)
+        print('Validation Accuracy (Average): ', validation_accuracy_mean)
 
         # Compute the Mean (Average) of the True/Test Loss, on the Testing Set
         true_testing_loss_mean = mean(true_testing_loss)
@@ -955,7 +955,7 @@ def execute_model_of_multi_class_classification_for_all_available_optimisers():
         optimisers_true_testing_loss_means.append(true_testing_loss_mean)
 
         # Print the Mean (Average) of the True/Test Loss, on the Testing Set
-        print("True/Test Loss Mean (Average): ", true_testing_loss_mean)
+        print('True/Test Loss Mean (Average): ', true_testing_loss_mean)
 
         # Compute the Mean (Average) of the True/Test Accuracy, on the Testing Set
         true_testing_accuracy_mean = mean(true_testing_accuracy)
@@ -964,7 +964,7 @@ def execute_model_of_multi_class_classification_for_all_available_optimisers():
         optimisers_true_testing_accuracy_means.append(true_testing_accuracy_mean)
 
         # Print the Mean (Average) of the True/Test Accuracy, on the Testing Set
-        print("True/Test Accuracy Mean (Average): ", true_testing_accuracy_mean)
+        print('True/Test Accuracy Mean (Average): ', true_testing_accuracy_mean)
 
         # the use of High-Performance Computing (with CPUs and GPUs) is set to True
         if TENSORFLOW_KERAS_HPC_BACKEND_SESSION:
@@ -972,40 +972,40 @@ def execute_model_of_multi_class_classification_for_all_available_optimisers():
             keras_backend.clear_session()
 
         # Print the final information line
-        print("\n--------- END OF EXECUTION FOR THE %s OPTIMISER ---------\n\n"
+        print('\n--------- END OF EXECUTION FOR THE %s OPTIMISER ---------\n\n'
               % (AVAILABLE_OPTIMISERS_LIST[num_optimiser]))
 
     # Retrieve the current DateTime, as custom format
-    now_date_time = date_time.utcnow().strftime("%Y%m%d%H%M%S")
+    now_date_time = date_time.utcnow().strftime('%Y%m%d%H%M%S')
 
     # Plot the Training Loss Values for all the Optimisers
     plot_subset_metric_multi_classes_problem_all_optimisers(optimisers_training_loss_history,
-                                                            "Training", "Loss", now_date_time)
+                                                            'Training', 'Loss', now_date_time)
 
     # Plot the Training Accuracy Values for all the Optimisers
     plot_subset_metric_multi_classes_problem_all_optimisers(optimisers_training_accuracy_history,
-                                                            "Training", "Accuracy", now_date_time)
+                                                            'Training', 'Accuracy', now_date_time)
 
     # Plot the Validation Loss Values for all the Optimisers
     plot_subset_metric_multi_classes_problem_all_optimisers(optimisers_validation_loss_history,
-                                                            "Validation", "Loss", now_date_time)
+                                                            'Validation', 'Loss', now_date_time)
 
     # Plot the Validation Accuracy Values for all the Optimisers
     plot_subset_metric_multi_classes_problem_all_optimisers(optimisers_validation_accuracy_history,
-                                                            "Validation", "Accuracy", now_date_time)
+                                                            'Validation', 'Accuracy', now_date_time)
 
     # Print the Heading Information about the Losses and Accuracies on the Testing Set
-    print("------  Final Results for the Losses and Accuracies on "
-          "the Testing Set,\nregarding the several Optimisers available ------\n")
+    print('------  Final Results for the Losses and Accuracies on '
+          'the Testing Set,\nregarding the several Optimisers available ------\n')
 
     # For each Optimiser available
     for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
         # Print the respective Means (Averages) for the Losses and Accuracies
         # of the predictions made by the current Optimiser on the Testing Set
-        print(" - %s: [ train_loss = %.12f ; train_acc = %.12f |"
-              " val_loss = %.12f ; val_acc = %.12f |"
-              " test_loss = %.12f ; test_acc = %.12f ]"
+        print(' - %s: [ train_loss = %.12f ; train_acc = %.12f |'
+              ' val_loss = %.12f ; val_acc = %.12f |'
+              ' test_loss = %.12f ; test_acc = %.12f ]'
               % (AVAILABLE_OPTIMISERS_LIST[num_optimiser],
                  optimisers_training_loss_means[num_optimiser],
                  optimisers_training_accuracy_means[num_optimiser],

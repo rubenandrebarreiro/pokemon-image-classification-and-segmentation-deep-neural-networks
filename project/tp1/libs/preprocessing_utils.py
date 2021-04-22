@@ -99,7 +99,7 @@ def image_data_generator_for_preprocessing_with_data_augmentation():
         shear_range=0.2,
         zoom_range=0.2,
         horizontal_flip=True,
-        fill_mode="nearest")
+        fill_mode='nearest')
 
     # Return the Images' Data Generator for Pre-Processing with Data Augmentation
     return image_data_generator

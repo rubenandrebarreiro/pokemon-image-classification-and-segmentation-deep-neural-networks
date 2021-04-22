@@ -112,7 +112,7 @@ NUM_UNITS_LAST_DENSE_LAYER = 512
 
 # The Optimisers available to use for the the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
-AVAILABLE_OPTIMISERS_LIST = ["SGD", "RMSPROP", "ADAM", "ADAGRAD", "ADADELTA", "ADAMAX"]
+AVAILABLE_OPTIMISERS_LIST = ['SGD', 'RMSPROP', 'ADAM', 'ADAGRAD', 'ADADELTA', 'ADAMAX']
 
 # The Number of Optimisers available to use for the the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
@@ -124,7 +124,7 @@ INITIAL_LEARNING_RATES = [0.005, 0.0005, 0.00041, 0.012, 0.25, 0.001]
 
 # The Matplotlib Colors for the Optimisers used for
 # the Model of the feed-forward Convolution Neural Network (C.N.N.)
-OPTIMISERS_COLORS_MATPLOTLIB = ["red", "darkorange", "forestgreen", "midnightblue", "magenta", "black"]
+OPTIMISERS_COLORS_MATPLOTLIB = ['red', 'darkorange', 'forestgreen', 'midnightblue', 'magenta', 'black']
 
 # The Momentum #1 for the Optimisers used for
 # the Model of the feed-forward Convolution Neural Network (C.N.N.)
@@ -147,4 +147,4 @@ NUM_LAST_EPOCHS_TO_BE_DISCARDED_FOR_EARLY_STOPPING = 0
 BATCH_SIZE = 16
 
 # The Number of Classes for the Datasets from the Pokemons' Data
-NUM_CLASSES_POKEMON_TYPES = len(loadtxt("./dataset/pokemon_types.txt", dtype='str'))
+NUM_CLASSES_POKEMON_TYPES = len(loadtxt('./dataset/pokemon_types.txt', dtype='str'))
