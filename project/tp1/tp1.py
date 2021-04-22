@@ -79,32 +79,32 @@ from tensorflow.keras.layers import Dense
 # Import the Dropout Layer from the TensorFlow.Keras.Layers Python's Module
 from tensorflow.keras.layers import Dropout
 
-# Import the Stochastic Gradient Descent (S.G.D.) Optimizer
-# from the TensorFlow.Keras.Optimizers Python's Module
+# Import the Stochastic Gradient Descent (S.G.D.) Optimiser
+# from the TensorFlow.Keras.Optimisers Python's Module
 from tensorflow.keras.optimizers import SGD
 
-# Import the Root Mean Squared Prop (R.M.S. PROP) Optimizer
-# from the TensorFlow.Keras.Optimizers Python's Module
+# Import the Root Mean Squared Prop (R.M.S. PROP) Optimiser
+# from the TensorFlow.Keras.Optimisers Python's Module
 from tensorflow.keras.optimizers import RMSprop
 
-# Import the ADAptive Moment estimation (ADA.M.) Optimizer
-# from the TensorFlow.Keras.Optimizers Python's Module
+# Import the ADAptive Moment estimation (ADA.M.) Optimiser
+# from the TensorFlow.Keras.Optimisers Python's Module
 from tensorflow.keras.optimizers import Adam
 
-# Import the ADAptive GRADient algorithm (ADA.GRAD.) Optimizer
-# from the TensorFlow.Keras.Optimizers Python's Module
+# Import the ADAptive GRADient algorithm (ADA.GRAD.) Optimiser
+# from the TensorFlow.Keras.Optimisers Python's Module
 from tensorflow.keras.optimizers import Adagrad
 
-# Import the ADAptive DELTA algorithm (ADA.DELTA) Optimizer
-# from the TensorFlow.Keras.Optimizers Python's Module
+# Import the ADAptive DELTA algorithm (ADA.DELTA) Optimiser
+# from the TensorFlow.Keras.Optimisers Python's Module
 from tensorflow.keras.optimizers import Adadelta
 
-# Import the ADAptive MAX algorithm (ADA.MAX.) Optimizer
-# from the TensorFlow.Keras.Optimizers Python's Module
+# Import the ADAptive MAX algorithm (ADA.MAX.) Optimiser
+# from the TensorFlow.Keras.Optimisers Python's Module
 from tensorflow.keras.optimizers import Adamax
 
 # Import the Early Stopping from
-# the TensorFlow.Keras.Optimizers Python's Module
+# the TensorFlow.Keras.Optimisers Python's Module
 from tensorflow.keras.callbacks import EarlyStopping
 
 # Import the TensorBoard from
@@ -122,7 +122,6 @@ from tensorflow.keras.metrics import categorical_accuracy
 # Import the Auxiliary Function to Load the Data for the Project,
 # from the TP1_Utils' Python's Module
 from tp1_utils import load_data
-
 
 # Constants
 
@@ -202,15 +201,19 @@ AVAILABLE_OPTIMISERS_LIST = ["SGD", "RMSPROP", "ADAM", "ADAGRAD", "ADADELTA", "A
 # the feed-forward Convolution Neural Network (C.N.N.)
 NUM_AVAILABLE_OPTIMISERS = len(AVAILABLE_OPTIMISERS_LIST)
 
-# The Learning Rates for the Optimizer used for
+# The Learning Rates for the Optimisers used for
 # the Model of the feed-forward Convolution Neural Network (C.N.N.)
 INITIAL_LEARNING_RATES = [0.005, 0.0005, 0.00041, 0.012, 0.25, 0.001]
 
-# The Momentum #1 for the Optimizer used for
+# The Matplotlib Colors for the Optimisers used for
+# the Model of the feed-forward Convolution Neural Network (C.N.N.)
+OPTIMISERS_COLORS_MATPLOTLIB = ["red", "darkorange", "forestgreen", "midnightblue", "magenta", "black"]
+
+# The Momentum #1 for the Optimisers used for
 # the Model of the feed-forward Convolution Neural Network (C.N.N.)
 MOMENTUM_1 = 0.9
 
-# The Momentum #2 for the Optimizer used for
+# The Momentum #2 for the Optimiser used for
 # the Model of the feed-forward Convolution Neural Network (C.N.N.)
 MOMENTUM_2 = 0.0
 
@@ -283,7 +286,6 @@ def retrieve_datasets_from_pokemon_data():
 
 # Function to create the Images' Data Generator for Pre-Processing with Data Augmentation
 def image_data_generator_for_preprocessing_with_data_augmentation():
-
     # Create the Images' Data Generator for Pre-Processing with Data Augmentation
     image_data_generator = ImageDataGenerator(
         rotation_range=40,
@@ -302,7 +304,6 @@ def image_data_generator_for_preprocessing_with_data_augmentation():
 # the Model for a feed-forward Convolution Neural Network (C.N.N.),
 # for the Pokemons' Data, in Image Classification
 def create_early_stopping_callbacks():
-
     # Create the Callback for Early Stopping, related to
     # the Loss Cost of the Fitting/Training with Training Set
     training_loss_early_stopping_callback = \
@@ -374,46 +375,46 @@ def create_optimiser(optimiser_id):
     # for the Pokemons' Data, in Image Classification
     optimiser = None
 
-    # It is being used the Stochastic Gradient Descent (S.G.D.) Optimizer
+    # It is being used the Stochastic Gradient Descent (S.G.D.) Optimiser
     if optimiser_id == AVAILABLE_OPTIMISERS_LIST[0]:
 
-        # Initialise the Stochastic Gradient Descent (S.G.D.) Optimizer,
+        # Initialise the Stochastic Gradient Descent (S.G.D.) Optimiser,
         # with the Learning Rate of 0.5% and Momentum of 90%
         optimiser = SGD(learning_rate=INITIAL_LEARNING_RATES[0],
                         momentum=MOMENTUM_1, decay=(INITIAL_LEARNING_RATES[0] / NUM_EPOCHS))
 
-    # It is being used the Root Mean Squared Prop (R.M.S. PROP) Optimizer
+    # It is being used the Root Mean Squared Prop (R.M.S. PROP) Optimiser
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[1]:
 
-        # Initialise the Root Mean Squared Prop (R.M.S. PROP) Optimizer,
+        # Initialise the Root Mean Squared Prop (R.M.S. PROP) Optimiser,
         # with the Learning Rate of 0.5% and Momentum of 90%
         optimiser = RMSprop(learning_rate=INITIAL_LEARNING_RATES[1], momentum=MOMENTUM_2)
 
-    # It is being used the ADAptive Moment estimation (ADA.M.) Optimizer
+    # It is being used the ADAptive Moment estimation (ADA.M.) Optimiser
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[2]:
 
-        # Initialise the ADAptive Moment estimation (ADA.M.) Optimizer,
+        # Initialise the ADAptive Moment estimation (ADA.M.) Optimiser,
         # with the Learning Rate of 0.5%
-        optimiser = Adam(learning_rate=INITIAL_LEARNING_RATES[2])
+        optimiser = Adam(learning_rate=INITIAL_LEARNING_RATES[2], decay=0.1)
 
-    # It is being used the ADAptive GRADient algorithm (ADA.GRAD.) Optimizer
+    # It is being used the ADAptive GRADient algorithm (ADA.GRAD.) Optimiser
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[3]:
 
-        # Initialise the ADAptive GRADient algorithm (ADA.GRAD.) Optimizer,
+        # Initialise the ADAptive GRADient algorithm (ADA.GRAD.) Optimiser,
         # with the Learning Rate of 0.5%
         optimiser = Adagrad(learning_rate=INITIAL_LEARNING_RATES[3])
 
-    # It is being used the ADAptive DELTA algorithm (ADA.DELTA) Optimizer
+    # It is being used the ADAptive DELTA algorithm (ADA.DELTA) Optimiser
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[4]:
 
-        # Initialise the ADAptive DELTA algorithm (ADA.DELTA) Optimizer,
+        # Initialise the ADAptive DELTA algorithm (ADA.DELTA) Optimiser,
         # with the Learning Rate of 0.5%
         optimiser = Adadelta(learning_rate=INITIAL_LEARNING_RATES[4])
 
-    # It is being used the ADAptive DELTA algorithm (ADA.DELTA) Optimizer
+    # It is being used the ADAptive DELTA algorithm (ADA.DELTA) Optimiser
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[5]:
 
-        # Initialise the ADAptive MAX algorithm (ADA.MAX.) Optimizer,
+        # Initialise the ADAptive MAX algorithm (ADA.MAX.) Optimiser,
         # with the Learning Rate of 0.5%
         optimiser = Adamax(learning_rate=INITIAL_LEARNING_RATES[5])
 
@@ -630,7 +631,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     convolution_neural_network_tensorflow_keras_sequential_model \
         .add(Dense(NUM_UNITS_LAST_DENSE_LAYER))
 
-    # It is being used the ADAptive GRADient algorithm (ADA.GRAD.) Optimizer
+    # It is being used the ADAptive GRADient algorithm (ADA.GRAD.) Optimiser
     if optimiser_id == AVAILABLE_OPTIMISERS_LIST[3]:
 
         # Add a Dropout Layer of 50%, for the Regularization of Hyper-Parameters,
@@ -657,7 +658,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # for the features of the Data/Images of the Pokemons resulted from
     # the previous Layer of the Model of the feed-forward
     # Convolution Neural Network (C.N.N.), for the Multi-Class Classifier
-    convolution_neural_network_tensorflow_keras_sequential_model\
+    convolution_neural_network_tensorflow_keras_sequential_model \
         .add(Activation("softmax"))
 
     # Return the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -668,11 +669,10 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
 # Function to plot the Training's and Validation's Losses,
 # from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
 # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-def plot_training_validation_losses_multi_classes_problem(cnn_model_in_keras_sequential_api_training_history,
-                                                          optimiser_id, now_date_time_format,
-                                                          plotting_style="seaborn-dark",
-                                                          is_to_show=False):
-
+def plot_training_and_validation_losses_multi_classes_problem(cnn_model_in_keras_sequential_api_training_history,
+                                                              optimiser_id, now_date_time_format,
+                                                              plotting_style="seaborn-dark",
+                                                              is_to_show=False):
     # Retrieve the Loss Values, from the Fitting/Training of
     # the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem,
@@ -739,7 +739,7 @@ def plot_training_validation_losses_multi_classes_problem(cnn_model_in_keras_seq
     # Save the final Plot for the Loss Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-    py_plot.savefig("./files/images/plots/loss/pokemon-image-multi-classes-classification-problem-"
+    py_plot.savefig("./files/images/plots/multi-classes-classification/loss/"
                     "loss-values-plot-{}-optimiser-{}.png".format(optimiser_id.lower(), now_date_time_format))
 
     # If it is supposed to show the final Plot for the Loss Values' Comparison,
@@ -761,11 +761,10 @@ def plot_training_validation_losses_multi_classes_problem(cnn_model_in_keras_seq
 # Function to plot the Training's and Validation's Accuracies,
 # from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
 # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-def plot_training_validation_accuracies_multi_classes_problem(cnn_model_in_keras_sequential_api_training_history,
-                                                              optimiser_id, now_date_time_format,
-                                                              plotting_style="seaborn-dark",
-                                                              is_to_show=False):
-
+def plot_training_and_validation_accuracies_multi_classes_problem(cnn_model_in_keras_sequential_api_training_history,
+                                                                  optimiser_id, now_date_time_format,
+                                                                  plotting_style="seaborn-dark",
+                                                                  is_to_show=False):
     # Retrieve the Accuracy Values, from the Fitting/Training of
     # the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem,
@@ -832,20 +831,103 @@ def plot_training_validation_accuracies_multi_classes_problem(cnn_model_in_keras
     # Save the final Plot for the Accuracy Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-    py_plot.savefig("./files/images/plots/accuracy/pokemon-image-multi-classes-classification-problem-"
+    py_plot.savefig("./files/images/plots/multi-classes-classification/accuracy/"
                     "accuracy-values-plot-{}-optimiser-{}.png".format(optimiser_id.lower(), now_date_time_format))
 
     # If it is supposed to show the final Plot for the Loss Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
     if is_to_show:
-
         # Show the final Plot for the Loss Values' Comparison,
         # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
         # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
         py_plot.show()
 
     # Close the final Plot for the Accuracy Values' Comparison,
+    # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
+    # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
+    py_plot.close()
+
+
+# Function to plot the Training's and Validation's Losses,
+# from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
+# for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
+def plot_subset_metric_multi_classes_problem_all_optimisers(
+        cnn_model_in_keras_sequential_api_optimisers_metric_history, subset, metric,
+        now_date_time_format, plotting_style="seaborn-dark", is_to_show=False):
+
+    # Set the Style of the Plots, as 'Seaborn Dark' Style, by default
+    py_plot.style.use(plotting_style)
+
+    # Initialise the Plot Frame
+    py_plot.figure(figsize=(8, 8), frameon=True)
+
+    # Initialise the list of legends for the Plots
+    legends = []
+
+    # For each available Optimiser
+    for num_current_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
+
+        # Append the Legend for the the current available Optimiser
+        legends.append("{} [ lr = {} ]".format(AVAILABLE_OPTIMISERS_LIST[num_current_optimiser],
+                                               INITIAL_LEARNING_RATES[num_current_optimiser]))
+
+        # Plot the given Metrics' Values for the Subset given,
+        # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
+        # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
+        py_plot.plot(cnn_model_in_keras_sequential_api_optimisers_metric_history[num_current_optimiser],
+                     "-", color=OPTIMISERS_COLORS_MATPLOTLIB[num_current_optimiser])
+
+    # Plot the Title for the comparison of
+    # the Metric Values for the given Subset,
+    # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
+    # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
+    py_plot.title("Comparison of the {} {} of the Model for a feed-forward\nConvolution Neural Network (C.N.N.) "
+                  "for the Pokemon Images/Data Classification,\n for the Multi-Class Problem "
+                  "with all Optimisers".format(subset, metric))
+
+    # Set the X-Axis of the final Plot for the Metric Values' Comparison,
+    # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
+    # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
+    py_plot.xlim((0, NUM_EPOCHS))
+
+    # Plot the title for the X-Axis for the Number of Epochs,
+    # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
+    # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
+    py_plot.xlabel("Epoch no.")
+
+    # Plot the title for the Y-Axis for the Loss Values',
+    # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
+    # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
+    py_plot.ylabel("{} Value".format(metric))
+
+    # Plot the legend for the Loss Values' Comparison,
+    # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
+    # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
+    py_plot.legend(legends, loc="upper right", frameon=True)
+
+    # Add a Grid to the final Plot for the Loss Values' Comparison,
+    # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
+    # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
+    py_plot.grid(color="white", linestyle="--", linewidth=0.8)
+
+    # Save the final Plot for the Loss Values' Comparison,
+    # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
+    # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
+    py_plot.savefig("./files/images/plots/multi-classes-classification/comparison-optimisers/"
+                    "{}-{}-values-plot-all-optimisers-{}.png"
+                    .format(subset.lower(), metric.lower(), now_date_time_format))
+
+    # If it is supposed to show the final Plot for the Loss Values' Comparison,
+    # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
+    # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
+    if is_to_show:
+        # Show the final Plot for the Loss Values' Comparison,
+        # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
+        # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
+        py_plot.show()
+
+    # Close the final Plot for the Loss Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
     py_plot.close()
@@ -924,13 +1006,11 @@ pokemon_training_loss_early_stopping_callback, \
     pokemon_validation_accuracy_early_stopping_callback = \
     create_early_stopping_callbacks()
 
-
 # Create a list for the Training Losses for all the Optimisers used
 optimisers_training_loss_history = []
 
 # Create a list for the Training Accuracies for all the Optimisers used
 optimisers_training_accuracy_history = []
-
 
 # Create a list for the Validation Losses for all the Optimisers used
 optimisers_validation_loss_history = []
@@ -938,20 +1018,17 @@ optimisers_validation_loss_history = []
 # Create a list for the Validation Accuracies for all the Optimisers used
 optimisers_validation_accuracy_history = []
 
-
 # Create a list for the Training Losses' Means (Averages) for all the Optimisers used
 optimisers_training_loss_means = []
 
 # Create a list for the Training Accuracies' Means (Averages) for all the Optimisers used
 optimisers_training_accuracy_means = []
 
-
 # Create a list for the Validation Losses' Means (Averages) for all the Optimisers used
 optimisers_validation_loss_means = []
 
 # Create a list for the Validation Accuracies' Means (Averages) for all the Optimisers used
 optimisers_validation_accuracy_means = []
-
 
 # Create a list for the True/Testing Losses' Means (Averages) for all the Optimisers used
 optimisers_true_testing_loss_means = []
@@ -974,7 +1051,7 @@ for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
     # Set the specific Log Directory,
     # # according to the current executing Optimiser and the current Date and Time (timestamp)
-    logs_directory = "{}/model-multi-classes-{}-optimiser-{}/"\
+    logs_directory = "{}/model-multi-classes-{}-optimiser-{}/" \
         .format(root_logs_directory, AVAILABLE_OPTIMISERS_LIST[num_optimiser].lower(), now_date_time)
 
     # Set the Root Directory for the Weights of the TensorBoard and TensorFlow
@@ -1004,8 +1081,8 @@ for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
     # Compile the Model for the feed-forward Convolution Neural Network (C.N.N.),
     # with the given Categorical Cross Entropy Loss/Error Function and
-    # the Stochastic Gradient Descent (S.G.D.) Optimizer
-    cnn_model_in_keras_sequential_api_for_image_classification_multi_classes_classification\
+    # the Stochastic Gradient Descent (S.G.D.) Optimiser
+    cnn_model_in_keras_sequential_api_for_image_classification_multi_classes_classification \
         .compile(loss="categorical_crossentropy",
                  optimizer=current_optimiser,
                  metrics=["accuracy"])
@@ -1037,7 +1114,6 @@ for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
     # the use of High-Performance Computing (with CPUs and GPUs) is set to True
     if TENSORFLOW_KERAS_HPC_BACKEND_SESSION:
-
         # Clear the current session of the Keras' Backend
         keras_backend.clear_session()
 
@@ -1049,7 +1125,7 @@ for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
     # Plot the Training's and Validation's Losses,
     # from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-    plot_training_validation_losses_multi_classes_problem(
+    plot_training_and_validation_losses_multi_classes_problem(
         cnn_model_in_keras_sequential_api_for_image_classification_training_history,
         AVAILABLE_OPTIMISERS_LIST[num_optimiser], now_date_time
     )
@@ -1057,7 +1133,7 @@ for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
     # Plot the Training's and Validation's Accuracies,
     # from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-    plot_training_validation_accuracies_multi_classes_problem(
+    plot_training_and_validation_accuracies_multi_classes_problem(
         cnn_model_in_keras_sequential_api_for_image_classification_training_history,
         AVAILABLE_OPTIMISERS_LIST[num_optimiser], now_date_time
     )
@@ -1071,7 +1147,7 @@ for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
     # Store the History of the Training Losses for the current Optimiser,
     # to the list for the Training Losses for all the Optimisers used
-    optimisers_training_loss_history\
+    optimisers_training_loss_history \
         .append(optimiser_training_loss_history)
 
     # Retrieve the History of the Training Accuracies for the current Optimiser
@@ -1083,10 +1159,8 @@ for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
     # Store the History of the Training Accuracies for the current Optimiser,
     # to the list for the Training Losses for all the Optimisers used
-    optimisers_training_accuracy_history\
+    optimisers_training_accuracy_history \
         .append(optimiser_training_accuracy_history)
-
-    ########
 
     # Retrieve the History of the Validation Losses for the current Optimiser
     optimiser_validation_loss_history = \
@@ -1097,7 +1171,7 @@ for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
     # Store the History of the Validation Losses for the current Optimiser,
     # to the list for the Validation Losses for all the Optimisers used
-    optimisers_validation_loss_history\
+    optimisers_validation_loss_history \
         .append(optimiser_validation_loss_history)
 
     # Retrieve the History of the Validation Accuracies for the current Optimiser
@@ -1109,7 +1183,7 @@ for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
     # Store the History of the Validation Accuracies for the current Optimiser,
     # to the list for the Validation Losses for all the Optimisers used
-    optimisers_validation_accuracy_history\
+    optimisers_validation_accuracy_history \
         .append(optimiser_validation_accuracy_history)
 
     # Output the Summary of the architecture of
@@ -1119,7 +1193,7 @@ for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
     # Save the Weights of the Neurons of the Fitting/Training of
     # the Model for the feed-forward Convolution Neural Network (C.N.N.)
-    cnn_model_in_keras_sequential_api_for_image_classification_multi_classes_classification\
+    cnn_model_in_keras_sequential_api_for_image_classification_multi_classes_classification \
         .save_weights("{}/pokemon-image-classification-training-history-multi-classes-{}-optimiser{}-weights.h5"
                       .format(root_weights_directory, AVAILABLE_OPTIMISERS_LIST[num_optimiser].lower(), now_date_time))
 
@@ -1139,7 +1213,7 @@ for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
     # using the Model for the feed-forward Convolution Neural Network (C.N.N.),
     # fitted/trained previously with the Training and Validation Sets
     ys_classes_testing_set_pokemon_predicted = \
-        cnn_model_in_keras_sequential_api_for_image_classification_multi_classes_classification\
+        cnn_model_in_keras_sequential_api_for_image_classification_multi_classes_classification \
         .predict(x=xs_features_testing_set_pokemon,
                  batch_size=BATCH_SIZE, verbose=1)
 
@@ -1220,13 +1294,32 @@ for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
     # the use of High-Performance Computing (with CPUs and GPUs) is set to True
     if TENSORFLOW_KERAS_HPC_BACKEND_SESSION:
-
         # Clear the current session of the Keras' Backend
         keras_backend.clear_session()
 
     # Print the final information line
     print("\n--------- END OF EXECUTION FOR THE {} OPTIMISER ---------\n\n"
           .format(AVAILABLE_OPTIMISERS_LIST[num_optimiser]))
+
+
+# Retrieve the current DateTime, as custom format
+now_date_time = date_time.utcnow().strftime("%Y%m%d%H%M%S")
+
+# Plot the Training Loss Values for all the Optimisers
+plot_subset_metric_multi_classes_problem_all_optimisers(optimisers_training_loss_history,
+                                                        "Training", "Loss", now_date_time)
+
+# Plot the Training Accuracy Values for all the Optimisers
+plot_subset_metric_multi_classes_problem_all_optimisers(optimisers_training_accuracy_history,
+                                                        "Training", "Accuracy", now_date_time)
+
+# Plot the Validation Loss Values for all the Optimisers
+plot_subset_metric_multi_classes_problem_all_optimisers(optimisers_validation_loss_history,
+                                                        "Validation", "Loss", now_date_time)
+
+# Plot the Validation Accuracy Values for all the Optimisers
+plot_subset_metric_multi_classes_problem_all_optimisers(optimisers_validation_accuracy_history,
+                                                        "Validation", "Accuracy", now_date_time)
 
 
 # Print the Heading Information about the Losses and Accuracies on the Testing Set
