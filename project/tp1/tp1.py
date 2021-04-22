@@ -199,21 +199,25 @@ AVAILABLE_OPTIMISERS_LIST = ["SGD", "RMSPROP", "ADAM", "ADAGRAD", "ADADELTA", "A
 # the feed-forward Convolution Neural Network (C.N.N.)
 NUM_AVAILABLE_OPTIMISERS = len(AVAILABLE_OPTIMISERS_LIST)
 
-# The Learning Rate for the Optimizer used for
+# The Learning Rates for the Optimizer used for
 # the Model of the feed-forward Convolution Neural Network (C.N.N.)
-INITIAL_LEARNING_RATE = 0.005
+INITIAL_LEARNING_RATES = [0.005, 0.0005, 0.00041, 0.01, 0.25, 0.001]
 
-# The Momentum for the Optimizer used for
+# The Momentum #1 for the Optimizer used for
 # the Model of the feed-forward Convolution Neural Network (C.N.N.)
-MOMENTUM = 0.9
+MOMENTUM_1 = 0.9
+
+# The Momentum #2 for the Optimizer used for
+# the Model of the feed-forward Convolution Neural Network (C.N.N.)
+MOMENTUM_2 = 0.0
 
 # The Number of Epochs for the Optimiser for
 # the Model of the feed-forward Convolution Neural Network (C.N.N.)
-NUM_EPOCHS = 100
+NUM_EPOCHS = 50
 
 # The Number of Last Epochs to be discarded for the Early Stopping for
 # the Model of the feed-forward Convolution Neural Network (C.N.N.)
-NUM_LAST_EPOCHS_TO_BE_DISCARDED_FOR_EARLY_STOPPING = 40
+NUM_LAST_EPOCHS_TO_BE_DISCARDED_FOR_EARLY_STOPPING = 0
 
 # The Size of the Batch for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
@@ -305,7 +309,8 @@ def create_early_stopping_callbacks():
             patience=(NUM_EPOCHS - NUM_LAST_EPOCHS_TO_BE_DISCARDED_FOR_EARLY_STOPPING),
             verbose=1,
             mode="min",
-            baseline=0.08
+            baseline=0.08,
+            restore_best_weights=True
         )
 
     # Create the Callback for Early Stopping, related to
@@ -317,7 +322,8 @@ def create_early_stopping_callbacks():
             patience=(NUM_EPOCHS - NUM_LAST_EPOCHS_TO_BE_DISCARDED_FOR_EARLY_STOPPING),
             verbose=1,
             mode="min",
-            baseline=0.96
+            baseline=0.96,
+            restore_best_weights=True
         )
 
     # Create the Callback for Early Stopping, related to
@@ -329,7 +335,8 @@ def create_early_stopping_callbacks():
             patience=(NUM_EPOCHS - NUM_LAST_EPOCHS_TO_BE_DISCARDED_FOR_EARLY_STOPPING),
             verbose=1,
             mode="min",
-            baseline=0.08
+            baseline=0.08,
+            restore_best_weights=True
         )
 
     # Create the Callback for Early Stopping, related to
@@ -341,7 +348,8 @@ def create_early_stopping_callbacks():
             patience=(NUM_EPOCHS - NUM_LAST_EPOCHS_TO_BE_DISCARDED_FOR_EARLY_STOPPING),
             verbose=1,
             mode="min",
-            baseline=0.96
+            baseline=0.96,
+            restore_best_weights=True
         )
 
     # Return need Early Stopping Callbacks for
@@ -368,43 +376,43 @@ def create_optimiser(optimiser_id):
 
         # Initialise the Stochastic Gradient Descent (S.G.D.) Optimizer,
         # with the Learning Rate of 0.5% and Momentum of 90%
-        optimiser = SGD(learning_rate=INITIAL_LEARNING_RATE,
-                        momentum=MOMENTUM, decay=(INITIAL_LEARNING_RATE / NUM_EPOCHS))
+        optimiser = SGD(learning_rate=INITIAL_LEARNING_RATES[0],
+                        momentum=MOMENTUM_1, decay=(INITIAL_LEARNING_RATES[0] / NUM_EPOCHS))
 
     # It is being used the Root Mean Squared Prop (R.M.S. PROP) Optimizer
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[1]:
 
         # Initialise the Root Mean Squared Prop (R.M.S. PROP) Optimizer,
         # with the Learning Rate of 0.5% and Momentum of 90%
-        optimiser = RMSprop(learning_rate=INITIAL_LEARNING_RATE, momentum=MOMENTUM)
+        optimiser = RMSprop(learning_rate=INITIAL_LEARNING_RATES[1], momentum=MOMENTUM_2)
 
     # It is being used the ADAptive Moment estimation (ADA.M.) Optimizer
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[2]:
 
         # Initialise the ADAptive Moment estimation (ADA.M.) Optimizer,
         # with the Learning Rate of 0.5%
-        optimiser = Adam(learning_rate=INITIAL_LEARNING_RATE)
+        optimiser = Adam(learning_rate=INITIAL_LEARNING_RATES[2])
 
     # It is being used the ADAptive GRADient algorithm (ADA.GRAD.) Optimizer
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[3]:
 
         # Initialise the ADAptive GRADient algorithm (ADA.GRAD.) Optimizer,
         # with the Learning Rate of 0.5%
-        optimiser = Adagrad(learning_rate=INITIAL_LEARNING_RATE)
+        optimiser = Adagrad(learning_rate=INITIAL_LEARNING_RATES[3])
 
     # It is being used the ADAptive DELTA algorithm (ADA.DELTA) Optimizer
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[4]:
 
         # Initialise the ADAptive DELTA algorithm (ADA.DELTA) Optimizer,
         # with the Learning Rate of 0.5%
-        optimiser = Adadelta(learning_rate=INITIAL_LEARNING_RATE)
+        optimiser = Adadelta(learning_rate=INITIAL_LEARNING_RATES[4])
 
     # It is being used the ADAptive DELTA algorithm (ADA.DELTA) Optimizer
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[5]:
 
         # Initialise the ADAptive MAX algorithm (ADA.MAX.) Optimizer,
         # with the Learning Rate of 0.5%
-        optimiser = Adamax(learning_rate=INITIAL_LEARNING_RATE)
+        optimiser = Adamax(learning_rate=INITIAL_LEARNING_RATES[5])
 
     # Return the Optimiser to be used for
     # the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -610,7 +618,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification():
     # the previous Layer of the Model of the feed-forward
     # Convolution Neural Network (C.N.N.)
     convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(Activation('relu'))
+        .add(Activation("relu"))
 
     # Add a Dense Layer to the features of the Data/Images of
     # the Pokemons resulted from the previous Layer of
@@ -624,7 +632,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification():
     # the previous Layer of the Model of the feed-forward
     # Convolution Neural Network (C.N.N.)
     convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(Activation('relu'))
+        .add(Activation("relu"))
 
     # Add a Dense Layer to the features of the Data/Images of
     # the Pokemons resulted from the previous Layer of
@@ -637,7 +645,8 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification():
     # for the features of the Data/Images of the Pokemons resulted from
     # the previous Layer of the Model of the feed-forward
     # Convolution Neural Network (C.N.N.), for the Multi-Class Classifier
-    convolution_neural_network_tensorflow_keras_sequential_model.add(Activation('softmax'))
+    convolution_neural_network_tensorflow_keras_sequential_model\
+        .add(Activation("softmax"))
 
     # Return the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
@@ -718,7 +727,7 @@ def plot_training_validation_losses_multi_classes_problem(cnn_model_in_keras_seq
     # Save the final Plot for the Loss Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-    py_plot.savefig("./files/images/plots/pokemon-image-multi-classes-classification-problem-"
+    py_plot.savefig("./files/images/plots/loss/pokemon-image-multi-classes-classification-problem-"
                     "loss-values-plot-{}-optimiser-{}.png".format(optimiser_id.lower(), now_date_time_format))
 
     # If it is supposed to show the final Plot for the Loss Values' Comparison,
@@ -811,7 +820,7 @@ def plot_training_validation_accuracies_multi_classes_problem(cnn_model_in_keras
     # Save the final Plot for the Accuracy Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-    py_plot.savefig("./files/images/plots/pokemon-image-multi-classes-classification-problem-"
+    py_plot.savefig("./files/images/plots/accuracy/pokemon-image-multi-classes-classification-problem-"
                     "accuracy-values-plot-{}-optimiser-{}.png".format(optimiser_id.lower(), now_date_time_format))
 
     # If it is supposed to show the final Plot for the Loss Values' Comparison,
@@ -918,6 +927,20 @@ optimisers_validation_loss_history = []
 optimisers_validation_accuracy_history = []
 
 
+# Create a list for the Training Losses' Means (Averages) for all the Optimisers used
+optimisers_training_loss_means = []
+
+# Create a list for the Training Accuracies' Means (Averages) for all the Optimisers used
+optimisers_training_accuracy_means = []
+
+
+# Create a list for the Validation Losses' Means (Averages) for all the Optimisers used
+optimisers_validation_loss_means = []
+
+# Create a list for the Validation Accuracies' Means (Averages) for all the Optimisers used
+optimisers_validation_accuracy_means = []
+
+
 # Create a list for the True/Testing Losses' Means (Averages) for all the Optimisers used
 optimisers_true_testing_loss_means = []
 
@@ -979,7 +1002,8 @@ for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
     # the Model for the feed-forward Convolution Neural Network (C.N.N.)
     print(f"\nFitting/Training the Model for "
           f"the feed-forward Convolution Neural Network (C.N.N.) for {NUM_EPOCHS} Epochs "
-          f"with a Batch Size of {BATCH_SIZE} and an Initial Learning Rate of {INITIAL_LEARNING_RATE}...\n")
+          f"with a Batch Size of {BATCH_SIZE} and\nan Initial Learning Rate of "
+          f"{INITIAL_LEARNING_RATES[num_optimiser]}...\n")
 
     # Train/Fit the Model for the feed-forward Convolution Neural Network (C.N.N.) for the given NUM_EPOCHS,
     # with the Training Set for the Training Data and the Validation Set for the Validation Data
@@ -998,6 +1022,12 @@ for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
                         pokemon_validation_loss_early_stopping_callback,
                         pokemon_validation_accuracy_early_stopping_callback,
                         tensorboard_callback])
+
+    # the use of High-Performance Computing (with CPUs and GPUs) is set to True
+    if TENSORFLOW_KERAS_HPC_BACKEND_SESSION:
+
+        # Clear the current session of the Keras' Backend
+        keras_backend.clear_session()
 
     # Print the final Log for the Fitting/Training of
     # the Model for the feed-forward Convolution Neural Network (C.N.N.)
@@ -1020,25 +1050,55 @@ for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
         AVAILABLE_OPTIMISERS_LIST[num_optimiser], now_date_time
     )
 
+    # Retrieve the History of the Training Losses for the current Optimiser
+    optimiser_training_loss_history = \
+        cnn_model_in_keras_sequential_api_for_image_classification_training_history.history["loss"]
+
+    # Retrieve the Number of Epochs History of the Training Losses for the current Optimiser
+    num_epochs_optimiser_training_loss_history = len(optimiser_training_loss_history)
+
     # Store the History of the Training Losses for the current Optimiser,
     # to the list for the Training Losses for all the Optimisers used
     optimisers_training_loss_history\
-        .append(cnn_model_in_keras_sequential_api_for_image_classification_training_history["loss"])
+        .append(optimiser_training_loss_history)
+
+    # Retrieve the History of the Training Accuracies for the current Optimiser
+    optimiser_training_accuracy_history = \
+        cnn_model_in_keras_sequential_api_for_image_classification_training_history.history["accuracy"]
+
+    # Retrieve the Number of Epochs History of the Training Accuracies for the current Optimiser
+    num_epochs_optimiser_training_accuracy_history = len(optimiser_training_accuracy_history)
 
     # Store the History of the Training Accuracies for the current Optimiser,
     # to the list for the Training Losses for all the Optimisers used
     optimisers_training_accuracy_history\
-        .append(cnn_model_in_keras_sequential_api_for_image_classification_training_history["accuracy"])
+        .append(optimiser_training_accuracy_history)
+
+    ########
+
+    # Retrieve the History of the Validation Losses for the current Optimiser
+    optimiser_validation_loss_history = \
+        cnn_model_in_keras_sequential_api_for_image_classification_training_history.history["val_loss"]
+
+    # Retrieve the Number of Epochs History of the Validation Losses for the current Optimiser
+    num_epochs_optimiser_validation_loss_history = len(optimiser_validation_loss_history)
 
     # Store the History of the Validation Losses for the current Optimiser,
-    # to the list for the Training Losses for all the Optimisers used
+    # to the list for the Validation Losses for all the Optimisers used
     optimisers_validation_loss_history\
-        .append(cnn_model_in_keras_sequential_api_for_image_classification_training_history["val_loss"])
+        .append(optimiser_validation_loss_history)
+
+    # Retrieve the History of the Validation Accuracies for the current Optimiser
+    optimiser_validation_accuracy_history = \
+        cnn_model_in_keras_sequential_api_for_image_classification_training_history.history["val_accuracy"]
+
+    # Retrieve the Number of Epochs History of the Validation Accuracies for the current Optimiser
+    num_epochs_optimiser_validation_accuracy_history = len(optimiser_validation_accuracy_history)
 
     # Store the History of the Validation Accuracies for the current Optimiser,
-    # to the list for the Training Losses for all the Optimisers used
+    # to the list for the Validation Losses for all the Optimisers used
     optimisers_validation_accuracy_history\
-        .append(cnn_model_in_keras_sequential_api_for_image_classification_training_history["val_accuracy"])
+        .append(optimiser_validation_accuracy_history)
 
     # Output the Summary of the architecture of
     # the Model for the feed-forward Convolution Neural Network (C.N.N.),
@@ -1088,6 +1148,46 @@ for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
     # Just print a blank line, for a better and clearer presentation of the results
     print("\n")
 
+    # Compute the Mean (Average) of the Training Loss, on the Training Set
+    training_loss_mean = \
+        optimiser_training_loss_history[(num_epochs_optimiser_training_loss_history - 1)]
+
+    # Store the Mean (Average) of the Training Loss, on the Training Set, for the current Optimiser
+    optimisers_training_loss_means.append(training_loss_mean)
+
+    # Print the Mean (Average) of the Training Loss, on the Training Set
+    print("Training Loss Mean (Average): ", training_loss_mean)
+
+    # Compute the Mean (Average) of the Training Accuracy, on the Training Set
+    training_accuracy_mean = \
+        optimiser_training_accuracy_history[(num_epochs_optimiser_training_accuracy_history - 1)]
+
+    # Store the Mean (Average) of the Training Accuracy, on the Training Set, for the current Optimiser
+    optimisers_training_accuracy_means.append(training_accuracy_mean)
+
+    # Print the Mean (Average) of the Training Accuracy, on the Training Set
+    print("Training Accuracy (Average): ", training_accuracy_mean)
+
+    # Compute the Mean (Average) of the Validation Loss, on the Validation Set
+    validation_loss_mean = \
+        optimiser_validation_loss_history[(num_epochs_optimiser_validation_loss_history - 1)]
+
+    # Store the Mean (Average) of the Validation Loss, on the Validation Set, for the current Optimiser
+    optimisers_validation_loss_means.append(validation_loss_mean)
+
+    # Print the Mean (Average) of the Validation Loss, on the Validation Set
+    print("Validation Loss Mean (Average): ", validation_loss_mean)
+
+    # Compute the Mean (Average) of the Validation Accuracy, on the Validation Set
+    validation_accuracy_mean = \
+        optimiser_validation_accuracy_history[(num_epochs_optimiser_validation_accuracy_history - 1)]
+
+    # Store the Mean (Average) of the Validation Accuracy, on the Validation Set, for the current Optimiser
+    optimisers_validation_accuracy_means.append(validation_accuracy_mean)
+
+    # Print the Mean (Average) of the Validation Accuracy, on the Validation Set
+    print("Validation Accuracy (Average): ", validation_accuracy_mean)
+
     # Compute the Mean (Average) of the True/Test Loss, on the Testing Set
     true_testing_loss_mean = mean(true_testing_loss)
 
@@ -1106,6 +1206,12 @@ for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
     # Print the Mean (Average) of the True/Test Accuracy, on the Testing Set
     print("True/Test Accuracy Mean (Average): ", true_testing_accuracy_mean)
 
+    # the use of High-Performance Computing (with CPUs and GPUs) is set to True
+    if TENSORFLOW_KERAS_HPC_BACKEND_SESSION:
+
+        # Clear the current session of the Keras' Backend
+        keras_backend.clear_session()
+
     # Print the final information line
     print("\n--------- END OF EXECUTION FOR THE {} OPTIMISER ---------\n\n"
           .format(AVAILABLE_OPTIMISERS_LIST[num_optimiser]))
@@ -1120,7 +1226,13 @@ for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
     # Print the respective Means (Averages) for the Losses and Accuracies
     # of the predictions made by the current Optimiser on the Testing Set
-    print(" - {}: [ true_test_loss_avg = {} ; true_test_accuracy_avg = {} ]"
+    print(" - {}: [ train_loss = {} ; train_acc = {} |"
+          " val_loss = {} ; val_acc = {} |"
+          " test_loss = {} ; test_acc = {} ]"
           .format(AVAILABLE_OPTIMISERS_LIST[num_optimiser],
+                  optimisers_training_loss_means[num_optimiser],
+                  optimisers_training_accuracy_means[num_optimiser],
+                  optimisers_validation_loss_means[num_optimiser],
+                  optimisers_validation_accuracy_means[num_optimiser],
                   optimisers_true_testing_loss_means[num_optimiser],
                   optimisers_true_testing_accuracy_means[num_optimiser]))
