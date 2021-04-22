@@ -51,10 +51,9 @@ from project.tp1.libs.parameters_and_arguments import OPTIMISERS_COLORS_MATPLOTL
 # Function to plot the Training's and Validation's Losses,
 # from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
 # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-def plot_training_and_validation_losses_multi_classes_problem(cnn_model_in_keras_sequential_api_training_history,
-                                                              optimiser_id, now_date_time_format,
-                                                              plotting_style='seaborn-dark',
-                                                              is_to_show=False):
+def plot_training_and_validation_losses_multi_classes_and_labels_problem(
+        cnn_model_in_keras_sequential_api_training_history, optimiser_id, now_date_time_format,
+        plotting_style='seaborn-dark', is_to_show=False):
 
     # Retrieve the Loss Values, from the Fitting/Training of
     # the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -144,10 +143,9 @@ def plot_training_and_validation_losses_multi_classes_problem(cnn_model_in_keras
 # Function to plot the Training's and Validation's Accuracies,
 # from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
 # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-def plot_training_and_validation_accuracies_multi_classes_problem(cnn_model_in_keras_sequential_api_training_history,
-                                                                  optimiser_id, now_date_time_format,
-                                                                  plotting_style='seaborn-dark',
-                                                                  is_to_show=False):
+def plot_training_and_validation_accuracies_multi_classes_and_labels_problem(
+        cnn_model_in_keras_sequential_api_training_history, optimiser_id, now_date_time_format,
+        plotting_style='seaborn-dark', is_to_show=False):
 
     # Retrieve the Accuracy Values, from the Fitting/Training of
     # the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -236,7 +234,7 @@ def plot_training_and_validation_accuracies_multi_classes_problem(cnn_model_in_k
 # Function to plot the Training's and Validation's Losses,
 # from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
 # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-def plot_subset_metric_multi_classes_problem_all_optimisers(
+def plot_subset_metric_multi_classes_and_labels_all_optimisers(
         cnn_model_in_keras_sequential_api_optimisers_metric_history, subset, metric,
         now_date_time_format, plotting_style='seaborn-dark', is_to_show=False):
 

@@ -219,22 +219,26 @@ from project.tp1.libs.preprocessing_utils import retrieve_datasets_from_pokemon_
 
 # Import the function to create the Images' Data Generator for Pre-Processing with Data Augmentation
 # from the Parameters and Arguments Python's Custom Module
-from project.tp1.libs.preprocessing_utils import image_data_generator_for_preprocessing_with_data_augmentation
+from project.tp1.libs.preprocessing_utils import \
+    image_data_generator_for_preprocessing_with_data_augmentation
 
 # Import the function to plot the Training's and Validation's Losses,
 # from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
 # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-from project.tp1.libs.visualization_plotting import plot_training_and_validation_losses_multi_classes_problem
+from project.tp1.libs.visualization_plotting import \
+    plot_training_and_validation_losses_multi_classes_and_labels_problem
 
 # Import the function to plot the Training's and Validation's Accuracies,
 # from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
 # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-from project.tp1.libs.visualization_plotting import plot_training_and_validation_accuracies_multi_classes_problem
+from project.tp1.libs.visualization_plotting import \
+    plot_training_and_validation_accuracies_multi_classes_and_labels_problem
 
 # Import the function to plot the Training's and Validation's Losses,
 # from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
 # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-from project.tp1.libs.visualization_plotting import plot_subset_metric_multi_classes_problem_all_optimisers
+from project.tp1.libs.visualization_plotting import \
+    plot_subset_metric_multi_classes_and_labels_all_optimisers
 
 
 # Function to create the need Early Stopping Callbacks for
@@ -799,7 +803,7 @@ def execute_model_of_multi_class_classification_for_all_available_optimisers():
         # Plot the Training's and Validation's Losses,
         # from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
         # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-        plot_training_and_validation_losses_multi_classes_problem(
+        plot_training_and_validation_losses_multi_classes_and_labels_problem(
             cnn_model_in_keras_sequential_api_for_image_classification_training_history,
             AVAILABLE_OPTIMISERS_LIST[num_optimiser], now_date_time
         )
@@ -807,7 +811,7 @@ def execute_model_of_multi_class_classification_for_all_available_optimisers():
         # Plot the Training's and Validation's Accuracies,
         # from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
         # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-        plot_training_and_validation_accuracies_multi_classes_problem(
+        plot_training_and_validation_accuracies_multi_classes_and_labels_problem(
             cnn_model_in_keras_sequential_api_for_image_classification_training_history,
             AVAILABLE_OPTIMISERS_LIST[num_optimiser], now_date_time
         )
@@ -979,20 +983,20 @@ def execute_model_of_multi_class_classification_for_all_available_optimisers():
     now_date_time = date_time.utcnow().strftime('%Y%m%d%H%M%S')
 
     # Plot the Training Loss Values for all the Optimisers
-    plot_subset_metric_multi_classes_problem_all_optimisers(optimisers_training_loss_history,
-                                                            'Training', 'Loss', now_date_time)
+    plot_subset_metric_multi_classes_and_labels_all_optimisers(optimisers_training_loss_history,
+                                                               'Training', 'Loss', now_date_time)
 
     # Plot the Training Accuracy Values for all the Optimisers
-    plot_subset_metric_multi_classes_problem_all_optimisers(optimisers_training_accuracy_history,
-                                                            'Training', 'Accuracy', now_date_time)
+    plot_subset_metric_multi_classes_and_labels_all_optimisers(optimisers_training_accuracy_history,
+                                                               'Training', 'Accuracy', now_date_time)
 
     # Plot the Validation Loss Values for all the Optimisers
-    plot_subset_metric_multi_classes_problem_all_optimisers(optimisers_validation_loss_history,
-                                                            'Validation', 'Loss', now_date_time)
+    plot_subset_metric_multi_classes_and_labels_all_optimisers(optimisers_validation_loss_history,
+                                                               'Validation', 'Loss', now_date_time)
 
     # Plot the Validation Accuracy Values for all the Optimisers
-    plot_subset_metric_multi_classes_problem_all_optimisers(optimisers_validation_accuracy_history,
-                                                            'Validation', 'Accuracy', now_date_time)
+    plot_subset_metric_multi_classes_and_labels_all_optimisers(optimisers_validation_accuracy_history,
+                                                               'Validation', 'Accuracy', now_date_time)
 
     # Print the Heading Information about the Losses and Accuracies on the Testing Set
     print('------  Final Results for the Losses and Accuracies on '
