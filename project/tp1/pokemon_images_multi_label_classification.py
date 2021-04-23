@@ -243,6 +243,10 @@ from project.tp1.libs.visualization_plotting import \
 #rjr
 from project.tp1.models.model0 import \
     model_0_keras_sequential_api_for_image_classification
+from project.tp1.models.model1 import \
+    model_1_keras_sequential_api_for_image_classification
+from project.tp1.libs.parameters_and_arguments import NUM_AVAILABLE_MODELS
+from project.tp1.libs.parameters_and_arguments import AVAILABLE_MODELS_LIST
 
 
 # Function to create the need Early Stopping Callbacks for
@@ -613,6 +617,27 @@ def create_optimiser(optimiser_id):
     # for the Pokemons' Data, in Image Classification
     return optimiser
 
+# rjr
+# Function to create the Model to be used for
+# the Model for a feed-forward Convolution Neural Network (C.N.N.),
+# for the Pokemons' Data, in Image Classification
+def create_model(model_id, num_optimiser):
+
+    # Initialise the Model to be used for
+    # the Model for a feed-forward Convolution Neural Network (C.N.N.),
+    # for the Pokemons' Data, in Image Classification
+    model = None
+
+    if model_id == AVAILABLE_MODELS_LIST[0]:
+        model = model_0_keras_sequential_api_for_image_classification(AVAILABLE_OPTIMISERS_LIST[num_optimiser])
+
+    elif model_id == AVAILABLE_MODELS_LIST[1]:
+        model = model_1_keras_sequential_api_for_image_classification(AVAILABLE_OPTIMISERS_LIST[num_optimiser])
+
+    # Return the Model to be used for
+    # the Model for a feed-forward Convolution Neural Network (C.N.N.),
+    # for the Pokemons' Data, in Image Classification
+    return model
 
 # Function to execute the Model of Multi-Label Classification for all the Available Optimisers
 def execute_model_of_multi_label_classification_for_all_available_optimisers():
@@ -719,309 +744,312 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers():
     # Create a list for the True/Testing Accuracies' Means (Averages) for all the Optimisers used
     optimisers_true_testing_accuracy_means = []
 
-    # For each Optimiser available
-    for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
+    # rjr
+    # For each Model available
+    for num_model in range(NUM_AVAILABLE_MODELS):
+        # For each Optimiser available
+        for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
-        # Print the initial information line
-        print('--------- START OF THE EXECUTION FOR THE %s OPTIMISER ---------'
-              % (AVAILABLE_OPTIMISERS_LIST[num_optimiser]))
+            # Print the initial information line
+            print('--------- START OF THE EXECUTION FOR THE %s OPTIMISER ---------'
+                  % (AVAILABLE_OPTIMISERS_LIST[num_optimiser]))
+
+            # Retrieve the current DateTime, as custom format
+            now_date_time = date_time.utcnow().strftime('%Y%m%d%H%M%S')
+
+            # Set the Root Directory for the Logs of the TensorBoard and TensorFlow
+            root_logs_directory = 'logs'
+
+            # Set the specific Log Directory,
+            # # according to the current executing Optimiser and the current Date and Time (timestamp)
+            logs_directory = '%s\\model-multi-labels-%s-optimiser-%s\\' \
+                % (root_logs_directory, AVAILABLE_OPTIMISERS_LIST[num_optimiser].lower(), now_date_time)
+
+            # Set the Root Directory for the Weights of the TensorBoard and TensorFlow
+            root_weights_directory = 'files\\weights'
+
+            # Set the specified Sub-Directory, according to the Metrics
+            # for the Logs of the TensorBoard and TensorFlow
+            file_writer = tensorflow.summary.create_file_writer(logs_directory)
+
+            # Set the File Writer, with previously specified Sub-Directory, according to the Metrics
+            # for the Logs of the TensorBoard and TensorFlow
+            file_writer.set_as_default()
+
+            # Create the TensorBoard Callback for
+            # the Model for a feed-forward Convolution Neural Network (C.N.N.)
+            tensorboard_callback = TensorBoard(log_dir=logs_directory)
+
+            # Create the Optimiser to be used for
+            # the Model for a feed-forward Convolution Neural Network (C.N.N.),
+            # for the Pokemons' Data, in Image Classification
+            current_optimiser = create_optimiser(AVAILABLE_OPTIMISERS_LIST[num_optimiser])
+
+            # Create a Model for a feed-forward Convolution Neural Network (C.N.N.),
+            # for the Pokemons' Data, in Image Classification
+            cnn_model_in_keras_sequential_api_for_image_classification_multi_labels_classification = \
+                create_model(AVAILABLE_MODELS_LIST[num_model],num_optimiser)
+            # rjr    create_cnn_model_in_keras_sequential_api_for_image_classification(AVAILABLE_OPTIMISERS_LIST[num_optimiser])
+
+            # Compile the Model for the feed-forward Convolution Neural Network (C.N.N.),
+            # with the given Binary Cross Entropy Loss/Error Function and
+            # the Stochastic Gradient Descent (S.G.D.) Optimiser
+            cnn_model_in_keras_sequential_api_for_image_classification_multi_labels_classification \
+                .compile(loss='binary_crossentropy',
+                         optimizer=current_optimiser,
+                         metrics=['accuracy'])
+
+            # Print the Log for the Fitting/Training of
+            # the Model for the feed-forward Convolution Neural Network (C.N.N.)
+            print(f'\nFitting/Training the Model for '
+                  f'the feed-forward Convolution Neural Network (C.N.N.) for {NUM_EPOCHS} Epochs '
+                  f'with a Batch Size of {BATCH_SIZE} and\nan Initial Learning Rate of '
+                  f'{INITIAL_LEARNING_RATES[num_optimiser]}...\n')
+
+            # Train/Fit the Model for the feed-forward Convolution Neural Network (C.N.N.) for the given NUM_EPOCHS,
+            # with the Training Set for the Training Data and the Validation Set for the Validation Data
+            cnn_model_in_keras_sequential_api_for_image_classification_training_history = \
+                cnn_model_in_keras_sequential_api_for_image_classification_multi_labels_classification \
+                .fit(multi_labels_training_set_pokemon_data_augmentation_generator.x,
+                     multi_labels_training_set_pokemon_data_augmentation_generator.y,
+                     steps_per_epoch=(NUM_EXAMPLES_FINAL_TRAINING_SET // BATCH_SIZE),
+                     epochs=NUM_EPOCHS,
+                     validation_data=(multi_labels_validation_set_pokemon_data_augmentation_generator.x,
+                                      multi_labels_validation_set_pokemon_data_augmentation_generator.y),
+                     validation_steps=(NUM_EXAMPLES_FINAL_VALIDATION_SET // BATCH_SIZE),
+                     batch_size=BATCH_SIZE,
+                     callbacks=[pokemon_training_loss_early_stopping_callback,
+                                pokemon_training_accuracy_early_stopping_callback,
+                                pokemon_validation_loss_early_stopping_callback,
+                                pokemon_validation_accuracy_early_stopping_callback,
+                                tensorboard_callback])
+
+            # the use of High-Performance Computing (with CPUs and GPUs) is set to True
+            if TENSORFLOW_KERAS_HPC_BACKEND_SESSION:
+
+                # Clear the current session of the Keras' Backend
+                keras_backend.clear_session()
+
+            # Print the final Log for the Fitting/Training of
+            # the Model for the feed-forward Convolution Neural Network (C.N.N.)
+            print('\nThe Fitting/Training of the Model for '
+                  'the feed-forward Convolution Neural Network (C.N.N.) is complete!!!\n')
+
+            # Plot the Training's and Validation's Losses,
+            # from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
+            # for the Pokemons' Data, in Image Classification, for the Multi-Labels Problem
+            plot_training_and_validation_losses_multi_classes_and_labels_problem(
+                cnn_model_in_keras_sequential_api_for_image_classification_training_history,
+                AVAILABLE_OPTIMISERS_LIST[num_optimiser], now_date_time
+            )
+
+            # Plot the Training's and Validation's Accuracies,
+            # from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
+            # for the Pokemons' Data, in Image Classification, for the Multi-Labels Problem
+            plot_training_and_validation_accuracies_multi_classes_and_labels_problem(
+                cnn_model_in_keras_sequential_api_for_image_classification_training_history,
+                AVAILABLE_OPTIMISERS_LIST[num_optimiser], now_date_time
+            )
+
+            # Retrieve the History of the Training Losses for the current Optimiser
+            optimiser_training_loss_history = \
+                cnn_model_in_keras_sequential_api_for_image_classification_training_history.history['loss']
+
+            # Retrieve the Number of Epochs History of the Training Losses for the current Optimiser
+            num_epochs_optimiser_training_loss_history = len(optimiser_training_loss_history)
+
+            # Store the History of the Training Losses for the current Optimiser,
+            # to the list for the Training Losses for all the Optimisers used
+            optimisers_training_loss_history \
+                .append(optimiser_training_loss_history)
+
+            # Retrieve the History of the Training Accuracies for the current Optimiser
+            optimiser_training_accuracy_history = \
+                cnn_model_in_keras_sequential_api_for_image_classification_training_history.history['accuracy']
+
+            # Retrieve the Number of Epochs History of the Training Accuracies for the current Optimiser
+            num_epochs_optimiser_training_accuracy_history = len(optimiser_training_accuracy_history)
+
+            # Store the History of the Training Accuracies for the current Optimiser,
+            # to the list for the Training Losses for all the Optimisers used
+            optimisers_training_accuracy_history \
+                .append(optimiser_training_accuracy_history)
+
+            # Retrieve the History of the Validation Losses for the current Optimiser
+            optimiser_validation_loss_history = \
+                cnn_model_in_keras_sequential_api_for_image_classification_training_history.history['val_loss']
+
+            # Retrieve the Number of Epochs History of the Validation Losses for the current Optimiser
+            num_epochs_optimiser_validation_loss_history = len(optimiser_validation_loss_history)
+
+            # Store the History of the Validation Losses for the current Optimiser,
+            # to the list for the Validation Losses for all the Optimisers used
+            optimisers_validation_loss_history \
+                .append(optimiser_validation_loss_history)
+
+            # Retrieve the History of the Validation Accuracies for the current Optimiser
+            optimiser_validation_accuracy_history = \
+                cnn_model_in_keras_sequential_api_for_image_classification_training_history.history['val_accuracy']
+
+            # Retrieve the Number of Epochs History of the Validation Accuracies for the current Optimiser
+            num_epochs_optimiser_validation_accuracy_history = len(optimiser_validation_accuracy_history)
+
+            # Store the History of the Validation Accuracies for the current Optimiser,
+            # to the list for the Validation Losses for all the Optimisers used
+            optimisers_validation_accuracy_history \
+                .append(optimiser_validation_accuracy_history)
+
+            # Output the Summary of the architecture of
+            # the Model for the feed-forward Convolution Neural Network (C.N.N.),
+            # for the Pokemons' Data, in Image Classification
+            cnn_model_in_keras_sequential_api_for_image_classification_multi_labels_classification.summary()
+
+            # Save the Weights of the Neurons of the Fitting/Training of
+            # the Model for the feed-forward Convolution Neural Network (C.N.N.)
+            cnn_model_in_keras_sequential_api_for_image_classification_multi_labels_classification \
+                .save_weights('%s/pokemon-image-classification-training-history-multi-labels-%s-optimiser-%s-weights.h5'
+                              % (root_weights_directory, AVAILABLE_OPTIMISERS_LIST[num_optimiser].lower(), now_date_time))
+
+            # Convert the Model for the feed-forward Convolution Neural Network (C.N.N.) to a JSON Object
+            cnn_model_json_object = \
+                cnn_model_in_keras_sequential_api_for_image_classification_multi_labels_classification.to_json()
+
+            # Write the Model for the feed-forward Convolution Neural Network (C.N.N.) to a JSON Object
+            with open('%s/pokemon-image-classification-training-history-multi-labels-%s-optimiser-%s-weights.json'
+                      % (root_weights_directory, AVAILABLE_OPTIMISERS_LIST[num_optimiser].lower(), now_date_time),
+                      'w') as json_file:
+
+                # Write the JSON Object
+                json_file.write(cnn_model_json_object)
+
+            # Predict the Probabilities of Classes for the Testing Set,
+            # using the Model for the feed-forward Convolution Neural Network (C.N.N.),
+            # fitted/trained previously with the Training and Validation Sets
+            ys_labels_testing_set_pokemon_predicted = \
+                cnn_model_in_keras_sequential_api_for_image_classification_multi_labels_classification \
+                .predict(x=xs_features_testing_set_pokemon,
+                         batch_size=BATCH_SIZE, verbose=1)
+
+            # Retrieve the Binary Cross-Entropy for the Classes' Predictions on the Testing Set,
+            # using the Model for the feed-forward Convolution Neural Network (C.N.N.),
+            # fitted/trained previously with the Training and Validation Sets
+            true_testing_loss = \
+                binary_crossentropy(ys_labels_testing_set_pokemon,
+                                    ys_labels_testing_set_pokemon_predicted)
+
+            # Retrieve the Binary Accuracy for the Classes' Predictions on the Testing Set,
+            # using the Model for the feed-forward Convolution Neural Network (C.N.N.),
+            # fitted/trained previously with the Training and Validation Sets
+            true_testing_accuracy = \
+                binary_accuracy(ys_labels_testing_set_pokemon,
+                                ys_labels_testing_set_pokemon_predicted)
+
+            # Just print a blank line, for a better and clearer presentation of the results
+            print('\n')
+
+            # Compute the Mean (Average) of the Training Loss, on the Training Set
+            training_loss_mean = \
+                optimiser_training_loss_history[(num_epochs_optimiser_training_loss_history - 1)]
+
+            # Store the Mean (Average) of the Training Loss, on the Training Set, for the current Optimiser
+            optimisers_training_loss_means.append(training_loss_mean)
+
+            # Print the Mean (Average) of the Training Loss, on the Training Set
+            print('Training Loss Mean (Average): ', training_loss_mean)
+
+            # Compute the Mean (Average) of the Training Accuracy, on the Training Set
+            training_accuracy_mean = \
+                optimiser_training_accuracy_history[(num_epochs_optimiser_training_accuracy_history - 1)]
+
+            # Store the Mean (Average) of the Training Accuracy, on the Training Set, for the current Optimiser
+            optimisers_training_accuracy_means.append(training_accuracy_mean)
+
+            # Print the Mean (Average) of the Training Accuracy, on the Training Set
+            print('Training Accuracy (Average): ', training_accuracy_mean)
+
+            # Compute the Mean (Average) of the Validation Loss, on the Validation Set
+            validation_loss_mean = \
+                optimiser_validation_loss_history[(num_epochs_optimiser_validation_loss_history - 1)]
+
+            # Store the Mean (Average) of the Validation Loss, on the Validation Set, for the current Optimiser
+            optimisers_validation_loss_means.append(validation_loss_mean)
+
+            # Print the Mean (Average) of the Validation Loss, on the Validation Set
+            print('Validation Loss Mean (Average): ', validation_loss_mean)
+
+            # Compute the Mean (Average) of the Validation Accuracy, on the Validation Set
+            validation_accuracy_mean = \
+                optimiser_validation_accuracy_history[(num_epochs_optimiser_validation_accuracy_history - 1)]
+
+            # Store the Mean (Average) of the Validation Accuracy, on the Validation Set, for the current Optimiser
+            optimisers_validation_accuracy_means.append(validation_accuracy_mean)
+
+            # Print the Mean (Average) of the Validation Accuracy, on the Validation Set
+            print('Validation Accuracy (Average): ', validation_accuracy_mean)
+
+            # Compute the Mean (Average) of the True/Test Loss, on the Testing Set
+            true_testing_loss_mean = mean(true_testing_loss)
+
+            # Store the Mean (Average) of the True/Test Loss, on the Testing Set, for the current Optimiser
+            optimisers_true_testing_loss_means.append(true_testing_loss_mean)
+
+            # Print the Mean (Average) of the True/Test Loss, on the Testing Set
+            print('True/Test Loss Mean (Average): ', true_testing_loss_mean)
+
+            # Compute the Mean (Average) of the True/Test Accuracy, on the Testing Set
+            true_testing_accuracy_mean = mean(true_testing_accuracy)
+
+            # Store the Mean (Average) of the True/Test Accuracy, on the Testing Set, for the current Optimiser
+            optimisers_true_testing_accuracy_means.append(true_testing_accuracy_mean)
+
+            # Print the Mean (Average) of the True/Test Accuracy, on the Testing Set
+            print('True/Test Accuracy Mean (Average): ', true_testing_accuracy_mean)
+
+            # the use of High-Performance Computing (with CPUs and GPUs) is set to True
+            if TENSORFLOW_KERAS_HPC_BACKEND_SESSION:
+
+                # Clear the current session of the Keras' Backend
+                keras_backend.clear_session()
+
+            # Print the final information line
+            print('\n--------- END OF EXECUTION FOR THE %s OPTIMISER ---------\n\n'
+                  % (AVAILABLE_OPTIMISERS_LIST[num_optimiser]))
 
         # Retrieve the current DateTime, as custom format
         now_date_time = date_time.utcnow().strftime('%Y%m%d%H%M%S')
 
-        # Set the Root Directory for the Logs of the TensorBoard and TensorFlow
-        root_logs_directory = 'logs'
-
-        # Set the specific Log Directory,
-        # # according to the current executing Optimiser and the current Date and Time (timestamp)
-        logs_directory = '%s\\model-multi-labels-%s-optimiser-%s\\' \
-            % (root_logs_directory, AVAILABLE_OPTIMISERS_LIST[num_optimiser].lower(), now_date_time)
-
-        # Set the Root Directory for the Weights of the TensorBoard and TensorFlow
-        root_weights_directory = 'files\\weights'
-
-        # Set the specified Sub-Directory, according to the Metrics
-        # for the Logs of the TensorBoard and TensorFlow
-        file_writer = tensorflow.summary.create_file_writer(logs_directory)
-
-        # Set the File Writer, with previously specified Sub-Directory, according to the Metrics
-        # for the Logs of the TensorBoard and TensorFlow
-        file_writer.set_as_default()
-
-        # Create the TensorBoard Callback for
-        # the Model for a feed-forward Convolution Neural Network (C.N.N.)
-        tensorboard_callback = TensorBoard(log_dir=logs_directory)
-
-        # Create the Optimiser to be used for
-        # the Model for a feed-forward Convolution Neural Network (C.N.N.),
-        # for the Pokemons' Data, in Image Classification
-        current_optimiser = create_optimiser(AVAILABLE_OPTIMISERS_LIST[num_optimiser])
-
-        # Create a Model for a feed-forward Convolution Neural Network (C.N.N.),
-        # for the Pokemons' Data, in Image Classification
-        cnn_model_in_keras_sequential_api_for_image_classification_multi_labels_classification = \
-            model_0_keras_sequential_api_for_image_classification(AVAILABLE_OPTIMISERS_LIST[num_optimiser])
-        # rjr    create_cnn_model_in_keras_sequential_api_for_image_classification(AVAILABLE_OPTIMISERS_LIST[num_optimiser])
-
-        # Compile the Model for the feed-forward Convolution Neural Network (C.N.N.),
-        # with the given Binary Cross Entropy Loss/Error Function and
-        # the Stochastic Gradient Descent (S.G.D.) Optimiser
-        cnn_model_in_keras_sequential_api_for_image_classification_multi_labels_classification \
-            .compile(loss='binary_crossentropy',
-                     optimizer=current_optimiser,
-                     metrics=['accuracy'])
-
-        # Print the Log for the Fitting/Training of
-        # the Model for the feed-forward Convolution Neural Network (C.N.N.)
-        print(f'\nFitting/Training the Model for '
-              f'the feed-forward Convolution Neural Network (C.N.N.) for {NUM_EPOCHS} Epochs '
-              f'with a Batch Size of {BATCH_SIZE} and\nan Initial Learning Rate of '
-              f'{INITIAL_LEARNING_RATES[num_optimiser]}...\n')
-
-        # Train/Fit the Model for the feed-forward Convolution Neural Network (C.N.N.) for the given NUM_EPOCHS,
-        # with the Training Set for the Training Data and the Validation Set for the Validation Data
-        cnn_model_in_keras_sequential_api_for_image_classification_training_history = \
-            cnn_model_in_keras_sequential_api_for_image_classification_multi_labels_classification \
-            .fit(multi_labels_training_set_pokemon_data_augmentation_generator.x,
-                 multi_labels_training_set_pokemon_data_augmentation_generator.y,
-                 steps_per_epoch=(NUM_EXAMPLES_FINAL_TRAINING_SET // BATCH_SIZE),
-                 epochs=NUM_EPOCHS,
-                 validation_data=(multi_labels_validation_set_pokemon_data_augmentation_generator.x,
-                                  multi_labels_validation_set_pokemon_data_augmentation_generator.y),
-                 validation_steps=(NUM_EXAMPLES_FINAL_VALIDATION_SET // BATCH_SIZE),
-                 batch_size=BATCH_SIZE,
-                 callbacks=[pokemon_training_loss_early_stopping_callback,
-                            pokemon_training_accuracy_early_stopping_callback,
-                            pokemon_validation_loss_early_stopping_callback,
-                            pokemon_validation_accuracy_early_stopping_callback,
-                            tensorboard_callback])
-
-        # the use of High-Performance Computing (with CPUs and GPUs) is set to True
-        if TENSORFLOW_KERAS_HPC_BACKEND_SESSION:
-
-            # Clear the current session of the Keras' Backend
-            keras_backend.clear_session()
-
-        # Print the final Log for the Fitting/Training of
-        # the Model for the feed-forward Convolution Neural Network (C.N.N.)
-        print('\nThe Fitting/Training of the Model for '
-              'the feed-forward Convolution Neural Network (C.N.N.) is complete!!!\n')
-
-        # Plot the Training's and Validation's Losses,
-        # from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
-        # for the Pokemons' Data, in Image Classification, for the Multi-Labels Problem
-        plot_training_and_validation_losses_multi_classes_and_labels_problem(
-            cnn_model_in_keras_sequential_api_for_image_classification_training_history,
-            AVAILABLE_OPTIMISERS_LIST[num_optimiser], now_date_time
-        )
-
-        # Plot the Training's and Validation's Accuracies,
-        # from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
-        # for the Pokemons' Data, in Image Classification, for the Multi-Labels Problem
-        plot_training_and_validation_accuracies_multi_classes_and_labels_problem(
-            cnn_model_in_keras_sequential_api_for_image_classification_training_history,
-            AVAILABLE_OPTIMISERS_LIST[num_optimiser], now_date_time
-        )
-
-        # Retrieve the History of the Training Losses for the current Optimiser
-        optimiser_training_loss_history = \
-            cnn_model_in_keras_sequential_api_for_image_classification_training_history.history['loss']
-
-        # Retrieve the Number of Epochs History of the Training Losses for the current Optimiser
-        num_epochs_optimiser_training_loss_history = len(optimiser_training_loss_history)
-
-        # Store the History of the Training Losses for the current Optimiser,
-        # to the list for the Training Losses for all the Optimisers used
-        optimisers_training_loss_history \
-            .append(optimiser_training_loss_history)
-
-        # Retrieve the History of the Training Accuracies for the current Optimiser
-        optimiser_training_accuracy_history = \
-            cnn_model_in_keras_sequential_api_for_image_classification_training_history.history['accuracy']
-
-        # Retrieve the Number of Epochs History of the Training Accuracies for the current Optimiser
-        num_epochs_optimiser_training_accuracy_history = len(optimiser_training_accuracy_history)
-
-        # Store the History of the Training Accuracies for the current Optimiser,
-        # to the list for the Training Losses for all the Optimisers used
-        optimisers_training_accuracy_history \
-            .append(optimiser_training_accuracy_history)
-
-        # Retrieve the History of the Validation Losses for the current Optimiser
-        optimiser_validation_loss_history = \
-            cnn_model_in_keras_sequential_api_for_image_classification_training_history.history['val_loss']
-
-        # Retrieve the Number of Epochs History of the Validation Losses for the current Optimiser
-        num_epochs_optimiser_validation_loss_history = len(optimiser_validation_loss_history)
-
-        # Store the History of the Validation Losses for the current Optimiser,
-        # to the list for the Validation Losses for all the Optimisers used
-        optimisers_validation_loss_history \
-            .append(optimiser_validation_loss_history)
-
-        # Retrieve the History of the Validation Accuracies for the current Optimiser
-        optimiser_validation_accuracy_history = \
-            cnn_model_in_keras_sequential_api_for_image_classification_training_history.history['val_accuracy']
-
-        # Retrieve the Number of Epochs History of the Validation Accuracies for the current Optimiser
-        num_epochs_optimiser_validation_accuracy_history = len(optimiser_validation_accuracy_history)
-
-        # Store the History of the Validation Accuracies for the current Optimiser,
-        # to the list for the Validation Losses for all the Optimisers used
-        optimisers_validation_accuracy_history \
-            .append(optimiser_validation_accuracy_history)
-
-        # Output the Summary of the architecture of
-        # the Model for the feed-forward Convolution Neural Network (C.N.N.),
-        # for the Pokemons' Data, in Image Classification
-        cnn_model_in_keras_sequential_api_for_image_classification_multi_labels_classification.summary()
-
-        # Save the Weights of the Neurons of the Fitting/Training of
-        # the Model for the feed-forward Convolution Neural Network (C.N.N.)
-        cnn_model_in_keras_sequential_api_for_image_classification_multi_labels_classification \
-            .save_weights('%s/pokemon-image-classification-training-history-multi-labels-%s-optimiser-%s-weights.h5'
-                          % (root_weights_directory, AVAILABLE_OPTIMISERS_LIST[num_optimiser].lower(), now_date_time))
-
-        # Convert the Model for the feed-forward Convolution Neural Network (C.N.N.) to a JSON Object
-        cnn_model_json_object = \
-            cnn_model_in_keras_sequential_api_for_image_classification_multi_labels_classification.to_json()
-
-        # Write the Model for the feed-forward Convolution Neural Network (C.N.N.) to a JSON Object
-        with open('%s/pokemon-image-classification-training-history-multi-labels-%s-optimiser-%s-weights.json'
-                  % (root_weights_directory, AVAILABLE_OPTIMISERS_LIST[num_optimiser].lower(), now_date_time),
-                  'w') as json_file:
-
-            # Write the JSON Object
-            json_file.write(cnn_model_json_object)
-
-        # Predict the Probabilities of Classes for the Testing Set,
-        # using the Model for the feed-forward Convolution Neural Network (C.N.N.),
-        # fitted/trained previously with the Training and Validation Sets
-        ys_labels_testing_set_pokemon_predicted = \
-            cnn_model_in_keras_sequential_api_for_image_classification_multi_labels_classification \
-            .predict(x=xs_features_testing_set_pokemon,
-                     batch_size=BATCH_SIZE, verbose=1)
-
-        # Retrieve the Binary Cross-Entropy for the Classes' Predictions on the Testing Set,
-        # using the Model for the feed-forward Convolution Neural Network (C.N.N.),
-        # fitted/trained previously with the Training and Validation Sets
-        true_testing_loss = \
-            binary_crossentropy(ys_labels_testing_set_pokemon,
-                                ys_labels_testing_set_pokemon_predicted)
-
-        # Retrieve the Binary Accuracy for the Classes' Predictions on the Testing Set,
-        # using the Model for the feed-forward Convolution Neural Network (C.N.N.),
-        # fitted/trained previously with the Training and Validation Sets
-        true_testing_accuracy = \
-            binary_accuracy(ys_labels_testing_set_pokemon,
-                            ys_labels_testing_set_pokemon_predicted)
-
-        # Just print a blank line, for a better and clearer presentation of the results
-        print('\n')
-
-        # Compute the Mean (Average) of the Training Loss, on the Training Set
-        training_loss_mean = \
-            optimiser_training_loss_history[(num_epochs_optimiser_training_loss_history - 1)]
-
-        # Store the Mean (Average) of the Training Loss, on the Training Set, for the current Optimiser
-        optimisers_training_loss_means.append(training_loss_mean)
-
-        # Print the Mean (Average) of the Training Loss, on the Training Set
-        print('Training Loss Mean (Average): ', training_loss_mean)
-
-        # Compute the Mean (Average) of the Training Accuracy, on the Training Set
-        training_accuracy_mean = \
-            optimiser_training_accuracy_history[(num_epochs_optimiser_training_accuracy_history - 1)]
-
-        # Store the Mean (Average) of the Training Accuracy, on the Training Set, for the current Optimiser
-        optimisers_training_accuracy_means.append(training_accuracy_mean)
-
-        # Print the Mean (Average) of the Training Accuracy, on the Training Set
-        print('Training Accuracy (Average): ', training_accuracy_mean)
-
-        # Compute the Mean (Average) of the Validation Loss, on the Validation Set
-        validation_loss_mean = \
-            optimiser_validation_loss_history[(num_epochs_optimiser_validation_loss_history - 1)]
-
-        # Store the Mean (Average) of the Validation Loss, on the Validation Set, for the current Optimiser
-        optimisers_validation_loss_means.append(validation_loss_mean)
-
-        # Print the Mean (Average) of the Validation Loss, on the Validation Set
-        print('Validation Loss Mean (Average): ', validation_loss_mean)
-
-        # Compute the Mean (Average) of the Validation Accuracy, on the Validation Set
-        validation_accuracy_mean = \
-            optimiser_validation_accuracy_history[(num_epochs_optimiser_validation_accuracy_history - 1)]
-
-        # Store the Mean (Average) of the Validation Accuracy, on the Validation Set, for the current Optimiser
-        optimisers_validation_accuracy_means.append(validation_accuracy_mean)
-
-        # Print the Mean (Average) of the Validation Accuracy, on the Validation Set
-        print('Validation Accuracy (Average): ', validation_accuracy_mean)
-
-        # Compute the Mean (Average) of the True/Test Loss, on the Testing Set
-        true_testing_loss_mean = mean(true_testing_loss)
-
-        # Store the Mean (Average) of the True/Test Loss, on the Testing Set, for the current Optimiser
-        optimisers_true_testing_loss_means.append(true_testing_loss_mean)
-
-        # Print the Mean (Average) of the True/Test Loss, on the Testing Set
-        print('True/Test Loss Mean (Average): ', true_testing_loss_mean)
-
-        # Compute the Mean (Average) of the True/Test Accuracy, on the Testing Set
-        true_testing_accuracy_mean = mean(true_testing_accuracy)
-
-        # Store the Mean (Average) of the True/Test Accuracy, on the Testing Set, for the current Optimiser
-        optimisers_true_testing_accuracy_means.append(true_testing_accuracy_mean)
-
-        # Print the Mean (Average) of the True/Test Accuracy, on the Testing Set
-        print('True/Test Accuracy Mean (Average): ', true_testing_accuracy_mean)
-
-        # the use of High-Performance Computing (with CPUs and GPUs) is set to True
-        if TENSORFLOW_KERAS_HPC_BACKEND_SESSION:
-
-            # Clear the current session of the Keras' Backend
-            keras_backend.clear_session()
-
-        # Print the final information line
-        print('\n--------- END OF EXECUTION FOR THE %s OPTIMISER ---------\n\n'
-              % (AVAILABLE_OPTIMISERS_LIST[num_optimiser]))
-
-    # Retrieve the current DateTime, as custom format
-    now_date_time = date_time.utcnow().strftime('%Y%m%d%H%M%S')
-
-    # Plot the Training Loss Values for all the Optimisers
-    plot_subset_metric_multi_classes_and_labels_all_optimisers(optimisers_training_loss_history,
-                                                               'Training', 'Loss', now_date_time)
-
-    # Plot the Training Accuracy Values for all the Optimisers
-    plot_subset_metric_multi_classes_and_labels_all_optimisers(optimisers_training_accuracy_history,
-                                                               'Training', 'Accuracy', now_date_time)
-
-    # Plot the Validation Loss Values for all the Optimisers
-    plot_subset_metric_multi_classes_and_labels_all_optimisers(optimisers_validation_loss_history,
-                                                               'Validation', 'Loss', now_date_time)
-
-    # Plot the Validation Accuracy Values for all the Optimisers
-    plot_subset_metric_multi_classes_and_labels_all_optimisers(optimisers_validation_accuracy_history,
-                                                               'Validation', 'Accuracy', now_date_time)
-
-    # Print the Heading Information about the Losses and Accuracies on the Testing Set
-    print('------  Final Results for the Losses and Accuracies on '
-          'the Testing Set,\nregarding the several Optimisers available ------\n')
-
-    # For each Optimiser available
-    for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
-
-        # Print the respective Means (Averages) for the Losses and Accuracies
-        # of the predictions made by the current Optimiser on the Testing Set
-        print(' - %s: [ train_loss = %.12f ; train_acc = %.12f |'
-              ' val_loss = %.12f ; val_acc = %.12f |'
-              ' test_loss = %.12f ; test_acc = %.12f ]'
-              % (AVAILABLE_OPTIMISERS_LIST[num_optimiser],
-                 optimisers_training_loss_means[num_optimiser],
-                 optimisers_training_accuracy_means[num_optimiser],
-                 optimisers_validation_loss_means[num_optimiser],
-                 optimisers_validation_accuracy_means[num_optimiser],
-                 optimisers_true_testing_loss_means[num_optimiser],
-                 optimisers_true_testing_accuracy_means[num_optimiser]))
+        # Plot the Training Loss Values for all the Optimisers
+        plot_subset_metric_multi_classes_and_labels_all_optimisers(optimisers_training_loss_history,
+                                                                   'Training', 'Loss', now_date_time)
+
+        # Plot the Training Accuracy Values for all the Optimisers
+        plot_subset_metric_multi_classes_and_labels_all_optimisers(optimisers_training_accuracy_history,
+                                                                   'Training', 'Accuracy', now_date_time)
+
+        # Plot the Validation Loss Values for all the Optimisers
+        plot_subset_metric_multi_classes_and_labels_all_optimisers(optimisers_validation_loss_history,
+                                                                   'Validation', 'Loss', now_date_time)
+
+        # Plot the Validation Accuracy Values for all the Optimisers
+        plot_subset_metric_multi_classes_and_labels_all_optimisers(optimisers_validation_accuracy_history,
+                                                                   'Validation', 'Accuracy', now_date_time)
+
+        # Print the Heading Information about the Losses and Accuracies on the Testing Set
+        print('------  Final Results for the Losses and Accuracies on '
+              'the Testing Set,\nregarding the several Optimisers available ------\n')
+
+        # For each Optimiser available
+        for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
+
+            # Print the respective Means (Averages) for the Losses and Accuracies
+            # of the predictions made by the current Optimiser on the Testing Set
+            print(' - %s: [ train_loss = %.12f ; train_acc = %.12f |'
+                  ' val_loss = %.12f ; val_acc = %.12f |'
+                  ' test_loss = %.12f ; test_acc = %.12f ]'
+                  % (AVAILABLE_OPTIMISERS_LIST[num_optimiser],
+                     optimisers_training_loss_means[num_optimiser],
+                     optimisers_training_accuracy_means[num_optimiser],
+                     optimisers_validation_loss_means[num_optimiser],
+                     optimisers_validation_accuracy_means[num_optimiser],
+                     optimisers_true_testing_loss_means[num_optimiser],
+                     optimisers_true_testing_accuracy_means[num_optimiser]))

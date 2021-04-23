@@ -148,3 +148,11 @@ BATCH_SIZE = 16
 
 # The Number of Classes for the Datasets from the Pokemons' Data
 NUM_CLASSES_POKEMON_TYPES = len(loadtxt('./dataset/pokemon_types.txt', dtype='str'))
+
+# The Models available to use for the
+# feed-forward Convolution Neural Network (C.N.N.)
+AVAILABLE_MODELS_LIST = ['MODEL0', 'MODEL1']
+
+# The Number of Optimisers available to use for the the Model of
+# the feed-forward Convolution Neural Network (C.N.N.)
+NUM_AVAILABLE_MODELS = len(AVAILABLE_MODELS_LIST)
