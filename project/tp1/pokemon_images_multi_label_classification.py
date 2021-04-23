@@ -95,13 +95,13 @@ from tensorflow.keras.callbacks import EarlyStopping
 # the TensorFlow.Keras.Callbacks Python's Module
 from tensorflow.keras.callbacks import TensorBoard
 
-# Import the Categorical Cross-Entropy from
+# Import the Binary Cross-Entropy from
 # the TensorFlow.Keras.Metrics Python's Module
-from tensorflow.keras.metrics import categorical_crossentropy
+from tensorflow.keras.metrics import binary_crossentropy
 
-# Import the Categorical Accuracy from
+# Import the Binary Accuracy from
 # the TensorFlow.Keras.Metrics Python's Module
-from tensorflow.keras.metrics import categorical_accuracy
+from tensorflow.keras.metrics import binary_accuracy
 
 # Import the boolean flag, to keep information about
 # the use of High-Performance Computing (with CPUs and GPUs)
@@ -757,7 +757,7 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers():
             create_cnn_model_in_keras_sequential_api_for_image_classification(AVAILABLE_OPTIMISERS_LIST[num_optimiser])
 
         # Compile the Model for the feed-forward Convolution Neural Network (C.N.N.),
-        # with the given Categorical Cross Entropy Loss/Error Function and
+        # with the given Binary Cross Entropy Loss/Error Function and
         # the Stochastic Gradient Descent (S.G.D.) Optimiser
         cnn_model_in_keras_sequential_api_for_image_classification_multi_labels_classification \
             .compile(loss='binary_crossentropy',
@@ -895,19 +895,19 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers():
             .predict(x=xs_features_testing_set_pokemon,
                      batch_size=BATCH_SIZE, verbose=1)
 
-        # Retrieve the Categorical Cross-Entropy for the Classes' Predictions on the Testing Set,
+        # Retrieve the Binary Cross-Entropy for the Classes' Predictions on the Testing Set,
         # using the Model for the feed-forward Convolution Neural Network (C.N.N.),
         # fitted/trained previously with the Training and Validation Sets
         true_testing_loss = \
-            categorical_crossentropy(ys_labels_testing_set_pokemon,
-                                     ys_labels_testing_set_pokemon_predicted)
+            binary_crossentropy(ys_labels_testing_set_pokemon,
+                                ys_labels_testing_set_pokemon_predicted)
 
-        # Retrieve the Categorical Accuracy for the Classes' Predictions on the Testing Set,
+        # Retrieve the Binary Accuracy for the Classes' Predictions on the Testing Set,
         # using the Model for the feed-forward Convolution Neural Network (C.N.N.),
         # fitted/trained previously with the Training and Validation Sets
         true_testing_accuracy = \
-            categorical_accuracy(ys_labels_testing_set_pokemon,
-                                 ys_labels_testing_set_pokemon_predicted)
+            binary_accuracy(ys_labels_testing_set_pokemon,
+                            ys_labels_testing_set_pokemon_predicted)
 
         # Just print a blank line, for a better and clearer presentation of the results
         print('\n')
