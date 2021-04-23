@@ -82,6 +82,8 @@ def retrieve_datasets_from_pokemon_data():
     # Retrieve the ys (labels) of the Pokemons' Datasets, for the Testing Set
     ys_labels_testing_set = pokemon_datasets['test_labels']
 
+    print(ys_labels_testing_set.shape[1])
+
     # Return all the retrieved Datasets related to the Pokemons' Data
     return xs_features_training_set, xs_masks_training_set, ys_classes_training_set, ys_labels_training_set, \
         xs_features_validation_set, xs_masks_validation_set, ys_classes_validation_set, ys_labels_validation_set, \

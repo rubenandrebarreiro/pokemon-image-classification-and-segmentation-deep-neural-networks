@@ -537,12 +537,12 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     convolution_neural_network_tensorflow_keras_sequential_model \
         .add(Dense(NUM_CLASSES_POKEMON_TYPES))
 
-    # Add a Softmax as Activation Function Layer,
+    # Add a Sigmoid as Activation Function Layer,
     # for the features of the Data/Images of the Pokemons resulted from
     # the previous Layer of the Model of the feed-forward
     # Convolution Neural Network (C.N.N.), for the Multi-Label Classifier
     convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(Activation('softmax'))
+        .add(Activation('sigmoid'))
 
     # Return the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Label Problem
@@ -641,11 +641,11 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers():
     #    - 500 examples for the final Validation Set;
     # ii) 500 examples for the initial and final Testing Set;
     xs_features_training_set_pokemon, xs_masks_training_set_pokemon, \
-        ys_labels_training_set_pokemon, ys_labels_training_set_pokemon, \
+        ys_classes_training_set_pokemon, ys_labels_training_set_pokemon, \
         xs_features_validation_set_pokemon, xs_masks_validation_set_pokemon, \
-        ys_labels_validation_set_pokemon, ys_labels_validation_set_pokemon, \
+        ys_classes_validation_set_pokemon, ys_labels_validation_set_pokemon, \
         xs_features_testing_set_pokemon, xs_masks_testing_set_pokemon, \
-        ys_labels_testing_set_pokemon, ys_labels_testing_set_pokemon = \
+        ys_classes_testing_set_pokemon, ys_labels_testing_set_pokemon = \
         retrieve_datasets_from_pokemon_data()
 
     # Create the Images' Data Generator for Pre-Processing with Data Augmentation,
