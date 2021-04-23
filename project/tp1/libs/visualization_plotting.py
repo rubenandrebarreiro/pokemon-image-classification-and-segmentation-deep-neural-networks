@@ -91,7 +91,7 @@ def plot_training_and_validation_losses_multi_classes_and_labels_problem(
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
     py_plot.title('Losses of the Model for a feed-forward Convolution Neural Network (C.N.N.)\n'
                   'for the Pokemon Images/Data Classification, for the Multi-Class Problem\n'
-                  'with {} Optimiser'.format(optimiser_id))
+                  'with %s Optimiser' % optimiser_id)
 
     # Set the X-Axis of the final Plot for the Loss Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -121,8 +121,8 @@ def plot_training_and_validation_losses_multi_classes_and_labels_problem(
     # Save the final Plot for the Loss Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-    py_plot.savefig('./files/images/plots/multi-classes-classification/loss/'
-                    'loss-values-plot-{}-optimiser-{}.png'.format(optimiser_id.lower(), now_date_time_format))
+    py_plot.savefig(('files\\images\\plots\\multi-classes-classification\\loss\\'
+                    'loss-values-plot-%s-optimiser-%s.png' % (optimiser_id.lower(), now_date_time_format)))
 
     # If it is supposed to show the final Plot for the Loss Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -182,8 +182,8 @@ def plot_training_and_validation_accuracies_multi_classes_and_labels_problem(
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
     py_plot.title('Accuracies of the Model for a feed-forward Convolution Neural Network (C.N.N.)\n'
-                  'for the Pokemon Images/Data Classification, for the Multi-Class Problem\n'
-                  'with {} Optimiser'.format(optimiser_id))
+                  'for the Pokemon Images\\Data Classification, for the Multi-Class Problem\n'
+                  'with %s Optimiser' % optimiser_id)
 
     # Set the X-Axis of the final Plot for the Accuracy Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -213,8 +213,8 @@ def plot_training_and_validation_accuracies_multi_classes_and_labels_problem(
     # Save the final Plot for the Accuracy Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-    py_plot.savefig('./files/images/plots/multi-classes-classification/accuracy/'
-                    'accuracy-values-plot-{}-optimiser-{}.png'.format(optimiser_id.lower(), now_date_time_format))
+    py_plot.savefig('files\\images\\plots\\multi-classes-classification\\accuracy\\accuracy-values-plot-%s-optimiser-%s.png'
+                    % (optimiser_id.lower(), now_date_time_format))
 
     # If it is supposed to show the final Plot for the Loss Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -264,9 +264,9 @@ def plot_subset_metric_multi_classes_and_labels_all_optimisers(
     # the Metric Values for the given Subset,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-    py_plot.title('Comparison of the {} {} of the Model for a feed-forward\nConvolution Neural Network (C.N.N.) '
+    py_plot.title('Comparison of the %s %s of the Model for a feed-forward\nConvolution Neural Network (C.N.N.) '
                   'for the Pokemon Images/Data Classification,\n for the Multi-Class Problem '
-                  'with all Optimisers'.format(subset, metric))
+                  'with all Optimisers' % (subset, metric))
 
     # Set the X-Axis of the final Plot for the Metric Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -296,9 +296,9 @@ def plot_subset_metric_multi_classes_and_labels_all_optimisers(
     # Save the final Plot for the Loss Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-    py_plot.savefig('./files/images/plots/multi-classes-classification/comparison-optimisers/'
-                    '{}-{}-values-plot-all-optimisers-{}.png'
-                    .format(subset.lower(), metric.lower(), now_date_time_format))
+    py_plot.savefig('files\\images\\plots\\multi-classes-classification\\comparison-optimisers\\'
+                    '%s-%s-values-plot-all-optimisers-%s.png'
+                    % (subset.lower(), metric.lower(), now_date_time_format))
 
     # If it is supposed to show the final Plot for the Loss Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),

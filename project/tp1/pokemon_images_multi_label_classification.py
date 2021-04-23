@@ -240,6 +240,10 @@ from project.tp1.libs.visualization_plotting import \
 from project.tp1.libs.visualization_plotting import \
     plot_subset_metric_multi_classes_and_labels_all_optimisers
 
+#rjr
+from project.tp1.models.model0 import \
+    model_0_keras_sequential_api_for_image_classification
+
 
 # Function to create the need Early Stopping Callbacks for
 # the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -256,7 +260,7 @@ def create_early_stopping_callbacks():
             verbose=1,
             mode='min',
             baseline=0.08,
-            restore_best_weights=True
+            restore_best_weights=False
         )
 
     # Create the Callback for Early Stopping, related to
@@ -269,7 +273,7 @@ def create_early_stopping_callbacks():
             verbose=1,
             mode='min',
             baseline=0.96,
-            restore_best_weights=True
+            restore_best_weights=False
         )
 
     # Create the Callback for Early Stopping, related to
@@ -282,7 +286,7 @@ def create_early_stopping_callbacks():
             verbose=1,
             mode='min',
             baseline=0.08,
-            restore_best_weights=True
+            restore_best_weights=False
         )
 
     # Create the Callback for Early Stopping, related to
@@ -295,7 +299,7 @@ def create_early_stopping_callbacks():
             verbose=1,
             mode='min',
             baseline=0.96,
-            restore_best_weights=True
+            restore_best_weights=False
         )
 
     # Return need Early Stopping Callbacks for
@@ -579,7 +583,7 @@ def create_optimiser(optimiser_id):
 
         # Initialise the ADAptive Moment estimation (ADA.M.) Optimiser,
         # with the Learning Rate of 0.5%
-        optimiser = Adam(learning_rate=INITIAL_LEARNING_RATES[2], decay=0.1)
+        optimiser = Adam(learning_rate=INITIAL_LEARNING_RATES[2])
 
     # It is being used the ADAptive GRADient algorithm (ADA.GRAD.) Optimiser
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[3]:
@@ -754,7 +758,8 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers():
         # Create a Model for a feed-forward Convolution Neural Network (C.N.N.),
         # for the Pokemons' Data, in Image Classification
         cnn_model_in_keras_sequential_api_for_image_classification_multi_labels_classification = \
-            create_cnn_model_in_keras_sequential_api_for_image_classification(AVAILABLE_OPTIMISERS_LIST[num_optimiser])
+            model_0_keras_sequential_api_for_image_classification(AVAILABLE_OPTIMISERS_LIST[num_optimiser])
+        # rjr    create_cnn_model_in_keras_sequential_api_for_image_classification(AVAILABLE_OPTIMISERS_LIST[num_optimiser])
 
         # Compile the Model for the feed-forward Convolution Neural Network (C.N.N.),
         # with the given Binary Cross Entropy Loss/Error Function and
