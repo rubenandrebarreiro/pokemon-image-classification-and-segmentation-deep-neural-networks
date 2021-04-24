@@ -68,13 +68,6 @@ from project.tp1.libs.parameters_and_arguments import AVAILABLE_OPTIMISERS_LIST
 # from the Parameters and Arguments Python's Custom Module
 from project.tp1.libs.parameters_and_arguments import NUM_CLASSES_POKEMON_TYPES
 
-KERNEL_HEIGHT = KERNEL_HEIGHT
-KERNEL_WIDTH = KERNEL_WIDTH
-POOLING_HEIGHT = POOLING_HEIGHT
-POOLING_WIDTH = POOLING_WIDTH
-STRIDE_HEIGHT = STRIDE_HEIGHT
-STRIDE_WIDTH = STRIDE_WIDTH
-NUM_UNITS_LAST_DENSE_LAYER = NUM_UNITS_LAST_DENSE_LAYER
 
 # Function to create a Model for a feed-forward Convolution Neural Network (C.N.N.),
 # for the Pokemons' Data, in Image Classification
