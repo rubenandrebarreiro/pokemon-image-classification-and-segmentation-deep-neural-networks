@@ -151,7 +151,8 @@ NUM_CLASSES_POKEMON_TYPES = len(loadtxt('./dataset/pokemon_types.txt', dtype='st
 
 # The Models available to use for the
 # feed-forward Convolution Neural Network (C.N.N.)
-AVAILABLE_MODELS_LIST = ['MODEL0', 'MODEL1']
+# rjr AVAILABLE_MODELS_LIST = ['MODEL0', 'MODEL1']
+AVAILABLE_MODELS_LIST = ['MODEL0']
 
 # The Number of Optimisers available to use for the the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
