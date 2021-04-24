@@ -541,7 +541,9 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
         .add(Dense(NUM_UNITS_LAST_DENSE_LAYER))
 
     # It is being used the ADAptive GRADient algorithm (ADA.GRAD.) Optimiser
-    if optimiser_id == AVAILABLE_OPTIMISERS_LIST[3]:
+    if ((optimiser_id == AVAILABLE_OPTIMISERS_LIST[0]) or
+            (optimiser_id == AVAILABLE_OPTIMISERS_LIST[3]) or
+            (optimiser_id == AVAILABLE_OPTIMISERS_LIST[4])):
 
         # Add a Dropout Layer of 50%, for the Regularization of Hyper-Parameters,
         # for the features of the Data/Images of the Pokemons resulted from
@@ -1076,7 +1078,7 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers():
             # of the predictions made by the current Optimiser on the Testing Set
             print(' - %s: [ train_loss = %.12f ; train_binary_acc = %.12f |'
                   ' val_loss = %.12f ; val_binary_acc = %.12f |'
-                  ' test_loss = %.12f ; test_binary_acc = %.12f ]\n\n'
+                  ' test_loss = %.12f ; test_binary_acc = %.12f ]'
                   % (AVAILABLE_OPTIMISERS_LIST[num_optimiser],
                      optimisers_training_loss_means[num_optimiser],
                      optimisers_training_accuracy_means[num_optimiser],
@@ -1084,3 +1086,6 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers():
                      optimisers_validation_accuracy_means[num_optimiser],
                      optimisers_true_testing_loss_means[num_optimiser],
                      optimisers_true_testing_accuracy_means[num_optimiser]))
+
+    # Print two break lines, for a better presentation of the output
+    print('\n\n')
