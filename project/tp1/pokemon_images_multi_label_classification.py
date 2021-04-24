@@ -1074,9 +1074,9 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers():
 
             # Print the respective Means (Averages) for the Losses and Accuracies
             # of the predictions made by the current Optimiser on the Testing Set
-            print(' - %s: [ train_loss = %.12f ; train_acc = %.12f |'
-                  ' val_loss = %.12f ; val_acc = %.12f |'
-                  ' test_loss = %.12f ; test_acc = %.12f ]'
+            print(' - %s: [ train_loss = %.12f ; train_binary_acc = %.12f |'
+                  ' val_loss = %.12f ; val_binary_acc = %.12f |'
+                  ' test_loss = %.12f ; test_binary_acc = %.12f ]'
                   % (AVAILABLE_OPTIMISERS_LIST[num_optimiser],
                      optimisers_training_loss_means[num_optimiser],
                      optimisers_training_accuracy_means[num_optimiser],
