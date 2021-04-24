@@ -1013,7 +1013,7 @@ def execute_model_of_multi_class_classification_for_all_available_optimisers():
         # of the predictions made by the current Optimiser on the Testing Set
         print(' - %s: [ train_loss = %.12f ; train_acc = %.12f |'
               ' val_loss = %.12f ; val_acc = %.12f |'
-              ' test_loss = %.12f ; test_acc = %.12f ]'
+              ' test_loss = %.12f ; test_acc = %.12f ]\n\n'
               % (AVAILABLE_OPTIMISERS_LIST[num_optimiser],
                  optimisers_training_loss_means[num_optimiser],
                  optimisers_training_accuracy_means[num_optimiser],
