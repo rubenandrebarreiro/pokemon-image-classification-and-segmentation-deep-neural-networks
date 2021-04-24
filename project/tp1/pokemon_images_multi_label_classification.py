@@ -124,6 +124,23 @@ from project.tp1.libs.parameters_and_arguments import NUM_EXAMPLES_FINAL_TRAININ
 # from the Parameters and Arguments Python's Custom Module
 from project.tp1.libs.parameters_and_arguments import NUM_EXAMPLES_FINAL_VALIDATION_SET
 
+###
+# Import the Number of Filters for the Model of
+# the feed-forward Convolution Neural Network (C.N.N.)
+# from the Parameters and Arguments Python's Custom Module
+from project.tp1.libs.parameters_and_arguments import IMAGES_HEIGHT
+
+# Import the Number of Filters for the Model of
+# the feed-forward Convolution Neural Network (C.N.N.)
+# from the Parameters and Arguments Python's Custom Module
+from project.tp1.libs.parameters_and_arguments import IMAGES_WIDTH
+
+# Import the Number of Filters for the Model of
+# the feed-forward Convolution Neural Network (C.N.N.)
+# from the Parameters and Arguments Python's Custom Module
+from project.tp1.libs.parameters_and_arguments import NUM_CHANNELS_RGB
+###
+
 # Import the Number of Filters for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
 # from the Parameters and Arguments Python's Custom Module
@@ -240,7 +257,7 @@ from project.tp1.libs.visualization_plotting import \
 from project.tp1.libs.visualization_plotting import \
     plot_subset_metric_multi_classes_and_labels_all_optimisers
 
-#rjr
+# rjr
 from project.tp1.models.model0 import \
     model_0_keras_sequential_api_for_image_classification
 from project.tp1.models.model1 import \
@@ -323,7 +340,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # which is most appropriate for this type of problem (i.e., Image Classification),
     # using the Tensorflow Keras' Sequential API
     convolution_neural_network_tensorflow_keras_sequential_model = \
-        Sequential(name='pokemon-images-multi-labels-classification')
+        Sequential(name='pokemon-images-multi-label-classification')
 
     # --- 1st Block of Layers for the Model for
     # the feed-forward Convolution Neural Network (C.N.N.) ---
@@ -492,7 +509,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
 
     # --- 5th Block of Layers for the Model for
     # the feed-forward Convolution Neural Network (C.N.N.),
-    # for the Softmax Classifier, for the Multi-Label Problem ---
+    # for the Softmax Classifier, for the Multi-Class Problem ---
 
     # Add a Flatten Layer to the features of the Data/Images of
     # the Pokemons resulted from the previous Layer of
@@ -521,7 +538,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # the Model of the feed-forward Convolution Neural Network (C.N.N.),
     # for a total of 512 Units (Weights and Biases)
     convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(Dense(NUM_UNITS_LAST_DENSE_LAYER, kernel_initializer='he_uniform'))
+        .add(Dense(NUM_UNITS_LAST_DENSE_LAYER))
 
     # It is being used the ADAptive GRADient algorithm (ADA.GRAD.) Optimiser
     if optimiser_id == AVAILABLE_OPTIMISERS_LIST[3]:
@@ -549,12 +566,12 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # Add a Sigmoid as Activation Function Layer,
     # for the features of the Data/Images of the Pokemons resulted from
     # the previous Layer of the Model of the feed-forward
-    # Convolution Neural Network (C.N.N.), for the Multi-Label Classifier
+    # Convolution Neural Network (C.N.N.), for the Multi-Class Classifier
     convolution_neural_network_tensorflow_keras_sequential_model \
         .add(Activation('sigmoid'))
 
     # Return the Model for a feed-forward Convolution Neural Network (C.N.N.),
-    # for the Pokemons' Data, in Image Classification, for the Multi-Label Problem
+    # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
     return convolution_neural_network_tensorflow_keras_sequential_model
 
 
@@ -574,7 +591,7 @@ def create_optimiser(optimiser_id):
         # Initialise the Stochastic Gradient Descent (S.G.D.) Optimiser,
         # with the Learning Rate of 0.5% and Momentum of 90%
         optimiser = SGD(learning_rate=INITIAL_LEARNING_RATES[0],
-                        momentum=MOMENTUM_1,
+                        momentum=MOMENTUM_1, decay=(INITIAL_LEARNING_RATES[0] / NUM_EPOCHS),
                         nesterov=True)
 
     # It is being used the Root Mean Squared Prop (R.M.S. PROP) Optimiser
@@ -617,6 +634,7 @@ def create_optimiser(optimiser_id):
     # for the Pokemons' Data, in Image Classification
     return optimiser
 
+
 # rjr
 # Function to create the Model to be used for
 # the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -638,6 +656,7 @@ def create_model(model_id, num_optimiser):
     # the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification
     return model
+
 
 # Function to execute the Model of Multi-Label Classification for all the Available Optimisers
 def execute_model_of_multi_label_classification_for_all_available_optimisers():
@@ -788,8 +807,13 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers():
             # Create a Model for a feed-forward Convolution Neural Network (C.N.N.),
             # for the Pokemons' Data, in Image Classification
             cnn_model_in_keras_sequential_api_for_image_classification_multi_labels_classification = \
-                create_model(AVAILABLE_MODELS_LIST[num_model],num_optimiser)
-            # rjr    create_cnn_model_in_keras_sequential_api_for_image_classification(AVAILABLE_OPTIMISERS_LIST[num_optimiser])
+                create_cnn_model_in_keras_sequential_api_for_image_classification(
+                    AVAILABLE_OPTIMISERS_LIST[num_optimiser]
+                )
+
+            # rjr   create_model(AVAILABLE_MODELS_LIST[num_model], num_optimiser)
+            # rjr   create_cnn_model_in_keras_sequential_api_for_image_classification(
+            #           AVAILABLE_OPTIMISERS_LIST[num_optimiser])
 
             # Compile the Model for the feed-forward Convolution Neural Network (C.N.N.),
             # with the given Binary Cross Entropy Loss/Error Function and
@@ -797,7 +821,7 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers():
             cnn_model_in_keras_sequential_api_for_image_classification_multi_labels_classification \
                 .compile(loss='binary_crossentropy',
                          optimizer=current_optimiser,
-                         metrics=['accuracy'])
+                         metrics=['binary_accuracy'])
 
             # Print the Log for the Fitting/Training of
             # the Model for the feed-forward Convolution Neural Network (C.N.N.)
@@ -840,7 +864,7 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers():
             # for the Pokemons' Data, in Image Classification, for the Multi-Labels Problem
             plot_training_and_validation_losses_multi_classes_and_labels_problem(
                 cnn_model_in_keras_sequential_api_for_image_classification_training_history,
-                AVAILABLE_OPTIMISERS_LIST[num_optimiser], now_date_time
+                AVAILABLE_OPTIMISERS_LIST[num_optimiser], now_date_time, "Multi-Label"
             )
 
             # Plot the Training's and Validation's Accuracies,
@@ -848,7 +872,7 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers():
             # for the Pokemons' Data, in Image Classification, for the Multi-Labels Problem
             plot_training_and_validation_accuracies_multi_classes_and_labels_problem(
                 cnn_model_in_keras_sequential_api_for_image_classification_training_history,
-                AVAILABLE_OPTIMISERS_LIST[num_optimiser], now_date_time
+                AVAILABLE_OPTIMISERS_LIST[num_optimiser], now_date_time, "Multi-Label"
             )
 
             # Retrieve the History of the Training Losses for the current Optimiser
@@ -865,7 +889,7 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers():
 
             # Retrieve the History of the Training Accuracies for the current Optimiser
             optimiser_training_accuracy_history = \
-                cnn_model_in_keras_sequential_api_for_image_classification_training_history.history['accuracy']
+                cnn_model_in_keras_sequential_api_for_image_classification_training_history.history['binary_accuracy']
 
             # Retrieve the Number of Epochs History of the Training Accuracies for the current Optimiser
             num_epochs_optimiser_training_accuracy_history = len(optimiser_training_accuracy_history)
@@ -877,7 +901,8 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers():
 
             # Retrieve the History of the Validation Losses for the current Optimiser
             optimiser_validation_loss_history = \
-                cnn_model_in_keras_sequential_api_for_image_classification_training_history.history['val_loss']
+                cnn_model_in_keras_sequential_api_for_image_classification_training_history\
+                .history['val_loss']
 
             # Retrieve the Number of Epochs History of the Validation Losses for the current Optimiser
             num_epochs_optimiser_validation_loss_history = len(optimiser_validation_loss_history)
@@ -889,7 +914,8 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers():
 
             # Retrieve the History of the Validation Accuracies for the current Optimiser
             optimiser_validation_accuracy_history = \
-                cnn_model_in_keras_sequential_api_for_image_classification_training_history.history['val_accuracy']
+                cnn_model_in_keras_sequential_api_for_image_classification_training_history\
+                .history['val_binary_accuracy']
 
             # Retrieve the Number of Epochs History of the Validation Accuracies for the current Optimiser
             num_epochs_optimiser_validation_accuracy_history = len(optimiser_validation_accuracy_history)
@@ -908,7 +934,8 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers():
             # the Model for the feed-forward Convolution Neural Network (C.N.N.)
             cnn_model_in_keras_sequential_api_for_image_classification_multi_labels_classification \
                 .save_weights('%s/pokemon-image-classification-training-history-multi-labels-%s-optimiser-%s-weights.h5'
-                              % (root_weights_directory, AVAILABLE_OPTIMISERS_LIST[num_optimiser].lower(), now_date_time))
+                              % (root_weights_directory, AVAILABLE_OPTIMISERS_LIST[num_optimiser].lower(),
+                                 now_date_time))
 
             # Convert the Model for the feed-forward Convolution Neural Network (C.N.N.) to a JSON Object
             cnn_model_json_object = \
@@ -1020,19 +1047,23 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers():
 
         # Plot the Training Loss Values for all the Optimisers
         plot_subset_metric_multi_classes_and_labels_all_optimisers(optimisers_training_loss_history,
-                                                                   'Training', 'Loss', now_date_time)
+                                                                   'Training', 'Loss', now_date_time,
+                                                                   'Multi-Label')
 
         # Plot the Training Accuracy Values for all the Optimisers
         plot_subset_metric_multi_classes_and_labels_all_optimisers(optimisers_training_accuracy_history,
-                                                                   'Training', 'Accuracy', now_date_time)
+                                                                   'Training', 'Accuracy', now_date_time,
+                                                                   'Multi-Label')
 
         # Plot the Validation Loss Values for all the Optimisers
         plot_subset_metric_multi_classes_and_labels_all_optimisers(optimisers_validation_loss_history,
-                                                                   'Validation', 'Loss', now_date_time)
+                                                                   'Validation', 'Loss', now_date_time,
+                                                                   'Multi-Label')
 
         # Plot the Validation Accuracy Values for all the Optimisers
         plot_subset_metric_multi_classes_and_labels_all_optimisers(optimisers_validation_accuracy_history,
-                                                                   'Validation', 'Accuracy', now_date_time)
+                                                                   'Validation', 'Accuracy', now_date_time,
+                                                                   'Multi-Label')
 
         # Print the Heading Information about the Losses and Accuracies on the Testing Set
         print('------  Final Results for the Losses and Accuracies on '
