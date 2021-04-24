@@ -53,7 +53,7 @@ from project.tp1.libs.parameters_and_arguments import OPTIMISERS_COLORS_MATPLOTL
 # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
 def plot_training_and_validation_losses_multi_classes_and_labels_problem(
         cnn_model_in_keras_sequential_api_training_history, optimiser_id, now_date_time_format,
-        plotting_style='seaborn-dark', is_to_show=False):
+        problem, plotting_style='seaborn-dark', is_to_show=False):
 
     # Retrieve the Loss Values, from the Fitting/Training of
     # the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -90,8 +90,8 @@ def plot_training_and_validation_losses_multi_classes_and_labels_problem(
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
     py_plot.title('Losses of the Model for a feed-forward Convolution Neural Network (C.N.N.)\n'
-                  'for the Pokemon Images/Data Classification, for the Multi-Class Problem\n'
-                  'with %s Optimiser' % optimiser_id)
+                  'for the Pokemon Images/Data Classification, for the %s Problem\n'
+                  'with %s Optimiser' % (problem, optimiser_id))
 
     # Set the X-Axis of the final Plot for the Loss Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -121,8 +121,9 @@ def plot_training_and_validation_losses_multi_classes_and_labels_problem(
     # Save the final Plot for the Loss Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-    py_plot.savefig(('files\\images\\plots\\multi-classes-classification\\loss\\'
-                    'loss-values-plot-%s-optimiser-%s.png' % (optimiser_id.lower(), now_date_time_format)))
+    py_plot.savefig(('files\\images\\plots\\%s-classification\\loss\\'
+                    'loss-values-plot-%s-optimiser-%s.png' % (problem.lower(), optimiser_id.lower(),
+                                                              now_date_time_format)))
 
     # If it is supposed to show the final Plot for the Loss Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -145,21 +146,47 @@ def plot_training_and_validation_losses_multi_classes_and_labels_problem(
 # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
 def plot_training_and_validation_accuracies_multi_classes_and_labels_problem(
         cnn_model_in_keras_sequential_api_training_history, optimiser_id, now_date_time_format,
-        plotting_style='seaborn-dark', is_to_show=False):
+        problem, plotting_style='seaborn-dark', is_to_show=False):
 
-    # Retrieve the Accuracy Values, from the Fitting/Training of
-    # the Model for a feed-forward Convolution Neural Network (C.N.N.),
-    # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem,
-    # regarding the Training Set
-    training_accuracy_values = \
-        cnn_model_in_keras_sequential_api_training_history.history['accuracy']
+    # Initialise the Accuracies' Values, for the Training Set
+    training_accuracy_values = None
 
-    # Retrieve the Accuracy Values, from the Fitting/Training of
-    # the Model for a feed-forward Convolution Neural Network (C.N.N.),
-    # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem,
-    # regarding the Validation Set
-    validation_accuracy_values = \
-        cnn_model_in_keras_sequential_api_training_history.history['val_accuracy']
+    # Initialise the Accuracies' Values, for the Validation Set
+    validation_accuracy_values = None
+
+    # If it is Multi-Class Classification Problem
+    if problem == 'Multi-Class':
+
+        # Retrieve the Accuracy Values, from the Fitting/Training of
+        # the Model for a feed-forward Convolution Neural Network (C.N.N.),
+        # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem,
+        # regarding the Training Set
+        training_accuracy_values = \
+            cnn_model_in_keras_sequential_api_training_history.history['accuracy']
+
+        # Retrieve the Accuracy Values, from the Fitting/Training of
+        # the Model for a feed-forward Convolution Neural Network (C.N.N.),
+        # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem,
+        # regarding the Validation Set
+        validation_accuracy_values = \
+            cnn_model_in_keras_sequential_api_training_history.history['val_accuracy']
+
+    # If it is Multi-Label Classification Problem
+    elif problem == 'Multi-Label':
+
+        # Retrieve the Accuracy Values, from the Fitting/Training of
+        # the Model for a feed-forward Convolution Neural Network (C.N.N.),
+        # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem,
+        # regarding the Training Set
+        training_accuracy_values = \
+            cnn_model_in_keras_sequential_api_training_history.history['binary_accuracy']
+
+        # Retrieve the Accuracy Values, from the Fitting/Training of
+        # the Model for a feed-forward Convolution Neural Network (C.N.N.),
+        # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem,
+        # regarding the Validation Set
+        validation_accuracy_values = \
+            cnn_model_in_keras_sequential_api_training_history.history['val_binary_accuracy']
 
     # Set the Style of the Plots, as 'Seaborn Dark' Style, by default
     py_plot.style.use(plotting_style)
@@ -182,8 +209,8 @@ def plot_training_and_validation_accuracies_multi_classes_and_labels_problem(
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
     py_plot.title('Accuracies of the Model for a feed-forward Convolution Neural Network (C.N.N.)\n'
-                  'for the Pokemon Images\\Data Classification, for the Multi-Class Problem\n'
-                  'with %s Optimiser' % optimiser_id)
+                  'for the Pokemon Images\\Data Classification, for the %s Problem\n'
+                  'with %s Optimiser' % (problem, optimiser_id))
 
     # Set the X-Axis of the final Plot for the Accuracy Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -213,8 +240,9 @@ def plot_training_and_validation_accuracies_multi_classes_and_labels_problem(
     # Save the final Plot for the Accuracy Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-    py_plot.savefig('files\\images\\plots\\multi-classes-classification\\accuracy\\accuracy-values-plot-%s-optimiser-%s.png'
-                    % (optimiser_id.lower(), now_date_time_format))
+    py_plot.savefig('files\\images\\plots\\%s-classification\\accuracy\\'
+                    'accuracy-values-plot-%s-optimiser-%s.png'
+                    % (problem.lower(), optimiser_id.lower(), now_date_time_format))
 
     # If it is supposed to show the final Plot for the Loss Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -236,7 +264,7 @@ def plot_training_and_validation_accuracies_multi_classes_and_labels_problem(
 # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
 def plot_subset_metric_multi_classes_and_labels_all_optimisers(
         cnn_model_in_keras_sequential_api_optimisers_metric_history, subset, metric,
-        now_date_time_format, plotting_style='seaborn-dark', is_to_show=False):
+        now_date_time_format, problem, plotting_style='seaborn-dark', is_to_show=False):
 
     # Set the Style of the Plots, as 'Seaborn Dark' Style, by default
     py_plot.style.use(plotting_style)
@@ -265,8 +293,8 @@ def plot_subset_metric_multi_classes_and_labels_all_optimisers(
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
     py_plot.title('Comparison of the %s %s of the Model for a feed-forward\nConvolution Neural Network (C.N.N.) '
-                  'for the Pokemon Images/Data Classification,\n for the Multi-Class Problem '
-                  'with all Optimisers' % (subset, metric))
+                  'for the Pokemon Images/Data Classification,\n for the %s Problem '
+                  'with all Optimisers' % (subset, metric, problem))
 
     # Set the X-Axis of the final Plot for the Metric Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -296,9 +324,9 @@ def plot_subset_metric_multi_classes_and_labels_all_optimisers(
     # Save the final Plot for the Loss Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-    py_plot.savefig('files\\images\\plots\\multi-classes-classification\\comparison-optimisers\\'
+    py_plot.savefig('files\\images\\plots\\%s-classification\\comparison-optimisers\\'
                     '%s-%s-values-plot-all-optimisers-%s.png'
-                    % (subset.lower(), metric.lower(), now_date_time_format))
+                    % (problem.lower(), subset.lower(), metric.lower(), now_date_time_format))
 
     # If it is supposed to show the final Plot for the Loss Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
