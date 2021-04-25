@@ -325,9 +325,18 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # Convolution Neural Network (C.N.N.), using 32 Filters of a Kernel 3x3,
     # Same Padding and an Input Shape of (64 x 64 pixels), as also,
     # 3 Input Dimensions (for each Color Channel - RGB Color)
-    convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(Conv2D(NUM_FILTERS_PER_BLOCK[0], (KERNEL_HEIGHT, KERNEL_WIDTH),
-                    padding='same'))
+    # It is being used the ADAptive GRADient algorithm (ADA.GRAD.) Optimiser
+    if (optimiser_id == AVAILABLE_OPTIMISERS_LIST[1]) or (optimiser_id == AVAILABLE_OPTIMISERS_LIST[2]):
+
+        convolution_neural_network_tensorflow_keras_sequential_model \
+            .add(Conv2D(NUM_FILTERS_PER_BLOCK[0], (KERNEL_HEIGHT, KERNEL_WIDTH),
+                        padding='same', kernel_initializer='he_uniform'))
+
+    else:
+
+        convolution_neural_network_tensorflow_keras_sequential_model \
+            .add(Conv2D(NUM_FILTERS_PER_BLOCK[0], (KERNEL_HEIGHT, KERNEL_WIDTH),
+                        padding='same'))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
     # for the features of the Data/Images of the Pokemons resulted from
@@ -351,9 +360,17 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # the Pokemons' Dataset given to the Model of the feed-forward
     # Convolution Neural Network (C.N.N.), resulted from the previous layer,
     # using 64 Filters of a Kernel 3x3 and Same Padding
-    convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(Conv2D(NUM_FILTERS_PER_BLOCK[1], (KERNEL_HEIGHT, KERNEL_WIDTH),
-                    padding='same'))
+    if (optimiser_id == AVAILABLE_OPTIMISERS_LIST[1]) or (optimiser_id == AVAILABLE_OPTIMISERS_LIST[2]):
+
+        convolution_neural_network_tensorflow_keras_sequential_model \
+            .add(Conv2D(NUM_FILTERS_PER_BLOCK[1], (KERNEL_HEIGHT, KERNEL_WIDTH),
+                        padding='same', kernel_initializer='he_uniform'))
+
+    else:
+
+        convolution_neural_network_tensorflow_keras_sequential_model \
+            .add(Conv2D(NUM_FILTERS_PER_BLOCK[1], (KERNEL_HEIGHT, KERNEL_WIDTH),
+                        padding='same'))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
     # for the features of the Data/Images of the Pokemons resulted from
@@ -366,9 +383,17 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # the Pokemons' Dataset given to the Model of the feed-forward
     # Convolution Neural Network (C.N.N.), resulted from the previous layer,
     # using 64 Filters of a Kernel 3x3 and Same Padding
-    convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(Conv2D(NUM_FILTERS_PER_BLOCK[1], (STRIDE_HEIGHT, STRIDE_WIDTH),
-                    padding='same'))
+    if (optimiser_id == AVAILABLE_OPTIMISERS_LIST[1]) or (optimiser_id == AVAILABLE_OPTIMISERS_LIST[2]):
+
+        convolution_neural_network_tensorflow_keras_sequential_model \
+            .add(Conv2D(NUM_FILTERS_PER_BLOCK[1], (KERNEL_HEIGHT, KERNEL_WIDTH),
+                        padding='same', kernel_initializer='he_uniform'))
+
+    else:
+
+        convolution_neural_network_tensorflow_keras_sequential_model \
+            .add(Conv2D(NUM_FILTERS_PER_BLOCK[1], (KERNEL_HEIGHT, KERNEL_WIDTH),
+                        padding='same'))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
     # for the features of the Data/Images of the Pokemons resulted from
@@ -392,9 +417,17 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # the Pokemons' Dataset given to the Model of the feed-forward
     # Convolution Neural Network (C.N.N.), resulted from the previous layer,
     # using 128 Filters of a Kernel 3x3 and Same Padding
-    convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(Conv2D(NUM_FILTERS_PER_BLOCK[2], (KERNEL_HEIGHT, KERNEL_WIDTH),
-                    padding='same'))
+    if (optimiser_id == AVAILABLE_OPTIMISERS_LIST[1]) or (optimiser_id == AVAILABLE_OPTIMISERS_LIST[2]):
+
+        convolution_neural_network_tensorflow_keras_sequential_model \
+            .add(Conv2D(NUM_FILTERS_PER_BLOCK[2], (KERNEL_HEIGHT, KERNEL_WIDTH),
+                        padding='same', kernel_initializer='he_uniform'))
+
+    else:
+
+        convolution_neural_network_tensorflow_keras_sequential_model \
+            .add(Conv2D(NUM_FILTERS_PER_BLOCK[2], (KERNEL_HEIGHT, KERNEL_WIDTH),
+                        padding='same'))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
     # for the features of the Data/Images of the Pokemons resulted from
@@ -407,8 +440,17 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # the Pokemons' Dataset given to the Model of the feed-forward
     # Convolution Neural Network (C.N.N.), resulted from the previous layer,
     # using 128 Filters of a Kernel 3x3 and Same Padding
-    convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(Conv2D(NUM_FILTERS_PER_BLOCK[2], (KERNEL_HEIGHT, KERNEL_WIDTH), padding='same'))
+    if (optimiser_id == AVAILABLE_OPTIMISERS_LIST[1]) or (optimiser_id == AVAILABLE_OPTIMISERS_LIST[2]):
+
+        convolution_neural_network_tensorflow_keras_sequential_model \
+            .add(Conv2D(NUM_FILTERS_PER_BLOCK[2], (KERNEL_HEIGHT, KERNEL_WIDTH),
+                        padding='same', kernel_initializer='he_uniform'))
+
+    else:
+
+        convolution_neural_network_tensorflow_keras_sequential_model \
+            .add(Conv2D(NUM_FILTERS_PER_BLOCK[2], (KERNEL_HEIGHT, KERNEL_WIDTH),
+                        padding='same'))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
     # for the features of the Data/Images of the Pokemons resulted from
@@ -432,9 +474,17 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # the Pokemons' Dataset given to the Model of the feed-forward
     # Convolution Neural Network (C.N.N.), resulted from the previous layer,
     # using 128 Filters of a Kernel 3x3 and Same Padding
-    convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(Conv2D(NUM_FILTERS_PER_BLOCK[3], (KERNEL_HEIGHT, KERNEL_WIDTH),
-                    padding='same'))
+    if (optimiser_id == AVAILABLE_OPTIMISERS_LIST[1]) or (optimiser_id == AVAILABLE_OPTIMISERS_LIST[2]):
+
+        convolution_neural_network_tensorflow_keras_sequential_model \
+            .add(Conv2D(NUM_FILTERS_PER_BLOCK[3], (KERNEL_HEIGHT, KERNEL_WIDTH),
+                        padding='same', kernel_initializer='he_uniform'))
+
+    else:
+
+        convolution_neural_network_tensorflow_keras_sequential_model \
+            .add(Conv2D(NUM_FILTERS_PER_BLOCK[3], (KERNEL_HEIGHT, KERNEL_WIDTH),
+                        padding='same'))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
     # for the features of the Data/Images of the Pokemons resulted from
@@ -447,9 +497,17 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # the Pokemons' Dataset given to the Model of the feed-forward
     # Convolution Neural Network (C.N.N.), resulted from the previous layer,
     # using 128 Filters of a Kernel 3x3 and Same Padding
-    convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(Conv2D(NUM_FILTERS_PER_BLOCK[3], (KERNEL_HEIGHT, KERNEL_WIDTH),
-                    padding='same'))
+    if (optimiser_id == AVAILABLE_OPTIMISERS_LIST[1]) or (optimiser_id == AVAILABLE_OPTIMISERS_LIST[2]):
+
+        convolution_neural_network_tensorflow_keras_sequential_model \
+            .add(Conv2D(NUM_FILTERS_PER_BLOCK[3], (KERNEL_HEIGHT, KERNEL_WIDTH),
+                        padding='same', kernel_initializer='he_uniform'))
+
+    else:
+
+        convolution_neural_network_tensorflow_keras_sequential_model \
+            .add(Conv2D(NUM_FILTERS_PER_BLOCK[3], (KERNEL_HEIGHT, KERNEL_WIDTH),
+                        padding='same'))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
     # for the features of the Data/Images of the Pokemons resulted from
@@ -462,9 +520,17 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # the Pokemons' Dataset given to the Model of the feed-forward
     # Convolution Neural Network (C.N.N.), resulted from the previous layer,
     # using 128 Filters of a Kernel 3x3 and Same Padding
-    convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(Conv2D(NUM_FILTERS_PER_BLOCK[3], (KERNEL_HEIGHT, KERNEL_WIDTH),
-                    padding='same'))
+    if (optimiser_id == AVAILABLE_OPTIMISERS_LIST[1]) or (optimiser_id == AVAILABLE_OPTIMISERS_LIST[2]):
+
+        convolution_neural_network_tensorflow_keras_sequential_model \
+            .add(Conv2D(NUM_FILTERS_PER_BLOCK[3], (KERNEL_HEIGHT, KERNEL_WIDTH),
+                        padding='same', kernel_initializer='he_uniform'))
+
+    else:
+
+        convolution_neural_network_tensorflow_keras_sequential_model \
+            .add(Conv2D(NUM_FILTERS_PER_BLOCK[3], (KERNEL_HEIGHT, KERNEL_WIDTH),
+                        padding='same'))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
     # for the features of the Data/Images of the Pokemons resulted from
@@ -515,7 +581,8 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
         .add(Dense(NUM_UNITS_LAST_DENSE_LAYER))
 
     # It is being used the ADAptive GRADient algorithm (ADA.GRAD.) Optimiser
-    if optimiser_id == AVAILABLE_OPTIMISERS_LIST[3]:
+    if ((optimiser_id == AVAILABLE_OPTIMISERS_LIST[0]) or
+            (optimiser_id == AVAILABLE_OPTIMISERS_LIST[4])):
 
         # Add a Dropout Layer of 50%, for the Regularization of Hyper-Parameters,
         # for the features of the Data/Images of the Pokemons resulted from
@@ -579,7 +646,8 @@ def create_optimiser(optimiser_id):
 
         # Initialise the ADAptive Moment estimation (ADA.M.) Optimiser,
         # with the Learning Rate of 0.5%
-        optimiser = Adam(learning_rate=INITIAL_LEARNING_RATES[2], decay=0.1)
+        optimiser = Adam(learning_rate=INITIAL_LEARNING_RATES[2],
+                         decay=(INITIAL_LEARNING_RATES[0] / NUM_EPOCHS))
 
     # It is being used the ADAptive GRADient algorithm (ADA.GRAD.) Optimiser
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[3]:
