@@ -44,7 +44,7 @@ from pokemon_images_multi_label_classification import \
 
 
 # Execute the Model of Multi-Class Classification for all the Available Optimisers
-#execute_model_of_multi_class_classification_for_all_available_optimisers()
+execute_model_of_multi_class_classification_for_all_available_optimisers()
 
 # Execute the Model of Multi-Label Classification for all the Available Optimisers
 execute_model_of_multi_label_classification_for_all_available_optimisers()
