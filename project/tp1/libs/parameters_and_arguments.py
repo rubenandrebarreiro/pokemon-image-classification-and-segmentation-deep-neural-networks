@@ -81,20 +81,36 @@ NUM_CHANNELS_GRAY_SCALE = 1
 NUM_FILTERS_PER_BLOCK = [32, 64, 128, 256]
 
 # The Height of the Kernel of the Filters used for the Model of
-# the feed-forward Convolution Neural Network (C.N.N.)
-KERNEL_HEIGHT = 3
+# the feed-forward Convolution Neural Network (C.N.N.), for RGB Colors
+KERNEL_RGB_HEIGHT = 3
 
 # The Width of the Kernel of the Filters used for the Model of
-# the feed-forward Convolution Neural Network (C.N.N.)
-KERNEL_WIDTH = 3
+# the feed-forward Convolution Neural Network (C.N.N.), for RGB Colors
+KERNEL_RGB_WIDTH = 3
 
-# The Height of the Pooling Matrix used for the Model of
-# the feed-forward Convolution Neural Network (C.N.N.)
-POOLING_HEIGHT = 2
+# The Height of the Kernel of the Filters used for the Model of
+# the feed-forward Convolution Neural Network (C.N.N.), for Gray Scale Colors
+KERNEL_GRAY_SCALE_HEIGHT = 3
 
-# The Width of the Pooling Matrix used for the Model of
+# The Width of the Kernel of the Filters used for the Model of
+# the feed-forward Convolution Neural Network (C.N.N.), for Gray Scale Colors
+KERNEL_GRAY_SCALE_WIDTH = 3
+
+# The Height of the Pooling Matrix #1 used for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
-POOLING_WIDTH = 2
+POOLING_HEIGHT_1 = 2
+
+# The Width of the Pooling Matrix #1 used for the Model of
+# the feed-forward Convolution Neural Network (C.N.N.)
+POOLING_WIDTH_1 = 2
+
+# The Height of the Pooling Matrix #2 used for the Model of
+# the feed-forward Convolution Neural Network (C.N.N.)
+POOLING_HEIGHT_2 = 3
+
+# The Width of the Pooling Matrix #2 used for the Model of
+# the feed-forward Convolution Neural Network (C.N.N.)
+POOLING_WIDTH_2 = 3
 
 # The Height of the Stride used on
 # the Pooling Matrices used for the Model of
@@ -105,6 +121,16 @@ STRIDE_HEIGHT = 2
 # the Pooling Matrices used for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
 STRIDE_WIDTH = 2
+
+# The Height of the Tuple of Sampling used on
+# the Pooling Matrices used for the Model of
+# the feed-forward Convolution Neural Network (C.N.N.)
+TUPLE_SAMPLING_HEIGHT = 2
+
+# The Width of the Tuple of Sampling used on
+# the Pooling Matrices used for the Model of
+# the feed-forward Convolution Neural Network (C.N.N.)
+TUPLE_SAMPLING_WIDTH = 2
 
 # The Number of Units of the last Dens Layer for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
