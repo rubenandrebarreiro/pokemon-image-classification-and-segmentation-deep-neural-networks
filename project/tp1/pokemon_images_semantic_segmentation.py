@@ -30,12 +30,6 @@ import os as operative_system
 # Disable all the Debugging Logs from TensorFlow Library
 operative_system.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-from tensorflow.keras.layers import Input
-
-from tensorflow.keras.layers import BatchNormalization
-
-from tensorflow.keras.layers import add
-
 # Import Mean (Average) Function from the NumPy Python's Library
 from numpy import mean
 
@@ -48,30 +42,18 @@ import tensorflow as tensorflow
 # Import the Backend Module from the TensorFlow.Python.Keras Python's Module
 from tensorflow.python.keras import backend as keras_backend
 
-# Import the Sequential from the TensorFlow.Keras.Models Python's Module
+from tensorflow.keras import Input
 from tensorflow.keras import Model as FunctionalModel
 
-# Import the Convolution 2D Layer
-# from the TensorFlow.Keras.Layers Python's Module
 from tensorflow.keras.layers import Conv2D
-
-# Import the Separable Convolution 2D Layer
-# from the TensorFlow.Keras.Layers Python's Module
-from tensorflow.keras.layers import SeparableConv2D
-
-# Import the Convolution 2D Transpose Layer
-# from the TensorFlow.Keras.Layers Python's Module
-from tensorflow.keras.layers import Conv2DTranspose
-
-# Import the Up Sampling 2D Layer
-# from the TensorFlow.Keras.Layers Python's Module
-from tensorflow.keras.layers import UpSampling2D
-
-# Import the Activation Layer from the TensorFlow.Keras.Layers Python's Module
+from tensorflow.keras.layers import BatchNormalization
 from tensorflow.keras.layers import Activation
-
-# Import the Max Pooling 2D Layer from the TensorFlow.Keras.Layers Python's Module
+from tensorflow.keras.layers import SeparableConv2D
 from tensorflow.keras.layers import MaxPooling2D
+from tensorflow.keras.layers import Conv2DTranspose
+from tensorflow.keras.layers import UpSampling2D
+from tensorflow.keras.layers import add
+
 
 # Import the Stochastic Gradient Descent (S.G.D.) Optimiser
 # from the TensorFlow.Keras.Optimisers Python's Module
@@ -347,23 +329,25 @@ def create_cnn_model_in_keras_functional_api_for_semantic_segmentation():
     # Convolution Neural Network (C.N.N.), using 32 Filters of a Kernel 3x3,
     # Same Padding and an Input Shape of (64 x 64 pixels), as also,
     # 3 Input Dimensions (for each Color Channel - RGB Color)
-    xs_layer = Conv2D(NUM_FILTERS_PER_BLOCK[0], (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
-                      strides=(STRIDE_HEIGHT, STRIDE_WIDTH), padding='same')(xs_inputs_layer)
+    xs_features_layer = Conv2D(NUM_FILTERS_PER_BLOCK[0],
+                               kernel_size=(KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
+                               strides=(STRIDE_HEIGHT, STRIDE_WIDTH),
+                               padding='same')(xs_inputs_layer)
 
     # Add a Batch Normalization Layer,
     # for the features of the Data/Images of the Pokemons resulted from
     # the previous Layer of the Model of the feed-forward
     # Convolution Neural Network (C.N.N.)
-    xs_layer = BatchNormalization()(xs_layer)
+    xs_features_layer = BatchNormalization()(xs_features_layer)
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
     # for the features of the Data/Images of the Pokemons resulted from
     # the previous Layer of the Model of the feed-forward
     # Convolution Neural Network (C.N.N.)
-    xs_layer = Activation('relu')(xs_layer)
+    xs_features_layer = Activation('relu')(xs_features_layer)
 
     # Keep the current Layer, for the next projected Residual Layer
-    previous_block_activation_for_residual_projection = xs_layer
+    previous_block_activation_for_residual_projection = xs_features_layer
 
     # For each Block of Layers for the Model for
     # the feed-forward Convolution Neural Network (C.N.N.)
@@ -376,67 +360,72 @@ def create_cnn_model_in_keras_functional_api_for_semantic_segmentation():
         # for the features of the Data/Images of the Pokemons resulted from
         # the previous Layer of the Model of the feed-forward
         # Convolution Neural Network (C.N.N.)
-        xs_layer = Activation('relu')(xs_layer)
+        xs_features_layer = Activation('relu')(xs_features_layer)
 
         # Add a 1st Separable Convolution 2D Layer,
         # for the previous features of the Data/Images of
         # the Pokemons' Dataset given to the Model of the feed-forward
         # Convolution Neural Network (C.N.N.), resulted from the previous layer,
         # using 64 Filters of a Kernel 3x3 and Same Padding
-        xs_layer = SeparableConv2D(NUM_FILTERS_PER_BLOCK[current_block_id],
-                                   (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
-                                   padding='same')(xs_layer)
+        xs_features_layer = SeparableConv2D(NUM_FILTERS_PER_BLOCK[current_block_id],
+                                            kernel_size=(KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
+                                            kernel_initializer='random_uniform',
+                                            padding='same')(xs_features_layer)
 
         # Add a Batch Normalization Layer,
         # for the features of the Data/Images of the Pokemons resulted from
         # the previous Layer of the Model of the feed-forward
         # Convolution Neural Network (C.N.N.)
-        xs_layer = BatchNormalization()(xs_layer)
+        xs_features_layer = BatchNormalization()(xs_features_layer)
 
         # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
         # for the features of the Data/Images of the Pokemons resulted from
         # the previous Layer of the Model of the feed-forward
         # Convolution Neural Network (C.N.N.)
-        xs_layer = Activation('relu')(xs_layer)
+        xs_features_layer = Activation('relu')(xs_features_layer)
 
         # Add a 2nd Separable Convolution 2D Layer,
         # for the previous features of the Data/Images of
         # the Pokemons' Dataset given to the Model of the feed-forward
         # Convolution Neural Network (C.N.N.), resulted from the previous layer,
         # using 64 Filters of a Kernel 3x3 and Same Padding
-        xs_layer = SeparableConv2D(NUM_FILTERS_PER_BLOCK[current_block_id],
-                                   (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
-                                   padding='same')(xs_layer)
+        xs_features_layer = SeparableConv2D(NUM_FILTERS_PER_BLOCK[current_block_id],
+                                            kernel_size=(KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
+                                            kernel_initializer='random_uniform',
+                                            padding='same')(xs_features_layer)
 
         # Add a Batch Normalization Layer,
         # for the features of the Data/Images of the Pokemons resulted from
         # the previous Layer of the Model of the feed-forward
         # Convolution Neural Network (C.N.N.)
-        xs_layer = BatchNormalization()(xs_layer)
+        xs_features_layer = BatchNormalization()(xs_features_layer)
 
         # Add a Maximum Pooling 2D Sample-Based Discretization Process Layer,
         # for the features of the Data/Images of the Pokemons resulted from
         # the previous layer of the Model of the feed-forward Convolution Neural Network (C.N.N.),
         # with a 2x2 Pooling Size and 2x2 Stride Size
-        xs_layer = MaxPooling2D(pool_size=(POOLING_HEIGHT_2, POOLING_WIDTH_2),
-                                strides=(STRIDE_HEIGHT, STRIDE_WIDTH),
-                                padding='same')(xs_layer)
+        xs_features_layer = MaxPooling2D((POOLING_HEIGHT_2, POOLING_WIDTH_2),
+                                         strides=(STRIDE_HEIGHT, STRIDE_WIDTH),
+                                         padding='same')(xs_features_layer)
 
         # Project the Residual Layer, in Gray Scale Colors, through a Convolution 2D Layer,
         # on the Model of the feed-forward Convolution Neural Network (C.N.N.)
-        residual_xs_layer_projected = Conv2D(NUM_FILTERS_PER_BLOCK[current_block_id],
-                                             (KERNEL_GRAY_SCALE_HEIGHT, KERNEL_GRAY_SCALE_WIDTH),
-                                             strides=(STRIDE_HEIGHT, STRIDE_WIDTH), padding='same')(
-            previous_block_activation_for_residual_projection
-        )
+        residual_xs_features_layer_projected = \
+            Conv2D(
+                NUM_FILTERS_PER_BLOCK[current_block_id],
+                kernel_size=(KERNEL_GRAY_SCALE_HEIGHT, KERNEL_GRAY_SCALE_WIDTH),
+                kernel_initializer='random_uniform', strides=(STRIDE_HEIGHT, STRIDE_WIDTH),
+                padding='same')(
+                    previous_block_activation_for_residual_projection
+                )
 
         # Add back the projected Residual Layer, in Gray Scale Colors,
         # to the features of the Data/Images of the Pokemons resulted from
         # the previous layer of the Model of the feed-forward Convolution Neural Network (C.N.N.),
-        xs_layer = add([xs_layer, residual_xs_layer_projected])
+        xs_features_layer = add([xs_features_layer, residual_xs_features_layer_projected])
 
         # Keep the current Layer, for the next projected Residual Layer
-        previous_block_activation_for_residual_projection = xs_layer
+        previous_block_activation_for_residual_projection = xs_features_layer
 
     # For each reversed Block of Layers for the Model for
     # the feed-forward Convolution Neural Network (C.N.N.)
@@ -449,90 +438,92 @@ def create_cnn_model_in_keras_functional_api_for_semantic_segmentation():
         # for the features of the Data/Images of the Pokemons resulted from
         # the previous Layer of the Model of the feed-forward
         # Convolution Neural Network (C.N.N.)
-        xs_layer = Activation('relu')(xs_layer)
+        xs_features_layer = Activation('relu')(xs_features_layer)
 
         # Add a 1st Convolution Transpose 2D Layer,
         # for the previous features of the Data/Images of
         # the Pokemons' Dataset given to the Model of the feed-forward
         # Convolution Neural Network (C.N.N.), resulted from the previous layer,
         # using 64 Filters of a Kernel 3x3 and Same Padding
-        xs_layer = Conv2DTranspose(NUM_FILTERS_PER_BLOCK[(3 - current_reversed_block_id)],
-                                   (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
-                                   padding='same')(xs_layer)
+        xs_features_layer = Conv2DTranspose(NUM_FILTERS_PER_BLOCK[(3 - current_reversed_block_id)],
+                                            kernel_size=(KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
+                                            kernel_initializer='random_uniform',
+                                            padding='same')(xs_features_layer)
 
         # Add a Batch Normalization Layer,
         # for the features of the Data/Images of the Pokemons resulted from
         # the previous Layer of the Model of the feed-forward
         # Convolution Neural Network (C.N.N.)
-        xs_layer = BatchNormalization()(xs_layer)
+        xs_features_layer = BatchNormalization()(xs_features_layer)
 
         # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
         # for the features of the Data/Images of the Pokemons resulted from
         # the previous Layer of the Model of the feed-forward
         # Convolution Neural Network (C.N.N.)
-        xs_layer = Activation('relu')(xs_layer)
+        xs_features_layer = Activation('relu')(xs_features_layer)
 
         # Add a 2nd Convolution Transpose 2D Layer,
         # for the previous features of the Data/Images of
         # the Pokemons' Dataset given to the Model of the feed-forward
         # Convolution Neural Network (C.N.N.), resulted from the previous layer,
         # using 64 Filters of a Kernel 3x3 and Same Padding
-        xs_layer = Conv2DTranspose(NUM_FILTERS_PER_BLOCK[(3 - current_reversed_block_id)],
-                                   (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
-                                   padding='same')(xs_layer)
+        xs_features_layer = Conv2DTranspose(NUM_FILTERS_PER_BLOCK[(3 - current_reversed_block_id)],
+                                            kernel_size=(KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
+                                            kernel_initializer='random_uniform',
+                                            padding='same')(xs_features_layer)
 
         # Add a Batch Normalization Layer,
         # for the features of the Data/Images of the Pokemons resulted from
         # the previous Layer of the Model of the feed-forward
         # Convolution Neural Network (C.N.N.)
-        xs_layer = BatchNormalization()(xs_layer)
+        xs_features_layer = BatchNormalization()(xs_features_layer)
 
         # Add an Up Sampling 2D Layer,
         # for the features of the Data/Images of the Pokemons resulted from
         # the previous Layer of the Model of the feed-forward
         # Convolution Neural Network (C.N.N.)
-        xs_layer = \
-            UpSampling2D((TUPLE_SAMPLING_HEIGHT, TUPLE_SAMPLING_WIDTH))(xs_layer)
+        xs_features_layer = \
+            UpSampling2D(size=(TUPLE_SAMPLING_HEIGHT, TUPLE_SAMPLING_WIDTH))(xs_features_layer)
 
         # Project the Residual Layer, through an Up Sampling 2D Layer,
         # on the Model of the feed-forward Convolution Neural Network (C.N.N.)
-        residual_xs_layer_projected = \
-            UpSampling2D((TUPLE_SAMPLING_HEIGHT, TUPLE_SAMPLING_WIDTH))(
+        residual_xs_features_layer_projected = \
+            UpSampling2D(size=(TUPLE_SAMPLING_HEIGHT, TUPLE_SAMPLING_WIDTH))(
                 previous_block_activation_for_residual_projection
             )
 
         # Project the Residual Layer, in Gray Scale Colors,
         # through a Convolutional 2D Layer,
         # on the Model of the feed-forward Convolution Neural Network (C.N.N.)
-        residual_xs_layer_projected = \
+        residual_xs_features_layer_projected = \
             Conv2D(NUM_FILTERS_PER_BLOCK[(3 - current_reversed_block_id)],
-                   (KERNEL_GRAY_SCALE_HEIGHT, KERNEL_GRAY_SCALE_WIDTH),
-                   padding='same')(
-                residual_xs_layer_projected
-            )
+                   kernel_size=(KERNEL_GRAY_SCALE_HEIGHT, KERNEL_GRAY_SCALE_WIDTH),
+                   kernel_initializer='random_uniform',
+                   padding="same")(residual_xs_features_layer_projected)
 
         # Add back the projected Residual Layer, in Gray Scale Colors,
         # to the features of the Data/Images of the Pokemons resulted from
         # the previous layer of the Model of the feed-forward Convolution Neural Network (C.N.N.),
-        xs_layer = add([xs_layer, residual_xs_layer_projected])
+        xs_features_layer = add([xs_features_layer, residual_xs_features_layer_projected])
 
-        # Keep the current Layer, for the next projected Residual Layer
-        previous_block_activation_for_residual_projection = xs_layer
+        # Keep the current Layer, for the previous Block Activation projected as a Residual Layer
+        previous_block_activation_for_residual_projection = xs_features_layer
 
     # Add a last Convolution 2D Layer,
     # for the previous features of the Data/Images of
     # the Pokemons' Dataset given to the Model of the feed-forward
     # Convolution Neural Network (C.N.N.), resulted from the previous layer,
     # using 64 Filters of a Kernel 3x3 and Same Padding
-    ys_outputs_layer = Conv2D(NUM_CLASSES_POKEMON_TYPES,
-                              (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
-                              padding='same')(xs_layer)
+    xs_features_layer = Conv2D(NUM_CLASSES_POKEMON_TYPES,
+                               kernel_size=(KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
+                               kernel_initializer='random_uniform',
+                               padding='same')(xs_features_layer)
 
     # Add the last Softmax as Activation Function Layer,
     # for the features of the Data/Images of the Pokemons resulted from
     # the previous Layer of the Model of the feed-forward
     # Convolution Neural Network (C.N.N.)
-    ys_outputs_layer = Activation('softmax')(ys_outputs_layer)
+    ys_outputs_layer = Activation('softmax')(xs_features_layer)
 
     # Create a Model for a feed-forward Convolution Neural Network (C.N.N.),
     # which is most appropriate for this type of problem (i.e., Semantic Segmentation),
