@@ -275,6 +275,18 @@ from project.tp1.libs.visualization_plotting import \
 from project.tp1.libs.visualization_plotting import \
     plot_subset_metric_all_optimisers
 
+# Import the Auxiliary Function to
+# Compare the True Testing Masks with the Predicted Masks,
+# for the Project, from the TP1_Utils' Python's Module,
+# with the compare_true_and_predicted_masks alias
+from project.tp1.tp1_utils import compare_masks as compare_true_and_predicted_masks
+
+# Import the Auxiliary Function to
+# Overlay the True Testing Masks with the Predicted Masks,
+# for the Project, from the TP1_Utils' Python's Module,
+# with the overlay_true_and_predicted_masks alias
+from project.tp1.tp1_utils import overlay_masks as overlay_true_and_predicted_masks
+
 
 # Function to create the need Early Stopping Callbacks for
 # the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -961,6 +973,22 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
         true_testing_accuracy = \
             sparse_categorical_accuracy(ys_masks_testing_set_pokemon,
                                         ys_masks_testing_set_pokemon_predicted)
+
+        # Create the Image to Compare the True and Predicted Masks, in Image Masking/Semantic Segmentation
+        compare_true_and_predicted_masks(
+            ('files\\images\\figures\\testing\\predictions\\masks-comparison\\'
+             'pokemon-semantic-segmentation-masks-comparison-testing-true-and-prediction-%s-optimiser-%s.png'
+             % (AVAILABLE_OPTIMISERS_LIST[num_optimiser].lower(), now_date_time)),
+            ys_masks_testing_set_pokemon, ys_masks_testing_set_pokemon_predicted
+        )
+
+        # Create the Image to Overlay the True and Predicted Masks, in Image Masking/Semantic Segmentation
+        overlay_true_and_predicted_masks(
+            ('files\\images\\figures\\testing\\predictions\\masks-overlay\\'
+             'pokemon-semantic-segmentation-masks-overlay-testing-true-and-prediction-%s-optimiser-%s.png'
+             % (AVAILABLE_OPTIMISERS_LIST[num_optimiser].lower(), now_date_time)),
+            ys_masks_testing_set_pokemon, ys_masks_testing_set_pokemon_predicted
+        )
 
         # Just print a blank line, for a better and clearer presentation of the results
         print('\n')
