@@ -1033,32 +1033,32 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
         print('\n--------- END OF EXECUTION FOR THE %s OPTIMISER ---------\n\n'
               % (AVAILABLE_OPTIMISERS_LIST[num_optimiser]))
 
-        # Retrieve the current DateTime, as custom format
-        now_date_time = date_time.utcnow().strftime('%Y%m%d%H%M%S')
+    # Retrieve the current DateTime, as custom format
+    now_date_time = date_time.utcnow().strftime('%Y%m%d%H%M%S')
 
-        # Plot the Training Loss Values for all the Optimisers
-        plot_subset_metric_all_optimisers(optimisers_training_loss_history,
-                                          'Training', 'Loss', now_date_time,
-                                          'Semantic-Segmentation')
+    # Plot the Training Loss Values for all the Optimisers
+    plot_subset_metric_all_optimisers(optimisers_training_loss_history,
+                                      'Training', 'Loss', now_date_time,
+                                      'Semantic-Segmentation')
 
-        # Plot the Training Accuracy Values for all the Optimisers
-        plot_subset_metric_all_optimisers(optimisers_training_accuracy_history,
-                                          'Training', 'Accuracy', now_date_time,
-                                          'Semantic-Segmentation')
+    # Plot the Training Accuracy Values for all the Optimisers
+    plot_subset_metric_all_optimisers(optimisers_training_accuracy_history,
+                                      'Training', 'Accuracy', now_date_time,
+                                      'Semantic-Segmentation')
 
-        # Plot the Validation Loss Values for all the Optimisers
-        plot_subset_metric_all_optimisers(optimisers_validation_loss_history,
-                                          'Validation', 'Loss', now_date_time,
-                                          'Semantic-Segmentation')
+    # Plot the Validation Loss Values for all the Optimisers
+    plot_subset_metric_all_optimisers(optimisers_validation_loss_history,
+                                      'Validation', 'Loss', now_date_time,
+                                      'Semantic-Segmentation')
 
-        # Plot the Validation Accuracy Values for all the Optimisers
-        plot_subset_metric_all_optimisers(optimisers_validation_accuracy_history,
-                                          'Validation', 'Accuracy', now_date_time,
-                                          'Semantic-Segmentation')
+    # Plot the Validation Accuracy Values for all the Optimisers
+    plot_subset_metric_all_optimisers(optimisers_validation_accuracy_history,
+                                      'Validation', 'Accuracy', now_date_time,
+                                      'Semantic-Segmentation')
 
-        # Print the Heading Information about the Losses and Accuracies on the Testing Set
-        print('------  Final Results for the Losses and Accuracies on '
-              'the Testing Set,\nregarding the several Optimisers available ------\n')
+    # Print the Heading Information about the Losses and Accuracies on the Testing Set
+    print('------  Final Results for the Losses and Accuracies on '
+          'the Testing Set,\nregarding the several Optimisers available ------\n')
 
     # For each Optimiser available
     for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):

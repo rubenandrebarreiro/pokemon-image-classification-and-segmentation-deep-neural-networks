@@ -1068,23 +1068,23 @@ def execute_model_of_multi_class_classification_for_all_available_optimisers():
 
     # Plot the Training Loss Values for all the Optimisers
     plot_subset_metric_all_optimisers(optimisers_training_loss_history,
-                                                               'Training', 'Loss', now_date_time,
-                                                               'Multi-Class')
+                                      'Training', 'Loss', now_date_time,
+                                      'Multi-Class')
 
     # Plot the Training Accuracy Values for all the Optimisers
     plot_subset_metric_all_optimisers(optimisers_training_accuracy_history,
-                                                               'Training', 'Accuracy', now_date_time,
-                                                               'Multi-Class')
+                                      'Training', 'Accuracy', now_date_time,
+                                      'Multi-Class')
 
     # Plot the Validation Loss Values for all the Optimisers
     plot_subset_metric_all_optimisers(optimisers_validation_loss_history,
-                                                               'Validation', 'Loss', now_date_time,
-                                                               'Multi-Class')
+                                      'Validation', 'Loss', now_date_time,
+                                      'Multi-Class')
 
     # Plot the Validation Accuracy Values for all the Optimisers
     plot_subset_metric_all_optimisers(optimisers_validation_accuracy_history,
-                                                               'Validation', 'Accuracy', now_date_time,
-                                                               'Multi-Class')
+                                      'Validation', 'Accuracy', now_date_time,
+                                      'Multi-Class')
 
     # Print the Heading Information about the Losses and Accuracies on the Testing Set
     print('------  Final Results for the Losses and Accuracies on '
