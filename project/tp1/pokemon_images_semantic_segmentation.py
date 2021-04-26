@@ -3,7 +3,7 @@
 """
 
 Deep Learning - Assignment #1:
-- Pokemon Image Classification and Segmentation with Deep Neural Networks
+- Pokemon Image Classification and Semantic Segmentation with Deep Neural Networks
 
 Integrated Master of Computer Science and Engineering
 
@@ -307,7 +307,7 @@ def create_early_stopping_callbacks():
 
     # Return need Early Stopping Callbacks for
     # the Model for a feed-forward Convolution Neural Network (C.N.N.),
-    # for the Pokemons' Data, in Image Classification
+    # for the Pokemons' Data, in Semantic Segmentation
     return training_loss_early_stopping_callback, \
         training_accuracy_early_stopping_callback, \
         validation_loss_early_stopping_callback, \
@@ -593,7 +593,7 @@ def create_optimiser(optimiser_id):
 
     # Return the Optimiser to be used for
     # the Model for a feed-forward Convolution Neural Network (C.N.N.),
-    # for the Pokemons' Data, in Image Classification
+    # for the Pokemons' Data, in Semantic Segmentation
     return optimiser
 
 
@@ -755,7 +755,7 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
 
         # Set the specific Log Directory,
         # # according to the current executing Optimiser and the current Date and Time (timestamp)
-        logs_directory = '%s\\model-multi-classes-%s-optimiser-%s\\' \
+        logs_directory = '%s\\model-semantic-segmentation-%s-optimiser-%s\\' \
                          % (root_logs_directory, AVAILABLE_OPTIMISERS_LIST[num_optimiser].lower(), now_date_time)
 
         # Set the Root Directory for the Weights of the TensorBoard and TensorFlow
@@ -775,7 +775,7 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
 
         # Create the Optimiser to be used for
         # the Model for a feed-forward Convolution Neural Network (C.N.N.),
-        # for the Pokemons' Data, in Image Classification
+        # for the Pokemons' Data, in Semantic Segmentation
         current_optimiser = create_optimiser(AVAILABLE_OPTIMISERS_LIST[num_optimiser])
 
         # Create a Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -901,27 +901,27 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
             # Write the JSON Object
             json_file.write(cnn_model_json_object)
 
-        # Predict the Probabilities of Classes for the Testing Set,
+        # Predict the Masks for the Testing Set,
         # using the Model for the feed-forward Convolution Neural Network (C.N.N.),
         # fitted/trained previously with the Training and Validation Sets
-        ys_classes_testing_set_pokemon_predicted = \
+        ys_masks_testing_set_pokemon_predicted = \
             cnn_model_in_keras_sequential_api_for_semantic_segmentation_masking \
             .predict(x=xs_features_testing_set_pokemon,
                      batch_size=BATCH_SIZE, verbose=1)
 
-        # Retrieve the Categorical Cross-Entropy for the Classes' Predictions on the Testing Set,
+        # Retrieve the Categorical Cross-Entropy for the Masks' Predictions on the Testing Set,
         # using the Model for the feed-forward Convolution Neural Network (C.N.N.),
         # fitted/trained previously with the Training and Validation Sets
         true_testing_loss = \
-            sparse_categorical_crossentropy(ys_classes_testing_set_pokemon,
-                                            ys_classes_testing_set_pokemon_predicted)
+            sparse_categorical_crossentropy(xs_masks_testing_set_pokemon,
+                                            ys_masks_testing_set_pokemon_predicted)
 
-        # Retrieve the Categorical Accuracy for the Classes' Predictions on the Testing Set,
+        # Retrieve the Categorical Accuracy for the Masks' Predictions on the Testing Set,
         # using the Model for the feed-forward Convolution Neural Network (C.N.N.),
         # fitted/trained previously with the Training and Validation Sets
         true_testing_accuracy = \
-            sparse_categorical_accuracy(ys_classes_testing_set_pokemon,
-                                        ys_classes_testing_set_pokemon_predicted)
+            sparse_categorical_accuracy(xs_masks_testing_set_pokemon,
+                                        ys_masks_testing_set_pokemon_predicted)
 
         # Just print a blank line, for a better and clearer presentation of the results
         print('\n')
@@ -993,3 +993,25 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
         # Print the final information line
         print('\n--------- END OF EXECUTION FOR THE %s OPTIMISER ---------\n\n'
               % (AVAILABLE_OPTIMISERS_LIST[num_optimiser]))
+
+        # Print the Heading Information about the Losses and Accuracies on the Testing Set
+        print('------  Final Results for the Losses and Accuracies on '
+              'the Testing Set,\nregarding the several Optimisers available ------\n')
+
+    # For each Optimiser available
+    for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
+        # Print the respective Means (Averages) for the Losses and Accuracies
+        # of the predictions made by the current Optimiser on the Testing Set
+        print(' - %s: [ train_loss = %.12f ; train_binary_acc = %.12f |'
+              ' val_loss = %.12f ; val_binary_acc = %.12f |'
+              ' test_loss = %.12f ; test_binary_acc = %.12f ]'
+              % (AVAILABLE_OPTIMISERS_LIST[num_optimiser],
+                 optimisers_training_loss_means[num_optimiser],
+                 optimisers_training_accuracy_means[num_optimiser],
+                 optimisers_validation_loss_means[num_optimiser],
+                 optimisers_validation_accuracy_means[num_optimiser],
+                 optimisers_true_testing_loss_means[num_optimiser],
+                 optimisers_true_testing_accuracy_means[num_optimiser]))
+
+    # Print two break lines, for a better presentation of the output
+    print('\n\n')
