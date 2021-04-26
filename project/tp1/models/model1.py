@@ -25,22 +25,22 @@ from tensorflow.keras.layers import Dropout
 # Import the Height of the Kernel of the Filters used for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
 # from the Parameters and Arguments Python's Custom Module
-from project.tp1.libs.parameters_and_arguments import KERNEL_HEIGHT
+from project.tp1.libs.parameters_and_arguments import KERNEL_RGB_HEIGHT
 
 # Import the Width of the Kernel of the Filters used for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
 # from the Parameters and Arguments Python's Custom Module
-from project.tp1.libs.parameters_and_arguments import KERNEL_WIDTH
+from project.tp1.libs.parameters_and_arguments import KERNEL_RGB_WIDTH
 
 # Import the Height of the Pooling Matrix used for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
 # from the Parameters and Arguments Python's Custom Module
-from project.tp1.libs.parameters_and_arguments import POOLING_HEIGHT
+from project.tp1.libs.parameters_and_arguments import POOLING_HEIGHT_1
 
 # Import the Width of the Pooling Matrix used for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
 # from the Parameters and Arguments Python's Custom Module
-from project.tp1.libs.parameters_and_arguments import POOLING_WIDTH
+from project.tp1.libs.parameters_and_arguments import POOLING_WIDTH_1
 
 # Import the Height of the Stride used on
 # the Pooling Matrices used for the Model of
@@ -88,7 +88,7 @@ def model_1_keras_sequential_api_for_image_classification(optimiser_id):
     # Same Padding and an Input Shape of (64 x 64 pixels), as also,
     # 3 Input Dimensions (for each Color Channel - RGB Color)
     convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(Conv2D(32, (KERNEL_HEIGHT, KERNEL_WIDTH),
+        .add(Conv2D(32, (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
                     padding='same'))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
@@ -103,7 +103,7 @@ def model_1_keras_sequential_api_for_image_classification(optimiser_id):
     # the previous layer of the Model of the feed-forward Convolution Neural Network (C.N.N.),
     # with a 2x2 Pooling Size and 2x2 Stride Size
     convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(MaxPooling2D(pool_size=(POOLING_HEIGHT, POOLING_WIDTH),
+        .add(MaxPooling2D(pool_size=(POOLING_HEIGHT_1, POOLING_WIDTH_1),
                           strides=(STRIDE_HEIGHT, STRIDE_WIDTH)))
 
     # --- 2nd Block of Layers for the Model for
@@ -114,7 +114,7 @@ def model_1_keras_sequential_api_for_image_classification(optimiser_id):
     # Convolution Neural Network (C.N.N.), resulted from the previous layer,
     # using 64 Filters of a Kernel 3x3 and Same Padding
     convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(Conv2D(64, (KERNEL_HEIGHT, KERNEL_WIDTH),
+        .add(Conv2D(64, (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
                     padding='same'))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
@@ -144,7 +144,7 @@ def model_1_keras_sequential_api_for_image_classification(optimiser_id):
     # the previous layer of the Model of the feed-forward Convolution Neural Network (C.N.N.),
     # with a 2x2 Pooling Size and 2x2 Stride Size
     convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(MaxPooling2D(pool_size=(POOLING_HEIGHT, POOLING_WIDTH),
+        .add(MaxPooling2D(pool_size=(POOLING_HEIGHT_1, POOLING_WIDTH_1),
                           strides=(STRIDE_HEIGHT, STRIDE_WIDTH)))
 
     # --- 3rd Block of Layers for the Model for
@@ -155,7 +155,7 @@ def model_1_keras_sequential_api_for_image_classification(optimiser_id):
     # Convolution Neural Network (C.N.N.), resulted from the previous layer,
     # using 128 Filters of a Kernel 3x3 and Same Padding
     convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(Conv2D(128, (KERNEL_HEIGHT, KERNEL_WIDTH),
+        .add(Conv2D(128, (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
                     padding='same'))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
@@ -170,7 +170,7 @@ def model_1_keras_sequential_api_for_image_classification(optimiser_id):
     # Convolution Neural Network (C.N.N.), resulted from the previous layer,
     # using 128 Filters of a Kernel 3x3 and Same Padding
     convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(Conv2D(128, (KERNEL_HEIGHT, KERNEL_WIDTH), padding='same'))
+        .add(Conv2D(128, (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH), padding='same'))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
     # for the features of the Data/Images of the Pokemons resulted from
@@ -184,7 +184,7 @@ def model_1_keras_sequential_api_for_image_classification(optimiser_id):
     # the previous layer of the Model of the feed-forward Convolution Neural Network (C.N.N.),
     # with a 2x2 Pooling Size and 2x2 Stride Size
     convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(MaxPooling2D(pool_size=(POOLING_HEIGHT, POOLING_WIDTH),
+        .add(MaxPooling2D(pool_size=(POOLING_HEIGHT_1, POOLING_WIDTH_1),
                           strides=(STRIDE_HEIGHT, STRIDE_WIDTH)))
 
     # --- 4th Block of Layers for the Model for
@@ -195,7 +195,7 @@ def model_1_keras_sequential_api_for_image_classification(optimiser_id):
     # Convolution Neural Network (C.N.N.), resulted from the previous layer,
     # using 128 Filters of a Kernel 3x3 and Same Padding
     convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(Conv2D(256, (KERNEL_HEIGHT, KERNEL_WIDTH),
+        .add(Conv2D(256, (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
                     padding='same'))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
@@ -210,7 +210,7 @@ def model_1_keras_sequential_api_for_image_classification(optimiser_id):
     # Convolution Neural Network (C.N.N.), resulted from the previous layer,
     # using 128 Filters of a Kernel 3x3 and Same Padding
     convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(Conv2D(256, (KERNEL_HEIGHT, KERNEL_WIDTH),
+        .add(Conv2D(256, (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
                     padding='same'))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
@@ -225,7 +225,7 @@ def model_1_keras_sequential_api_for_image_classification(optimiser_id):
     # Convolution Neural Network (C.N.N.), resulted from the previous layer,
     # using 128 Filters of a Kernel 3x3 and Same Padding
     convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(Conv2D(256, (KERNEL_HEIGHT, KERNEL_WIDTH),
+        .add(Conv2D(256, (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
                     padding='same'))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
@@ -240,7 +240,7 @@ def model_1_keras_sequential_api_for_image_classification(optimiser_id):
     # the previous layer of the Model of the feed-forward Convolution Neural Network (C.N.N.),
     # with a 2x2 Pooling Size and 2x2 Stride Size
     convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(MaxPooling2D(pool_size=(POOLING_HEIGHT, POOLING_WIDTH),
+        .add(MaxPooling2D(pool_size=(POOLING_HEIGHT_1, POOLING_WIDTH_1),
                           strides=(STRIDE_HEIGHT, STRIDE_WIDTH)))
 
     # --- 5th Block of Layers for the Model for

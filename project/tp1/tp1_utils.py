@@ -24,7 +24,8 @@ Module provided by the Instructor(s) with Auxiliary Functions for the Project
 
 # Import Python's Modules, Libraries and Packages
 
-# Import the Image Save from the SciKit-Learn.Input/Output Python's Module
+# Import the Image Save
+# from the SciKit-Learn.Input/Output Python's Module
 from skimage.io import imsave
 
 # Import the NumPy Python's Library, with the np alias
@@ -35,6 +36,22 @@ import pandas as pd
 
 # Import the NumPy Python's Library, with the np alias
 from tensorflow.keras.utils import to_categorical
+
+# Import the Util
+# from the SciKit-Learn-Input/Output.Core Python's Module
+from imageio.core import util as image_io_util
+
+
+# Function to silence the SciKit-Learn-Input/Output Warnings
+# noinspection PyUnusedLocal
+def silence_imageio_warning(*args, **kwargs):
+
+    # Pass/Ignore it
+    pass
+
+
+# Silence the SciKit-Learn-Input/Output Warnings
+image_io_util._precision_warn = silence_imageio_warning
 
 
 def images_to_pic(f_name, images, width=20):
@@ -62,7 +79,7 @@ def images_to_pic(f_name, images, width=20):
         if col >= width:
             col = 0
             row += 1
-            
+
     imsave(f_name, picture)
 
 
