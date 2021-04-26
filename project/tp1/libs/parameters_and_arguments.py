@@ -90,11 +90,11 @@ KERNEL_RGB_WIDTH = 3
 
 # The Height of the Kernel of the Filters used for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.), for Gray Scale Colors
-KERNEL_GRAY_SCALE_HEIGHT = 3
+KERNEL_GRAY_SCALE_HEIGHT = 1
 
 # The Width of the Kernel of the Filters used for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.), for Gray Scale Colors
-KERNEL_GRAY_SCALE_WIDTH = 3
+KERNEL_GRAY_SCALE_WIDTH = 1
 
 # The Height of the Pooling Matrix #1 used for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
