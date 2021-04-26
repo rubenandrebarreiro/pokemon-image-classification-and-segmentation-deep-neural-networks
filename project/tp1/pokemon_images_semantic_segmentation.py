@@ -28,6 +28,8 @@ Module for the Semantic Segmentation Problem in the Project
 import os as operative_system
 
 # Disable all the Debugging Logs from TensorFlow Library
+from project.tp1.libs.images_set_generator import generate_images_sets
+
 operative_system.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 # Import Warnings from Python's Library
@@ -254,6 +256,24 @@ from project.tp1.libs.preprocessing_utils import retrieve_datasets_from_pokemon_
 # from the Pre-Processing Utils Python's Custom Module
 from project.tp1.libs.preprocessing_utils import \
     image_data_generator_for_preprocessing_with_data_augmentation
+
+# Import the function to plot the Training's and Validation's Losses,
+# from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
+# for the Pokemons' Data, in Image Masking, for the Semantic Segmentation Problem
+from project.tp1.libs.visualization_plotting import \
+    plot_training_and_validation_losses
+
+# Import the function to plot the Training's and Validation's Accuracies,
+# from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
+# for the Pokemons' Data, in Image Masking, for the Semantic Segmentation Problem
+from project.tp1.libs.visualization_plotting import \
+    plot_training_and_validation_accuracies
+
+# Import the function to plot the Training's and Validation's Losses,
+# from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
+# for the Pokemons' Data, in Image Masking, for the Semantic Segmentation Problem
+from project.tp1.libs.visualization_plotting import \
+    plot_subset_metric_all_optimisers
 
 
 # Function to create the need Early Stopping Callbacks for
@@ -637,11 +657,11 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
     #    - 3500 examples for the final Training Set;
     #    - 500 examples for the final Validation Set;
     # ii) 500 examples for the initial and final Testing Set;
-    xs_features_training_set_pokemon, xs_masks_training_set_pokemon, \
+    xs_features_training_set_pokemon, ys_masks_training_set_pokemon, \
         ys_classes_training_set_pokemon, ys_labels_training_set_pokemon, \
-        xs_features_validation_set_pokemon, xs_masks_validation_set_pokemon, \
+        xs_features_validation_set_pokemon, ys_masks_validation_set_pokemon, \
         ys_classes_validation_set_pokemon, ys_labels_validation_set_pokemon, \
-        xs_features_testing_set_pokemon, xs_masks_testing_set_pokemon, \
+        xs_features_testing_set_pokemon, ys_masks_testing_set_pokemon, \
         ys_classes_testing_set_pokemon, ys_labels_testing_set_pokemon = \
         retrieve_datasets_from_pokemon_data()
 
@@ -668,7 +688,7 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
     # for the xs (masks) of the Training Set of the Semantic Segmentation Problem
     masks_training_set_pokemon_data_augmentation_generator = \
         masks_training_image_data_generator_for_preprocessing_with_data_augmentation \
-        .flow(x=xs_masks_training_set_pokemon, batch_size=BATCH_SIZE,
+        .flow(x=ys_masks_training_set_pokemon, batch_size=BATCH_SIZE,
               y=ys_classes_training_set_pokemon, shuffle=True)
 
     # Create the Images' Data Generator for Pre-Processing with Data Augmentation,
@@ -694,20 +714,18 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
     # for the xs (masks) of the Validation Set of the Semantic Segmentation Problem
     masks_validation_set_pokemon_data_augmentation_generator = \
         masks_validation_image_data_generator_for_preprocessing_with_data_augmentation \
-        .flow(x=xs_masks_validation_set_pokemon, batch_size=BATCH_SIZE,
+        .flow(x=ys_masks_validation_set_pokemon, batch_size=BATCH_SIZE,
               y=ys_classes_validation_set_pokemon, shuffle=True)
 
     # Generate Images' Set, for the several sets
     # (i.e., Training, Validation and Testing Sets)
-    """
-    generate_images_sets(xs_features_training_set_pokemon, xs_masks_training_set_pokemon,
+    generate_images_sets(xs_features_training_set_pokemon, ys_masks_training_set_pokemon,
                          features_training_set_pokemon_data_augmentation_generator.x,
                          masks_training_set_pokemon_data_augmentation_generator.x,
-                         xs_features_validation_set_pokemon, xs_masks_validation_set_pokemon,
+                         xs_features_validation_set_pokemon, ys_masks_validation_set_pokemon,
                          features_validation_set_pokemon_data_augmentation_generator.x,
                          masks_validation_set_pokemon_data_augmentation_generator.x,
-                         xs_features_testing_set_pokemon, xs_masks_testing_set_pokemon)
-    """
+                         xs_features_testing_set_pokemon, ys_masks_testing_set_pokemon)
 
     # Create the need Early Stopping Callbacks for
     # the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -788,13 +806,13 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
 
         # Create a Model for a feed-forward Convolution Neural Network (C.N.N.),
         # for the Pokemons' Data, in Semantic Segmentation
-        cnn_model_in_keras_sequential_api_for_semantic_segmentation_masking = \
+        cnn_model_in_keras_functional_api_for_semantic_segmentation_masking = \
             create_cnn_model_in_keras_functional_api_for_semantic_segmentation()
 
         # Compile the Model for the feed-forward Convolution Neural Network (C.N.N.),
         # with the given Categorical Cross Entropy Loss/Error Function and
         # the Stochastic Gradient Descent (S.G.D.) Optimiser
-        cnn_model_in_keras_sequential_api_for_semantic_segmentation_masking \
+        cnn_model_in_keras_functional_api_for_semantic_segmentation_masking \
             .compile(loss='sparse_categorical_crossentropy',
                      optimizer=current_optimiser,
                      metrics=['accuracy'])
@@ -808,8 +826,8 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
 
         # Train/Fit the Model for the feed-forward Convolution Neural Network (C.N.N.) for the given NUM_EPOCHS,
         # with the Training Set for the Training Data and the Validation Set for the Validation Data
-        cnn_model_in_keras_sequential_api_for_semantic_segmentation_training_history = \
-            cnn_model_in_keras_sequential_api_for_semantic_segmentation_masking \
+        cnn_model_in_keras_functional_api_for_semantic_segmentation_training_history = \
+            cnn_model_in_keras_functional_api_for_semantic_segmentation_masking \
             .fit(features_training_set_pokemon_data_augmentation_generator.x,
                  masks_training_set_pokemon_data_augmentation_generator.x,
                  steps_per_epoch=(NUM_EXAMPLES_FINAL_TRAINING_SET // BATCH_SIZE),
@@ -835,11 +853,25 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
         print('\nThe Fitting/Training of the Model for '
               'the feed-forward Convolution Neural Network (C.N.N.) is complete!!!\n')
 
-        # TODO - Plots
+        # Plot the Training's and Validation's Losses,
+        # from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
+        # for the Pokemons' Data, in Image Classification, for the Multi-Labels Problem
+        plot_training_and_validation_losses(
+            cnn_model_in_keras_functional_api_for_semantic_segmentation_training_history,
+            AVAILABLE_OPTIMISERS_LIST[num_optimiser], now_date_time, 'Semantic-Segmentation'
+        )
+
+        # Plot the Training's and Validation's Accuracies,
+        # from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
+        # for the Pokemons' Data, in Image Classification, for the Multi-Labels Problem
+        plot_training_and_validation_accuracies(
+            cnn_model_in_keras_functional_api_for_semantic_segmentation_training_history,
+            AVAILABLE_OPTIMISERS_LIST[num_optimiser], now_date_time, 'Semantic-Segmentation'
+        )
 
         # Retrieve the History of the Training Losses for the current Optimiser
         optimiser_training_loss_history = \
-            cnn_model_in_keras_sequential_api_for_semantic_segmentation_training_history.history['loss']
+            cnn_model_in_keras_functional_api_for_semantic_segmentation_training_history.history['loss']
 
         # Retrieve the Number of Epochs History of the Training Losses for the current Optimiser
         num_epochs_optimiser_training_loss_history = len(optimiser_training_loss_history)
@@ -851,7 +883,7 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
 
         # Retrieve the History of the Training Accuracies for the current Optimiser
         optimiser_training_accuracy_history = \
-            cnn_model_in_keras_sequential_api_for_semantic_segmentation_training_history.history['accuracy']
+            cnn_model_in_keras_functional_api_for_semantic_segmentation_training_history.history['accuracy']
 
         # Retrieve the Number of Epochs History of the Training Accuracies for the current Optimiser
         num_epochs_optimiser_training_accuracy_history = len(optimiser_training_accuracy_history)
@@ -863,7 +895,7 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
 
         # Retrieve the History of the Validation Losses for the current Optimiser
         optimiser_validation_loss_history = \
-            cnn_model_in_keras_sequential_api_for_semantic_segmentation_training_history.history['val_loss']
+            cnn_model_in_keras_functional_api_for_semantic_segmentation_training_history.history['val_loss']
 
         # Retrieve the Number of Epochs History of the Validation Losses for the current Optimiser
         num_epochs_optimiser_validation_loss_history = len(optimiser_validation_loss_history)
@@ -875,7 +907,7 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
 
         # Retrieve the History of the Validation Accuracies for the current Optimiser
         optimiser_validation_accuracy_history = \
-            cnn_model_in_keras_sequential_api_for_semantic_segmentation_training_history.history['val_accuracy']
+            cnn_model_in_keras_functional_api_for_semantic_segmentation_training_history.history['val_accuracy']
 
         # Retrieve the Number of Epochs History of the Validation Accuracies for the current Optimiser
         num_epochs_optimiser_validation_accuracy_history = len(optimiser_validation_accuracy_history)
@@ -888,18 +920,17 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
         # Output the Summary of the architecture of
         # the Model for the feed-forward Convolution Neural Network (C.N.N.),
         # for the Pokemons' Data, in Semantic Segmentation
-        cnn_model_in_keras_sequential_api_for_semantic_segmentation_masking.summary()
+        cnn_model_in_keras_functional_api_for_semantic_segmentation_masking.summary()
 
         # Save the Weights of the Neurons of the Fitting/Training of
         # the Model for the feed-forward Convolution Neural Network (C.N.N.)
-
-        cnn_model_in_keras_sequential_api_for_semantic_segmentation_masking \
+        cnn_model_in_keras_functional_api_for_semantic_segmentation_masking \
             .save_weights('%s/pokemon-semantic-segmentation-training-history-%s-optimiser-%s-weights.h5'
                           % (root_weights_directory, AVAILABLE_OPTIMISERS_LIST[num_optimiser].lower(), now_date_time))
 
         # Convert the Model for the feed-forward Convolution Neural Network (C.N.N.) to a JSON Object
         cnn_model_json_object = \
-            cnn_model_in_keras_sequential_api_for_semantic_segmentation_masking.to_json()
+            cnn_model_in_keras_functional_api_for_semantic_segmentation_masking.to_json()
 
         # Write the Model for the feed-forward Convolution Neural Network (C.N.N.) to a JSON Object
         with open('%s/pokemon-semantic-segmentation-training-history-%s-optimiser-%s-weights.json'
@@ -913,7 +944,7 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
         # using the Model for the feed-forward Convolution Neural Network (C.N.N.),
         # fitted/trained previously with the Training and Validation Sets
         ys_masks_testing_set_pokemon_predicted = \
-            cnn_model_in_keras_sequential_api_for_semantic_segmentation_masking \
+            cnn_model_in_keras_functional_api_for_semantic_segmentation_masking \
             .predict(x=xs_features_testing_set_pokemon,
                      batch_size=BATCH_SIZE, verbose=1)
 
@@ -921,14 +952,14 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
         # using the Model for the feed-forward Convolution Neural Network (C.N.N.),
         # fitted/trained previously with the Training and Validation Sets
         true_testing_loss = \
-            sparse_categorical_crossentropy(xs_masks_testing_set_pokemon,
+            sparse_categorical_crossentropy(ys_masks_testing_set_pokemon,
                                             ys_masks_testing_set_pokemon_predicted)
 
         # Retrieve the Categorical Accuracy for the Masks' Predictions on the Testing Set,
         # using the Model for the feed-forward Convolution Neural Network (C.N.N.),
         # fitted/trained previously with the Training and Validation Sets
         true_testing_accuracy = \
-            sparse_categorical_accuracy(xs_masks_testing_set_pokemon,
+            sparse_categorical_accuracy(ys_masks_testing_set_pokemon,
                                         ys_masks_testing_set_pokemon_predicted)
 
         # Just print a blank line, for a better and clearer presentation of the results
@@ -1001,6 +1032,29 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
         # Print the final information line
         print('\n--------- END OF EXECUTION FOR THE %s OPTIMISER ---------\n\n'
               % (AVAILABLE_OPTIMISERS_LIST[num_optimiser]))
+
+        # Retrieve the current DateTime, as custom format
+        now_date_time = date_time.utcnow().strftime('%Y%m%d%H%M%S')
+
+        # Plot the Training Loss Values for all the Optimisers
+        plot_subset_metric_all_optimisers(optimisers_training_loss_history,
+                                          'Training', 'Loss', now_date_time,
+                                          'Semantic-Segmentation')
+
+        # Plot the Training Accuracy Values for all the Optimisers
+        plot_subset_metric_all_optimisers(optimisers_training_accuracy_history,
+                                          'Training', 'Accuracy', now_date_time,
+                                          'Semantic-Segmentation')
+
+        # Plot the Validation Loss Values for all the Optimisers
+        plot_subset_metric_all_optimisers(optimisers_validation_loss_history,
+                                          'Validation', 'Loss', now_date_time,
+                                          'Semantic-Segmentation')
+
+        # Plot the Validation Accuracy Values for all the Optimisers
+        plot_subset_metric_all_optimisers(optimisers_validation_accuracy_history,
+                                          'Validation', 'Accuracy', now_date_time,
+                                          'Semantic-Segmentation')
 
         # Print the Heading Information about the Losses and Accuracies on the Testing Set
         print('------  Final Results for the Losses and Accuracies on '
