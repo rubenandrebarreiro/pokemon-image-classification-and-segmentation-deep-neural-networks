@@ -50,8 +50,9 @@ from project.tp1.libs.parameters_and_arguments import OPTIMISERS_COLORS_MATPLOTL
 
 # Function to plot the Training's and Validation's Losses,
 # from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
-# for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-def plot_training_and_validation_losses_multi_classes_and_labels_problem(
+# for the Pokemons' Data, in Image Classification, for the Multi-Class and Multi-Label Problems,
+# or, in Image Masking, for the Semantic Segmentation Problem
+def plot_training_and_validation_losses(
         cnn_model_in_keras_sequential_api_training_history, optimiser_id, now_date_time_format,
         problem, plotting_style='seaborn-dark', is_to_show=False):
 
@@ -59,14 +60,14 @@ def plot_training_and_validation_losses_multi_classes_and_labels_problem(
     # the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem,
     # regarding the Training Set
-    training_accuracy_values = \
+    training_loss_values = \
         cnn_model_in_keras_sequential_api_training_history.history['loss']
 
     # Retrieve the Loss Values, from the Fitting/Training of
     # the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem,
     # regarding the Validation Set
-    validation_accuracy_values = \
+    validation_loss_values = \
         cnn_model_in_keras_sequential_api_training_history.history['val_loss']
 
     # Set the Style of the Plots, as 'Seaborn Dark' Style, by default
@@ -78,20 +79,34 @@ def plot_training_and_validation_losses_multi_classes_and_labels_problem(
     # Plot the Loss Values for the Training Set,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-    py_plot.plot(training_accuracy_values, '-', color='blue')
+    py_plot.plot(training_loss_values, '-', color='blue')
 
     # Plot the Loss Values for the Validation Set,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-    py_plot.plot(validation_accuracy_values, '-', color='red')
+    py_plot.plot(validation_loss_values, '-', color='red')
 
-    # Plot the Title for the comparison of
-    # the Loss Values for the Training and Validation Sets,
-    # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
-    # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-    py_plot.title('Losses of the Model for a feed-forward Convolution Neural Network (C.N.N.)\n'
-                  'for the Pokemon Images/Data Classification, for the %s Problem\n'
-                  'with %s Optimiser' % (problem, optimiser_id))
+    # If it is Multi-Class Classification Problem or Multi-Label Classification Problem
+    if (problem == 'Multi-Class') or (problem == 'Multi-Label'):
+
+        # Plot the Title for the comparison of
+        # the Loss Values for the Training and Validation Sets,
+        # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
+        # for the Pokemons' Data, in Image Classification, for the Multi-Class or Multi-Label Problem
+        py_plot.title('Losses of the Model for a feed-forward Convolution Neural Network (C.N.N.)\n'
+                      'for the Pokemon Images\\Data Classification, for the %s Problem\n'
+                      'with %s Optimiser' % (problem, optimiser_id))
+
+    # If it is Image Masking, for the Semantic Segmentation Problem
+    elif problem == 'Semantic-Segmentation':
+
+        # Plot the Title for the comparison of
+        # the Loss Values for the Training and Validation Sets,
+        # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
+        # for the Pokemons' Data, in Image Segmentation, for the Semantic Segmentation Problem
+        py_plot.title('Losses of the Model for a feed-forward Convolution Neural Network (C.N.N.)\n'
+                      'for the Pokemon Images\\Data Segmentation, for the %s Problem\n'
+                      'with %s Optimiser' % (problem, optimiser_id))
 
     # Set the X-Axis of the final Plot for the Loss Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -118,12 +133,25 @@ def plot_training_and_validation_losses_multi_classes_and_labels_problem(
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
     py_plot.grid(color='white', linestyle='--', linewidth=0.8)
 
-    # Save the final Plot for the Loss Values' Comparison,
-    # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
-    # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-    py_plot.savefig(('files\\images\\plots\\%s-classification\\loss\\'
-                    'loss-values-plot-%s-optimiser-%s.png' % (problem.lower(), optimiser_id.lower(),
-                                                              now_date_time_format)))
+    # If it is Multi-Class Classification Problem or Multi-Label Classification Problem
+    if (problem == 'Multi-Class') or (problem == 'Multi-Label'):
+
+        # Save the final Plot for the Loss Values' Comparison,
+        # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
+        # for the Pokemons' Data, in Image Classification, for the Multi-Class and Multi-Label Problem
+        py_plot.savefig('files\\images\\plots\\%s-classification\\loss\\'
+                        'loss-values-plot-%s-optimiser-%s.png'
+                        % (problem.lower(), optimiser_id.lower(), now_date_time_format))
+
+    # If it is Image Masking, for the Semantic Segmentation Problem
+    elif problem == 'Semantic-Segmentation':
+
+        # Save the final Plot for the Loss Values' Comparison,
+        # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
+        # for the Pokemons' Data, in Image Masking, for the Semantic Segmentation Problem
+        py_plot.savefig('files\\images\\plots\\%s\\loss\\'
+                        'loss-values-plot-%s-optimiser-%s.png'
+                        % (problem.lower(), optimiser_id.lower(), now_date_time_format))
 
     # If it is supposed to show the final Plot for the Loss Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -143,8 +171,9 @@ def plot_training_and_validation_losses_multi_classes_and_labels_problem(
 
 # Function to plot the Training's and Validation's Accuracies,
 # from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
-# for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-def plot_training_and_validation_accuracies_multi_classes_and_labels_problem(
+# for the Pokemons' Data, in Image Classification, for the Multi-Class and Multi-Label Problems,
+# or, in Image Masking, for the Semantic Segmentation Problem
+def plot_training_and_validation_accuracies(
         cnn_model_in_keras_sequential_api_training_history, optimiser_id, now_date_time_format,
         problem, plotting_style='seaborn-dark', is_to_show=False):
 
@@ -154,8 +183,8 @@ def plot_training_and_validation_accuracies_multi_classes_and_labels_problem(
     # Initialise the Accuracies' Values, for the Validation Set
     validation_accuracy_values = None
 
-    # If it is Multi-Class Classification Problem
-    if problem == 'Multi-Class':
+    # If it is Multi-Class Classification Problem or Masking/Semantic Segmentation
+    if (problem == 'Multi-Class') or (problem == 'Semantic-Segmentation'):
 
         # Retrieve the Accuracy Values, from the Fitting/Training of
         # the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -204,13 +233,27 @@ def plot_training_and_validation_accuracies_multi_classes_and_labels_problem(
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
     py_plot.plot(validation_accuracy_values, '-', color='red')
 
-    # Plot the Title for the comparison of
-    # the Accuracy Values for the Training and Validation Sets,
-    # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
-    # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-    py_plot.title('Accuracies of the Model for a feed-forward Convolution Neural Network (C.N.N.)\n'
-                  'for the Pokemon Images\\Data Classification, for the %s Problem\n'
-                  'with %s Optimiser' % (problem, optimiser_id))
+    # If it is Multi-Class Classification Problem or Multi-Label Classification Problem
+    if (problem == 'Multi-Class') or (problem == 'Multi-Label'):
+
+        # Plot the Title for the comparison of
+        # the Accuracy Values for the Training and Validation Sets,
+        # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
+        # for the Pokemons' Data, in Image Classification, for the Multi-Class or Multi-Label Problem
+        py_plot.title('Accuracies of the Model for a feed-forward Convolution Neural Network (C.N.N.)\n'
+                      'for the Pokemon Images\\Data Classification, for the %s Problem\n'
+                      'with %s Optimiser' % (problem, optimiser_id))
+
+    # If it is Image Masking, for the Semantic Segmentation Problem
+    elif problem == 'Semantic-Segmentation':
+
+        # Plot the Title for the comparison of
+        # the Accuracy Values for the Training and Validation Sets,
+        # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
+        # for the Pokemons' Data, in Image Segmentation, for the Semantic Segmentation Problem
+        py_plot.title('Accuracies of the Model for a feed-forward Convolution Neural Network (C.N.N.)\n'
+                      'for the Pokemon Images\\Data Segmentation, for the %s Problem\n'
+                      'with %s Optimiser' % (problem, optimiser_id))
 
     # Set the X-Axis of the final Plot for the Accuracy Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -237,17 +280,31 @@ def plot_training_and_validation_accuracies_multi_classes_and_labels_problem(
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
     py_plot.grid(color='white', linestyle='--', linewidth=0.8)
 
-    # Save the final Plot for the Accuracy Values' Comparison,
-    # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
-    # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-    py_plot.savefig('files\\images\\plots\\%s-classification\\accuracy\\'
-                    'accuracy-values-plot-%s-optimiser-%s.png'
-                    % (problem.lower(), optimiser_id.lower(), now_date_time_format))
+    # If it is Multi-Class Classification Problem or Multi-Label Classification Problem
+    if (problem == 'Multi-Class') or (problem == 'Multi-Label'):
+
+        # Save the final Plot for the Accuracy Values' Comparison,
+        # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
+        # for the Pokemons' Data, in Image Classification, for the Multi-Class and Multi-Label Problem
+        py_plot.savefig('files\\images\\plots\\%s-classification\\accuracy\\'
+                        'accuracy-values-plot-%s-optimiser-%s.png'
+                        % (problem.lower(), optimiser_id.lower(), now_date_time_format))
+
+    # If it is Image Masking, for the Semantic Segmentation Problem
+    elif problem == 'Semantic-Segmentation':
+
+        # Save the final Plot for the Accuracy Values' Comparison,
+        # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
+        # for the Pokemons' Data, in Image Masking, for the Semantic Segmentation Problem
+        py_plot.savefig('files\\images\\plots\\%s\\accuracy\\'
+                        'accuracy-values-plot-%s-optimiser-%s.png'
+                        % (problem.lower(), optimiser_id.lower(), now_date_time_format))
 
     # If it is supposed to show the final Plot for the Loss Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
     if is_to_show:
+
         # Show the final Plot for the Loss Values' Comparison,
         # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
         # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
@@ -262,7 +319,7 @@ def plot_training_and_validation_accuracies_multi_classes_and_labels_problem(
 # Function to plot the Training's and Validation's Losses,
 # from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
 # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-def plot_subset_metric_multi_classes_and_labels_all_optimisers(
+def plot_subset_metric_all_optimisers(
         cnn_model_in_keras_sequential_api_optimisers_metric_history, subset, metric,
         now_date_time_format, problem, plotting_style='seaborn-dark', is_to_show=False):
 
@@ -288,13 +345,27 @@ def plot_subset_metric_multi_classes_and_labels_all_optimisers(
         py_plot.plot(cnn_model_in_keras_sequential_api_optimisers_metric_history[num_current_optimiser],
                      '-', color=OPTIMISERS_COLORS_MATPLOTLIB[num_current_optimiser])
 
-    # Plot the Title for the comparison of
-    # the Metric Values for the given Subset,
-    # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
-    # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-    py_plot.title('Comparison of the %s %s of the Model for a feed-forward\nConvolution Neural Network (C.N.N.) '
-                  'for the Pokemon Images/Data Classification,\n for the %s Problem '
-                  'with all Optimisers' % (subset, metric, problem))
+    # If it is Multi-Class Classification Problem or Multi-Label Classification Problem
+    if (problem == 'Multi-Class') or (problem == 'Multi-Label'):
+
+        # Plot the Title for the comparison of
+        # the Metric Values for the given Subset,
+        # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
+        # for the Pokemons' Data, in Image Classification, for the Multi-Class and Multi-Label Problems
+        py_plot.title('Comparison of the %s %s of the Model for a feed-forward\nConvolution Neural Network (C.N.N.) '
+                      'for the Pokemon Images/Data Classification,\n for the %s Problem '
+                      'with all Optimisers' % (subset, metric, problem))
+
+    # If it is Image Masking, for the Semantic Segmentation Problem
+    elif problem == 'Semantic-Segmentation':
+
+        # Plot the Title for the comparison of
+        # the Metric Values for the given Subset,
+        # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
+        # for the Pokemons' Data, in Image Masking, for the Semantic Segmentation Problem
+        py_plot.title('Comparison of the %s %s of the Model for a feed-forward\nConvolution Neural Network (C.N.N.) '
+                      'for the Pokemon Images/Data Masking,\n for the %s Problem '
+                      'with all Optimisers' % (subset, metric, problem))
 
     # Set the X-Axis of the final Plot for the Metric Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -321,17 +392,31 @@ def plot_subset_metric_multi_classes_and_labels_all_optimisers(
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
     py_plot.grid(color='white', linestyle='--', linewidth=0.8)
 
-    # Save the final Plot for the Loss Values' Comparison,
-    # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
-    # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-    py_plot.savefig('files\\images\\plots\\%s-classification\\comparison-optimisers\\'
-                    '%s-%s-values-plot-all-optimisers-%s.png'
-                    % (problem.lower(), subset.lower(), metric.lower(), now_date_time_format))
+    # If it is Multi-Class Classification Problem or Multi-Label Classification Problem
+    if (problem == 'Multi-Class') or (problem == 'Multi-Label'):
+
+        # Save the final Plot for the Loss Values' Comparison,
+        # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
+        # for the Pokemons' Data, in Image Classification, for the Multi-Class and Multi-Label Problems
+        py_plot.savefig('files\\images\\plots\\%s-classification\\comparison-optimisers\\'
+                        '%s-%s-values-plot-all-optimisers-%s.png'
+                        % (problem.lower(), subset.lower(), metric.lower(), now_date_time_format))
+
+    # If it is Multi-Class Classification Problem or Multi-Label Classification Problem
+    elif problem == 'Semantic-Segmentation':
+
+        # Save the final Plot for the Loss Values' Comparison,
+        # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
+        # for the Pokemons' Data, in Image Masking, for the Semantic-Segmentation Problem
+        py_plot.savefig('files\\images\\plots\\%s\\comparison-optimisers\\'
+                        '%s-%s-values-plot-all-optimisers-%s.png'
+                        % (problem.lower(), subset.lower(), metric.lower(), now_date_time_format))
 
     # If it is supposed to show the final Plot for the Loss Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
     if is_to_show:
+
         # Show the final Plot for the Loss Values' Comparison,
         # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
         # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
