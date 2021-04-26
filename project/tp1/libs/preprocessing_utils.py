@@ -49,8 +49,8 @@ def retrieve_datasets_from_pokemon_data():
     # Retrieve the xs (features) of the Pokemons' Datasets, for the Training Set
     xs_features_training_set = pokemon_datasets['train_X'][:NUM_EXAMPLES_FINAL_TRAINING_SET]
 
-    # Retrieve the xs (masks) of the Pokemons' Datasets, for the Training Set
-    xs_masks_training_set = pokemon_datasets['train_masks'][:NUM_EXAMPLES_FINAL_TRAINING_SET]
+    # Retrieve the ys (masks) of the Pokemons' Datasets, for the Training Set
+    ys_masks_training_set = pokemon_datasets['train_masks'][:NUM_EXAMPLES_FINAL_TRAINING_SET]
 
     # Retrieve the ys (classes) of the Pokemons' Datasets, for the Training Set
     ys_classes_training_set = pokemon_datasets['train_classes'][:NUM_EXAMPLES_FINAL_TRAINING_SET]
@@ -61,8 +61,8 @@ def retrieve_datasets_from_pokemon_data():
     # Retrieve the xs (features) of the Pokemons' Datasets, for the Validation Set
     xs_features_validation_set = pokemon_datasets['train_X'][NUM_EXAMPLES_FINAL_TRAINING_SET:]
 
-    # Retrieve the xs (masks) of the Pokemons' Datasets, for the Validation Set
-    xs_masks_validation_set = pokemon_datasets['train_masks'][NUM_EXAMPLES_FINAL_TRAINING_SET:]
+    # Retrieve the ys (masks) of the Pokemons' Datasets, for the Validation Set
+    ys_masks_validation_set = pokemon_datasets['train_masks'][NUM_EXAMPLES_FINAL_TRAINING_SET:]
 
     # Retrieve the ys (classes) of the Pokemons' Datasets, for the Validation Set
     ys_classes_validation_set = pokemon_datasets['train_classes'][NUM_EXAMPLES_FINAL_TRAINING_SET:]
@@ -73,8 +73,8 @@ def retrieve_datasets_from_pokemon_data():
     # Retrieve the xs (features) of the Pokemons' Datasets, for the Testing Set
     xs_features_testing_set = pokemon_datasets['test_X']
 
-    # Retrieve the xs (masks) of the Pokemons' Datasets, for the Testing Set
-    xs_masks_testing_set = pokemon_datasets['test_masks']
+    # Retrieve the ys (masks) of the Pokemons' Datasets, for the Testing Set
+    ys_masks_testing_set = pokemon_datasets['test_masks']
 
     # Retrieve the ys (classes) of the Pokemons' Datasets, for the Testing Set
     ys_classes_testing_set = pokemon_datasets['test_classes']
@@ -83,9 +83,9 @@ def retrieve_datasets_from_pokemon_data():
     ys_labels_testing_set = pokemon_datasets['test_labels']
 
     # Return all the retrieved Datasets related to the Pokemons' Data
-    return xs_features_training_set, xs_masks_training_set, ys_classes_training_set, ys_labels_training_set, \
-        xs_features_validation_set, xs_masks_validation_set, ys_classes_validation_set, ys_labels_validation_set, \
-        xs_features_testing_set, xs_masks_testing_set, ys_classes_testing_set, ys_labels_testing_set
+    return xs_features_training_set, ys_masks_training_set, ys_classes_training_set, ys_labels_training_set, \
+        xs_features_validation_set, ys_masks_validation_set, ys_classes_validation_set, ys_labels_validation_set, \
+        xs_features_testing_set, ys_masks_testing_set, ys_classes_testing_set, ys_labels_testing_set
 
 
 # Function to create the Images' Data Generator for Pre-Processing with Data Augmentation
