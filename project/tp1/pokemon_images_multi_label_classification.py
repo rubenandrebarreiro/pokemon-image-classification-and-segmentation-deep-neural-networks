@@ -124,7 +124,6 @@ from project.tp1.libs.parameters_and_arguments import NUM_EXAMPLES_FINAL_TRAININ
 # from the Parameters and Arguments Python's Custom Module
 from project.tp1.libs.parameters_and_arguments import NUM_EXAMPLES_FINAL_VALIDATION_SET
 
-###
 # Import the Number of Filters for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
 # from the Parameters and Arguments Python's Custom Module
@@ -139,7 +138,6 @@ from project.tp1.libs.parameters_and_arguments import IMAGES_WIDTH
 # the feed-forward Convolution Neural Network (C.N.N.)
 # from the Parameters and Arguments Python's Custom Module
 from project.tp1.libs.parameters_and_arguments import NUM_CHANNELS_RGB
-###
 
 # Import the Number of Filters for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
@@ -244,19 +242,19 @@ from project.tp1.libs.preprocessing_utils import \
 # from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
 # for the Pokemons' Data, in Image Classification, for the Multi-Label Problem
 from project.tp1.libs.visualization_plotting import \
-    plot_training_and_validation_losses_multi_classes_and_labels_problem
+    plot_training_and_validation_losses
 
 # Import the function to plot the Training's and Validation's Accuracies,
 # from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
 # for the Pokemons' Data, in Image Classification, for the Multi-Label Problem
 from project.tp1.libs.visualization_plotting import \
-    plot_training_and_validation_accuracies_multi_classes_and_labels_problem
+    plot_training_and_validation_accuracies
 
 # Import the function to plot the Training's and Validation's Losses,
 # from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
 # for the Pokemons' Data, in Image Classification, for the Multi-Label Problem
 from project.tp1.libs.visualization_plotting import \
-    plot_subset_metric_multi_classes_and_labels_all_optimisers
+    plot_subset_metric_all_optimisers
 
 # rjr
 from project.tp1.models.model0 import \
@@ -353,7 +351,8 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # 3 Input Dimensions (for each Color Channel - RGB Color)
     convolution_neural_network_tensorflow_keras_sequential_model \
         .add(Conv2D(NUM_FILTERS_PER_BLOCK[0], (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
-                    padding='same', kernel_initializer='he_uniform'))
+                    padding='same', kernel_initializer='he_uniform',
+                    input_shape=(IMAGES_HEIGHT, IMAGES_WIDTH) + (NUM_CHANNELS_RGB, )))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
     # for the features of the Data/Images of the Pokemons resulted from
@@ -769,6 +768,7 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers():
     # rjr
     # For each Model available
     for num_model in range(NUM_AVAILABLE_MODELS):
+
         # For each Optimiser available
         for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
@@ -865,17 +865,17 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers():
             # Plot the Training's and Validation's Losses,
             # from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
             # for the Pokemons' Data, in Image Classification, for the Multi-Labels Problem
-            plot_training_and_validation_losses_multi_classes_and_labels_problem(
+            plot_training_and_validation_losses(
                 cnn_model_in_keras_sequential_api_for_image_classification_training_history,
-                AVAILABLE_OPTIMISERS_LIST[num_optimiser], now_date_time, "Multi-Label"
+                AVAILABLE_OPTIMISERS_LIST[num_optimiser], now_date_time, 'Multi-Label'
             )
 
             # Plot the Training's and Validation's Accuracies,
             # from the History of the Model for a feed-forward Convolution Neural Network (C.N.N.),
             # for the Pokemons' Data, in Image Classification, for the Multi-Labels Problem
-            plot_training_and_validation_accuracies_multi_classes_and_labels_problem(
+            plot_training_and_validation_accuracies(
                 cnn_model_in_keras_sequential_api_for_image_classification_training_history,
-                AVAILABLE_OPTIMISERS_LIST[num_optimiser], now_date_time, "Multi-Label"
+                AVAILABLE_OPTIMISERS_LIST[num_optimiser], now_date_time, 'Multi-Label'
             )
 
             # Retrieve the History of the Training Losses for the current Optimiser
@@ -1049,24 +1049,24 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers():
         now_date_time = date_time.utcnow().strftime('%Y%m%d%H%M%S')
 
         # Plot the Training Loss Values for all the Optimisers
-        plot_subset_metric_multi_classes_and_labels_all_optimisers(optimisers_training_loss_history,
-                                                                   'Training', 'Loss', now_date_time,
-                                                                   'Multi-Label')
+        plot_subset_metric_all_optimisers(optimisers_training_loss_history,
+                                          'Training', 'Loss', now_date_time,
+                                          'Multi-Label')
 
         # Plot the Training Accuracy Values for all the Optimisers
-        plot_subset_metric_multi_classes_and_labels_all_optimisers(optimisers_training_accuracy_history,
-                                                                   'Training', 'Accuracy', now_date_time,
-                                                                   'Multi-Label')
+        plot_subset_metric_all_optimisers(optimisers_training_accuracy_history,
+                                          'Training', 'Accuracy', now_date_time,
+                                          'Multi-Label')
 
         # Plot the Validation Loss Values for all the Optimisers
-        plot_subset_metric_multi_classes_and_labels_all_optimisers(optimisers_validation_loss_history,
-                                                                   'Validation', 'Loss', now_date_time,
-                                                                   'Multi-Label')
+        plot_subset_metric_all_optimisers(optimisers_validation_loss_history,
+                                          'Validation', 'Loss', now_date_time,
+                                          'Multi-Label')
 
         # Plot the Validation Accuracy Values for all the Optimisers
-        plot_subset_metric_multi_classes_and_labels_all_optimisers(optimisers_validation_accuracy_history,
-                                                                   'Validation', 'Accuracy', now_date_time,
-                                                                   'Multi-Label')
+        plot_subset_metric_all_optimisers(optimisers_validation_accuracy_history,
+                                          'Validation', 'Accuracy', now_date_time,
+                                          'Multi-Label')
 
         # Print the Heading Information about the Losses and Accuracies on the Testing Set
         print('------  Final Results for the Losses and Accuracies on '
