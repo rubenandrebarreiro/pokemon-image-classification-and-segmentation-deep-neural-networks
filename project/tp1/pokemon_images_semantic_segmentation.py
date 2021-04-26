@@ -987,7 +987,7 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
             ('files\\images\\figures\\testing\\predictions\\masks-overlay\\'
              'pokemon-semantic-segmentation-masks-overlay-%s-optimiser.png'
              % (AVAILABLE_OPTIMISERS_LIST[num_optimiser].lower())),
-            ys_masks_testing_set_pokemon, ys_masks_testing_set_pokemon_predicted
+            xs_features_testing_set_pokemon, ys_masks_testing_set_pokemon_predicted
         )
 
         # Just print a blank line, for a better and clearer presentation of the results
