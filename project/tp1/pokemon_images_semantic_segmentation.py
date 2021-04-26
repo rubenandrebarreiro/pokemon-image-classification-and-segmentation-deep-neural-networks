@@ -30,6 +30,14 @@ import os as operative_system
 # Disable all the Debugging Logs from TensorFlow Library
 operative_system.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
+# Import Warnings from Python's Library
+import warnings
+
+# Ignore all the Warnings
+# (necessary to ignore the CustomMaskWarning,
+#  from the Keras Functional API/TensorFlow Python's Library)
+warnings.filterwarnings("ignore")
+
 # Import Mean (Average) Function from the NumPy Python's Library
 from numpy import mean
 
