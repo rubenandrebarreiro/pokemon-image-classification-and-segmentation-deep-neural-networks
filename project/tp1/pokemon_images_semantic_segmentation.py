@@ -1116,7 +1116,7 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
     for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
         # Print the respective Means (Averages) for the Losses and Accuracies
-        # of the predictions made by the current Optimiser on the Testing Set
+        # of the predictions made by the current Optimiser on the Training, Validation and Testing Set
         print(' - %s: [ train_loss = %.12f ; train_binary_acc = %.12f |'
               ' val_loss = %.12f ; val_binary_acc = %.12f |'
               ' test_loss = %.12f ; test_binary_acc = %.12f ]'
@@ -1130,3 +1130,12 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
 
     # Print two break lines, for a better presentation of the output
     print('\n\n')
+
+    # Return the respective Means (Averages) for the Losses and Accuracies
+    # of the predictions made by the current Optimiser on the Training, Validation and Testing Set
+    return optimisers_training_loss_means, \
+        optimisers_training_accuracy_means, \
+        optimisers_validation_loss_means, \
+        optimisers_validation_accuracy_means, \
+        optimisers_true_testing_loss_means, \
+        optimisers_true_testing_accuracy_means

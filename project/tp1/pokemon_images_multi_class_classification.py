@@ -1108,3 +1108,12 @@ def execute_model_of_multi_class_classification_for_all_available_optimisers():
 
     # Print two break lines, for a better presentation of the output
     print('\n\n')
+
+    # Return the respective Means (Averages) for the Losses and Accuracies
+    # of the predictions made by the current Optimiser on the Training, Validation and Testing Set
+    return optimisers_training_loss_means, \
+        optimisers_training_accuracy_means, \
+        optimisers_validation_loss_means, \
+        optimisers_validation_accuracy_means, \
+        optimisers_true_testing_loss_means, \
+        optimisers_true_testing_accuracy_means

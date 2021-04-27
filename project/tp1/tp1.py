@@ -30,6 +30,16 @@ import os as operative_system
 # Disable all the Debugging Logs from TensorFlow Library
 operative_system.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
+# Import the Optimisers available to use for the the Model of
+# the feed-forward Convolution Neural Network (C.N.N.)
+# from the Parameters and Arguments Python's Custom Module
+from project.tp1.libs.parameters_and_arguments import AVAILABLE_OPTIMISERS_LIST
+
+# Import the Number of Optimisers available to use for the the Model of
+# the feed-forward Convolution Neural Network (C.N.N.)
+# from the Parameters and Arguments Python's Custom Module
+from project.tp1.libs.parameters_and_arguments import NUM_AVAILABLE_OPTIMISERS
+
 # Import the function to execute the Model of Multi-Class Classification
 # for all the Available Optimisers, from the Module for
 # the Multi-Class Classification Problem in the Project
@@ -49,11 +59,114 @@ from pokemon_images_semantic_segmentation import \
     execute_model_of_semantic_segmentation_for_all_available_optimisers
 
 
+# Print the logging for the execution of
+# the Model of the Multi-Class Classification for all the Available Optimisers
+print('\n')
+print('Executing the Pokemon Multi-Class Classification, for all the Available Optimisers...')
+
 # Execute the Model of the Multi-Class Classification for all the Available Optimisers
-execute_model_of_multi_class_classification_for_all_available_optimisers()
+optimisers_training_loss_means_multi_class, \
+    optimisers_training_accuracy_means_multi_class, \
+    optimisers_validation_loss_means_multi_class, \
+    optimisers_validation_accuracy_means_multi_class, \
+    optimisers_true_testing_loss_means_multi_class, \
+    optimisers_true_testing_accuracy_means_multi_class = \
+    execute_model_of_multi_class_classification_for_all_available_optimisers()
+
+
+# Print the logging for the execution of
+# the Model of the Multi-Label Classification for all the Available Optimisers
+print('\n')
+print('Executing the Pokemon Multi-Label Classification, for all the Available Optimisers...')
 
 # Execute the Model of the Multi-Label Classification for all the Available Optimisers
-execute_model_of_multi_label_classification_for_all_available_optimisers()
+optimisers_training_loss_means_multi_label, \
+    optimisers_training_accuracy_means_multi_label, \
+    optimisers_validation_loss_means_multi_label, \
+    optimisers_validation_accuracy_means_multi_label, \
+    optimisers_true_testing_loss_means_multi_label, \
+    optimisers_true_testing_accuracy_means_multi_label = \
+    execute_model_of_multi_label_classification_for_all_available_optimisers()
+
+
+# Print the logging for the execution of
+# the Model of the Image Masking/Semantic Segmentation for all the Available Optimisers
+print('\n')
+print('Executing the Pokemon Image Masking/Semantic Segmentation, for all the Available Optimisers...')
 
 # Execute the Model of the Semantic Segmentation for all the Available Optimisers
-execute_model_of_semantic_segmentation_for_all_available_optimisers()
+optimisers_training_loss_means_semantic_segmentation, \
+    optimisers_training_accuracy_means_semantic_segmentation, \
+    optimisers_validation_loss_means_semantic_segmentation, \
+    optimisers_validation_accuracy_means_semantic_segmentation, \
+    optimisers_true_testing_loss_means_semantic_segmentation, \
+    optimisers_true_testing_accuracy_means_semantic_segmentation = \
+    execute_model_of_semantic_segmentation_for_all_available_optimisers()
+
+
+# Print the logging for the execution of
+# the Model of the Image Masking/Semantic Segmentation for all the Available Optimisers
+print('\n\n')
+print('-------- Final Results for the all the Problems and Available Optimisers --------')
+
+# Print the logging for the results of the Multi-Class Classification Problem
+print('\n')
+print('---- Results of the Multi-Class Classification ----')
+
+# For each Optimiser available
+for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
+
+    # Print the respective Means (Averages) for the Losses and Accuracies
+    # of the predictions made by the current Optimiser on the Testing Set
+    print(' - %s: [ train_loss = %.12f ; train_acc = %.12f |'
+          ' val_loss = %.12f ; val_acc = %.12f |'
+          ' test_loss = %.12f ; test_acc = %.12f ]'
+          % (AVAILABLE_OPTIMISERS_LIST[num_optimiser],
+             optimisers_training_loss_means_multi_class[num_optimiser],
+             optimisers_training_accuracy_means_multi_class[num_optimiser],
+             optimisers_validation_loss_means_multi_class[num_optimiser],
+             optimisers_validation_accuracy_means_multi_class[num_optimiser],
+             optimisers_true_testing_loss_means_multi_class[num_optimiser],
+             optimisers_true_testing_accuracy_means_multi_class[num_optimiser]))
+
+
+# Print the logging for the results of the Multi-Label Classification Problem
+print('\n')
+print('---- Results of the Multi-Label Classification ----')
+
+# For each Optimiser available
+for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
+
+    # Print the respective Means (Averages) for the Losses and Accuracies
+    # of the predictions made by the current Optimiser on the Testing Set
+    print(' - %s: [ train_loss = %.12f ; train_acc = %.12f |'
+          ' val_loss = %.12f ; val_acc = %.12f |'
+          ' test_loss = %.12f ; test_acc = %.12f ]'
+          % (AVAILABLE_OPTIMISERS_LIST[num_optimiser],
+             optimisers_training_loss_means_multi_label[num_optimiser],
+             optimisers_training_accuracy_means_multi_label[num_optimiser],
+             optimisers_validation_loss_means_multi_label[num_optimiser],
+             optimisers_validation_accuracy_means_multi_label[num_optimiser],
+             optimisers_true_testing_loss_means_multi_label[num_optimiser],
+             optimisers_true_testing_accuracy_means_multi_label[num_optimiser]))
+
+
+# Print the logging for the results of the Image Masking/Semantic Segmentation Problem
+print('\n')
+print('---- Results of the Image Masking/Semantic Segmentation ----')
+
+# For each Optimiser available
+for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
+
+    # Print the respective Means (Averages) for the Losses and Accuracies
+    # of the predictions made by the current Optimiser on the Testing Set
+    print(' - %s: [ train_loss = %.12f ; train_acc = %.12f |'
+          ' val_loss = %.12f ; val_acc = %.12f |'
+          ' test_loss = %.12f ; test_acc = %.12f ]'
+          % (AVAILABLE_OPTIMISERS_LIST[num_optimiser],
+             optimisers_training_loss_means_semantic_segmentation[num_optimiser],
+             optimisers_training_accuracy_means_semantic_segmentation[num_optimiser],
+             optimisers_validation_loss_means_semantic_segmentation[num_optimiser],
+             optimisers_validation_accuracy_means_semantic_segmentation[num_optimiser],
+             optimisers_true_testing_loss_means_semantic_segmentation[num_optimiser],
+             optimisers_true_testing_accuracy_means_semantic_segmentation[num_optimiser]))
