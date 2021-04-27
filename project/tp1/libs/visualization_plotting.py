@@ -183,8 +183,8 @@ def plot_training_and_validation_accuracies(
     # Initialise the Accuracies' Values, for the Validation Set
     validation_accuracy_values = None
 
-    # If it is Multi-Class Classification Problem or Masking/Semantic Segmentation
-    if (problem == 'Multi-Class') or (problem == 'Semantic-Segmentation'):
+    # If it is Multi-Class Classification Problem
+    if problem == 'Multi-Class':
 
         # Retrieve the Accuracy Values, from the Fitting/Training of
         # the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -200,8 +200,8 @@ def plot_training_and_validation_accuracies(
         validation_accuracy_values = \
             cnn_model_in_keras_training_history.history['val_accuracy']
 
-    # If it is Multi-Label Classification Problem
-    elif problem == 'Multi-Label':
+    # If it is Multi-Label Classification Problem or Masking/Semantic Segmentation
+    elif (problem == 'Multi-Label') or (problem == 'Semantic-Segmentation'):
 
         # Retrieve the Accuracy Values, from the Fitting/Training of
         # the Model for a feed-forward Convolution Neural Network (C.N.N.),

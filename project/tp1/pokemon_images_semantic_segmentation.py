@@ -58,6 +58,7 @@ from tensorflow.keras import Model as FunctionalModel
 from tensorflow.keras.layers import Conv2D
 from tensorflow.keras.layers import BatchNormalization
 from tensorflow.keras.layers import Activation
+from tensorflow.keras.layers import Dense
 from tensorflow.keras.layers import SeparableConv2D
 from tensorflow.keras.layers import MaxPooling2D
 from tensorflow.keras.layers import Conv2DTranspose
@@ -97,13 +98,13 @@ from tensorflow.keras.callbacks import EarlyStopping
 # the TensorFlow.Keras.Callbacks Python's Module
 from tensorflow.keras.callbacks import TensorBoard
 
-# Import the Sparse Categorical Cross-Entropy from
+# Import the Binary Categorical Cross-Entropy from
 # the TensorFlow.Keras.Metrics Python's Module
-from tensorflow.keras.metrics import sparse_categorical_crossentropy
+from tensorflow.keras.metrics import binary_crossentropy
 
-# Import the Sparse Categorical Accuracy from
+# Import the Binary Categorical Accuracy from
 # the TensorFlow.Keras.Metrics Python's Module
-from tensorflow.keras.metrics import sparse_categorical_accuracy
+from tensorflow.keras.metrics import binary_accuracy
 
 # Import the boolean flag, to keep information about
 # the use of High-Performance Computing (with CPUs and GPUs)
@@ -140,6 +141,11 @@ from project.tp1.libs.parameters_and_arguments import IMAGES_WIDTH
 # the feed-forward Convolution Neural Network (C.N.N.)
 # from the Parameters and Arguments Python's Custom Module
 from project.tp1.libs.parameters_and_arguments import NUM_CHANNELS_RGB
+
+# Import the Number of Filters for the Model of
+# the feed-forward Convolution Neural Network (C.N.N.)
+# from the Parameters and Arguments Python's Custom Module
+from project.tp1.libs.parameters_and_arguments import NUM_CHANNELS_GRAY_SCALE
 
 # Import the Number of Filters for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
@@ -286,6 +292,12 @@ from project.tp1.tp1_utils import compare_masks as compare_true_and_predicted_ma
 # for the Project, from the TP1_Utils' Python's Module,
 # with the overlay_true_and_predicted_masks alias
 from project.tp1.tp1_utils import overlay_masks as overlay_true_and_predicted_masks
+
+# Import the Auxiliary Function to
+# to convert Images to Pictures,
+# for the Project, from the TP1_Utils' Python's Module,
+# with the overlay_true_and_predicted_masks alias
+from project.tp1.tp1_utils import images_to_pic as images_to_pic
 
 
 # Function to create the need Early Stopping Callbacks for
@@ -559,11 +571,17 @@ def create_cnn_model_in_keras_functional_api_for_semantic_segmentation():
                                kernel_initializer='random_uniform',
                                padding='same')(xs_features_layer)
 
-    # Add the last Softmax as Activation Function Layer,
+    # Add a Dense Layer to the features of the Data/Images of
+    # the Pokemons resulted from the previous Layer of
+    # the Model of the feed-forward Convolution Neural Network (C.N.N.),
+    # for a total of 1 Unit (Weights and Biases), for each type of Pokemon
+    xs_features_layer = Dense(NUM_CHANNELS_GRAY_SCALE)(xs_features_layer)
+
+    # Add the last Sigmoid as Activation Function Layer,
     # for the features of the Data/Images of the Pokemons resulted from
     # the previous Layer of the Model of the feed-forward
     # Convolution Neural Network (C.N.N.)
-    ys_outputs_layer = Activation('softmax')(xs_features_layer)
+    ys_outputs_layer = Activation('sigmoid')(xs_features_layer)
 
     # Create a Model for a feed-forward Convolution Neural Network (C.N.N.),
     # which is most appropriate for this type of problem (i.e., Semantic Segmentation),
@@ -731,6 +749,7 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
 
     # Generate Images' Set, for the several sets
     # (i.e., Training, Validation and Testing Sets)
+    """
     generate_images_sets(xs_features_training_set_pokemon, ys_masks_training_set_pokemon,
                          features_training_set_pokemon_data_augmentation_generator.x,
                          masks_training_set_pokemon_data_augmentation_generator.x,
@@ -738,6 +757,7 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
                          features_validation_set_pokemon_data_augmentation_generator.x,
                          masks_validation_set_pokemon_data_augmentation_generator.x,
                          xs_features_testing_set_pokemon, ys_masks_testing_set_pokemon)
+    """
 
     # Create the need Early Stopping Callbacks for
     # the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -825,9 +845,9 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
         # with the given Categorical Cross Entropy Loss/Error Function and
         # the Stochastic Gradient Descent (S.G.D.) Optimiser
         cnn_model_in_keras_functional_api_for_semantic_segmentation_masking \
-            .compile(loss='sparse_categorical_crossentropy',
+            .compile(loss='binary_crossentropy',
                      optimizer=current_optimiser,
-                     metrics=['accuracy'])
+                     metrics=['binary_accuracy'])
 
         # Print the Log for the Fitting/Training of
         # the Model for the feed-forward Convolution Neural Network (C.N.N.)
@@ -895,7 +915,7 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
 
         # Retrieve the History of the Training Accuracies for the current Optimiser
         optimiser_training_accuracy_history = \
-            cnn_model_in_keras_functional_api_for_semantic_segmentation_training_history.history['accuracy']
+            cnn_model_in_keras_functional_api_for_semantic_segmentation_training_history.history['binary_accuracy']
 
         # Retrieve the Number of Epochs History of the Training Accuracies for the current Optimiser
         num_epochs_optimiser_training_accuracy_history = len(optimiser_training_accuracy_history)
@@ -919,7 +939,7 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
 
         # Retrieve the History of the Validation Accuracies for the current Optimiser
         optimiser_validation_accuracy_history = \
-            cnn_model_in_keras_functional_api_for_semantic_segmentation_training_history.history['val_accuracy']
+            cnn_model_in_keras_functional_api_for_semantic_segmentation_training_history.history['val_binary_accuracy']
 
         # Retrieve the Number of Epochs History of the Validation Accuracies for the current Optimiser
         num_epochs_optimiser_validation_accuracy_history = len(optimiser_validation_accuracy_history)
@@ -960,19 +980,25 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
             .predict(x=xs_features_testing_set_pokemon,
                      batch_size=BATCH_SIZE, verbose=1)
 
-        # Retrieve the Categorical Cross-Entropy for the Masks' Predictions on the Testing Set,
+        # Convert the Images of the predicted Masks for the Testing Set to Pictures
+        images_to_pic(('files\\images\\figures\\testing\\predictions\\masks\\'
+                      'pokemon-semantic-segmentation-masks-%s-optimiser.png'
+                       % (AVAILABLE_OPTIMISERS_LIST[num_optimiser].lower())),
+                      ys_masks_testing_set_pokemon_predicted)
+
+        # Retrieve the Binary Cross-Entropy for the Masks' Predictions on the Testing Set,
         # using the Model for the feed-forward Convolution Neural Network (C.N.N.),
         # fitted/trained previously with the Training and Validation Sets
         true_testing_loss = \
-            sparse_categorical_crossentropy(ys_masks_testing_set_pokemon,
-                                            ys_masks_testing_set_pokemon_predicted)
+            binary_crossentropy(ys_masks_testing_set_pokemon,
+                                ys_masks_testing_set_pokemon_predicted)
 
-        # Retrieve the Categorical Accuracy for the Masks' Predictions on the Testing Set,
+        # Retrieve the Binary Accuracy for the Masks' Predictions on the Testing Set,
         # using the Model for the feed-forward Convolution Neural Network (C.N.N.),
         # fitted/trained previously with the Training and Validation Sets
         true_testing_accuracy = \
-            sparse_categorical_accuracy(ys_masks_testing_set_pokemon,
-                                        ys_masks_testing_set_pokemon_predicted)
+            binary_accuracy(ys_masks_testing_set_pokemon,
+                            ys_masks_testing_set_pokemon_predicted)
 
         # Create the Image to Compare the True and Predicted Masks, in Image Masking/Semantic Segmentation
         compare_true_and_predicted_masks(
@@ -1093,9 +1119,9 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
 
         # Print the respective Means (Averages) for the Losses and Accuracies
         # of the predictions made by the current Optimiser on the Testing Set
-        print(' - %s: [ train_loss = %.12f ; train_acc = %.12f |'
-              ' val_loss = %.12f ; val_acc = %.12f |'
-              ' test_loss = %.12f ; test_acc = %.12f ]'
+        print(' - %s: [ train_loss = %.12f ; train_binary_acc = %.12f |'
+              ' val_loss = %.12f ; val_binary_acc = %.12f |'
+              ' test_loss = %.12f ; test_binary_acc = %.12f ]'
               % (AVAILABLE_OPTIMISERS_LIST[num_optimiser],
                  optimisers_training_loss_means[num_optimiser],
                  optimisers_training_accuracy_means[num_optimiser],
