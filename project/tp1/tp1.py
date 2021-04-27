@@ -44,16 +44,16 @@ from pokemon_images_multi_label_classification import \
 
 # Import the function to execute the Model of Multi-Label Classification
 # for all the Available Optimisers, from the Module for
-# the Multi-Class Classification Problem in the Project
+# the Image Masking/Semantic Segmentation Problem in the Project
 from pokemon_images_semantic_segmentation import \
     execute_model_of_semantic_segmentation_for_all_available_optimisers
 
 
 # Execute the Model of the Multi-Class Classification for all the Available Optimisers
-#execute_model_of_multi_class_classification_for_all_available_optimisers()
+execute_model_of_multi_class_classification_for_all_available_optimisers()
 
 # Execute the Model of the Multi-Label Classification for all the Available Optimisers
-#execute_model_of_multi_label_classification_for_all_available_optimisers()
+execute_model_of_multi_label_classification_for_all_available_optimisers()
 
 # Execute the Model of the Semantic Segmentation for all the Available Optimisers
 execute_model_of_semantic_segmentation_for_all_available_optimisers()
