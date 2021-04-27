@@ -58,6 +58,8 @@ from pokemon_images_multi_label_classification import \
 from pokemon_images_semantic_segmentation import \
     execute_model_of_semantic_segmentation_for_all_available_optimisers
 
+# Print the initial separator
+print('------------------------------------------------------------------------------------')
 
 # Print the logging for the execution of
 # the Model of the Multi-Class Classification for all the Available Optimisers
@@ -73,6 +75,9 @@ optimisers_training_loss_means_multi_class, \
     optimisers_true_testing_accuracy_means_multi_class = \
     execute_model_of_multi_class_classification_for_all_available_optimisers()
 
+# Print a separator, for the logging for the execution of
+# the Model of the Multi-Class Classification for all the Available Optimisers
+print('------------------------------------------------------------------------------------')
 
 # Print the logging for the execution of
 # the Model of the Multi-Label Classification for all the Available Optimisers
@@ -88,6 +93,9 @@ optimisers_training_loss_means_multi_label, \
     optimisers_true_testing_accuracy_means_multi_label = \
     execute_model_of_multi_label_classification_for_all_available_optimisers()
 
+# Print a separator, for the logging for the execution of
+# the Model of the Multi-Label Classification for all the Available Optimisers
+print('------------------------------------------------------------------------------------')
 
 # Print the logging for the execution of
 # the Model of the Image Masking/Semantic Segmentation for all the Available Optimisers
@@ -102,6 +110,10 @@ optimisers_training_loss_means_semantic_segmentation, \
     optimisers_true_testing_loss_means_semantic_segmentation, \
     optimisers_true_testing_accuracy_means_semantic_segmentation = \
     execute_model_of_semantic_segmentation_for_all_available_optimisers()
+
+# Print a separator, for the logging for the execution of
+# the Model of the Image Masking/Semantic Segmentation for all the Available Optimisers
+print('------------------------------------------------------------------------------------')
 
 
 # Print the logging for the execution of
