@@ -598,6 +598,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
 
     # It is being used the ADAptive GRADient algorithm (ADA.GRAD.) Optimiser
     if ((optimiser_id == AVAILABLE_OPTIMISERS_LIST[0]) or
+            (optimiser_id == AVAILABLE_OPTIMISERS_LIST[3]) or
             (optimiser_id == AVAILABLE_OPTIMISERS_LIST[4])):
 
         # Add a Dropout Layer of 50%, for the Regularization of Hyper-Parameters,
