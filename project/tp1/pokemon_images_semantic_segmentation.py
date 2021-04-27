@@ -749,7 +749,6 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
 
     # Generate Images' Set, for the several sets
     # (i.e., Training, Validation and Testing Sets)
-    """
     generate_images_sets(xs_features_training_set_pokemon, ys_masks_training_set_pokemon,
                          features_training_set_pokemon_data_augmentation_generator.x,
                          masks_training_set_pokemon_data_augmentation_generator.x,
@@ -757,7 +756,6 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
                          features_validation_set_pokemon_data_augmentation_generator.x,
                          masks_validation_set_pokemon_data_augmentation_generator.x,
                          xs_features_testing_set_pokemon, ys_masks_testing_set_pokemon)
-    """
 
     # Create the need Early Stopping Callbacks for
     # the Model for a feed-forward Convolution Neural Network (C.N.N.),
