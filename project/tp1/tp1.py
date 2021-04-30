@@ -58,6 +58,19 @@ from pokemon_images_multi_label_classification import \
 from pokemon_images_semantic_segmentation import \
     execute_model_of_semantic_segmentation_for_all_available_optimisers
 
+# Import the function to execute the Pre-Trained MobileNet Model
+# of Multi-Class Classification for all the Available Optimisers,
+# from the Module for the ImageNet Classification Problem in the Project
+from pokemon_image_net_classification import \
+    execute_mobile_net_model_multi_class_classification_for_all_available_optimisers
+
+# Import the function to execute the Pre-Trained MobileNet Model
+# of Multi-Label Classification for all the Available Optimisers,
+# from the Module for the ImageNet Classification Problem in the Project
+from pokemon_image_net_classification import \
+    execute_mobile_net_model_multi_label_classification_for_all_available_optimisers
+
+"""
 # Print the initial separator
 print('------------------------------------------------------------------------------------')
 
@@ -114,8 +127,55 @@ optimisers_training_loss_means_semantic_segmentation, \
 # Print a separator, for the logging for the execution of
 # the Model of the Image Masking/Semantic Segmentation for all the Available Optimisers
 print('------------------------------------------------------------------------------------')
+"""
 
+# Print the logging for the execution of
+# the Model of the Multi-Class Classification, with MobileNet Pre-Trained Model,
+# using ImageNet Weights, for all the Available Optimisers
+print('\n')
+print('Executing the Pokemon Multi-Class Classification, with MobileNet Pre-Trained Model, '
+      'using ImageNet Weights, for all the Available Optimisers...')
 
+# Execute the Model of the Multi-Class Classification,
+# with MobileNet Pre-Trained Model, using ImageNet Weights,
+# for all the Available Optimisers
+optimisers_training_loss_means_mobile_net_multi_class, \
+    optimisers_training_accuracy_means_mobile_net_multi_class, \
+    optimisers_validation_loss_means_mobile_net_multi_class, \
+    optimisers_validation_accuracy_means_mobile_net_multi_class, \
+    optimisers_true_testing_loss_means_mobile_net_multi_class, \
+    optimisers_true_testing_accuracy_means_mobile_net_multi_class = \
+    execute_mobile_net_model_multi_class_classification_for_all_available_optimisers()
+
+# Print a separator, for the logging for the execution of
+# the Model of the Multi-Class Classification, with MobileNet Pre-Trained Model,
+# # using ImageNet Weights, for all the Available Optimisers
+print('------------------------------------------------------------------------------------')
+
+# Print the logging for the execution of
+# the Model of the Multi-Label Classification, with MobileNet Pre-Trained Model,
+# using ImageNet Weights, for all the Available Optimisers
+print('\n')
+print('Executing the Pokemon Multi-Label Classification, with MobileNet Pre-Trained Model, '
+      'using ImageNet Weights, for all the Available Optimisers...')
+
+# Execute the Model of the Multi-Label Classification,
+# with MobileNet Pre-Trained Model, using ImageNet Weights,
+# for all the Available Optimisers
+optimisers_training_loss_means_mobile_net_multi_label, \
+    optimisers_training_accuracy_means_mobile_net_multi_label, \
+    optimisers_validation_loss_means_mobile_net_multi_label, \
+    optimisers_validation_accuracy_means_mobile_net_multi_label, \
+    optimisers_true_testing_loss_means_mobile_net_multi_label, \
+    optimisers_true_testing_accuracy_means_mobile_net_multi_label = \
+    execute_mobile_net_model_multi_label_classification_for_all_available_optimisers()
+
+# Print a separator, for the logging for the execution of
+# the Model of the Multi-Label Classification, with MobileNet Pre-Trained Model,
+# # using ImageNet Weights, for all the Available Optimisers
+print('------------------------------------------------------------------------------------')
+
+"""
 # Print the logging for the execution of
 # the Model of the Image Masking/Semantic Segmentation for all the Available Optimisers
 print('\n\n')
@@ -129,7 +189,7 @@ print('---- Results of the Multi-Class Classification ----')
 for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
     # Print the respective Means (Averages) for the Losses and Accuracies
-    # of the predictions made by the current Optimiser on the Testing Set
+    # of the predictions made by the current Optimiser on all the Sets
     print(' - %s: [ train_loss = %.12f ; train_acc = %.12f |'
           ' val_loss = %.12f ; val_acc = %.12f |'
           ' test_loss = %.12f ; test_acc = %.12f ]'
@@ -150,7 +210,7 @@ print('---- Results of the Multi-Label Classification ----')
 for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
     # Print the respective Means (Averages) for the Losses and Accuracies
-    # of the predictions made by the current Optimiser on the Testing Set
+    # of the predictions made by the current Optimiser on all the Sets
     print(' - %s: [ train_loss = %.12f ; train_acc = %.12f |'
           ' val_loss = %.12f ; val_acc = %.12f |'
           ' test_loss = %.12f ; test_acc = %.12f ]'
@@ -171,7 +231,7 @@ print('---- Results of the Image Masking/Semantic Segmentation ----')
 for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
     # Print the respective Means (Averages) for the Losses and Accuracies
-    # of the predictions made by the current Optimiser on the Testing Set
+    # of the predictions made by the current Optimiser on all the Sets
     print(' - %s: [ train_loss = %.12f ; train_acc = %.12f |'
           ' val_loss = %.12f ; val_acc = %.12f |'
           ' test_loss = %.12f ; test_acc = %.12f ]'
@@ -182,3 +242,46 @@ for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
              optimisers_validation_accuracy_means_semantic_segmentation[num_optimiser],
              optimisers_true_testing_loss_means_semantic_segmentation[num_optimiser],
              optimisers_true_testing_accuracy_means_semantic_segmentation[num_optimiser]))
+
+"""
+
+# Print the logging for the results of the Multi-Class Classification Problem, with ImageNet Weights
+print('\n')
+print('---- Results of the Multi-Class Classification, with the ImageNet Weights ----')
+
+# For each Optimiser available
+for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
+
+    # Print the respective Means (Averages) for the Losses and Accuracies
+    # of the predictions made by the current Optimiser on all the Sets
+    print(' - %s: [ train_loss = %.12f ; train_acc = %.12f |'
+          ' val_loss = %.12f ; val_acc = %.12f |'
+          ' test_loss = %.12f ; test_acc = %.12f ]'
+          % (AVAILABLE_OPTIMISERS_LIST[num_optimiser],
+             optimisers_training_loss_means_mobile_net_multi_class[num_optimiser],
+             optimisers_training_accuracy_means_mobile_net_multi_class[num_optimiser],
+             optimisers_validation_loss_means_mobile_net_multi_class[num_optimiser],
+             optimisers_validation_accuracy_means_mobile_net_multi_class[num_optimiser],
+             optimisers_true_testing_loss_means_mobile_net_multi_class[num_optimiser],
+             optimisers_true_testing_accuracy_means_mobile_net_multi_class[num_optimiser]))
+
+
+# Print the logging for the results of the Multi-Label Classification Problem, with ImageNet Weights
+print('\n')
+print('---- Results of the Multi-Label Classification, with the ImageNet Weights ----')
+
+# For each Optimiser available
+for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
+
+    # Print the respective Means (Averages) for the Losses and Accuracies
+    # of the predictions made by the current Optimiser on all the Sets
+    print(' - %s: [ train_loss = %.12f ; train_acc = %.12f |'
+          ' val_loss = %.12f ; val_acc = %.12f |'
+          ' test_loss = %.12f ; test_acc = %.12f ]'
+          % (AVAILABLE_OPTIMISERS_LIST[num_optimiser],
+             optimisers_training_loss_means_mobile_net_multi_label[num_optimiser],
+             optimisers_training_accuracy_means_mobile_net_multi_label[num_optimiser],
+             optimisers_validation_loss_means_mobile_net_multi_label[num_optimiser],
+             optimisers_validation_accuracy_means_mobile_net_multi_label[num_optimiser],
+             optimisers_true_testing_loss_means_mobile_net_multi_label[num_optimiser],
+             optimisers_true_testing_accuracy_means_mobile_net_multi_label[num_optimiser]))
