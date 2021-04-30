@@ -837,12 +837,10 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers():
             # with the Training Set for the Training Data and the Validation Set for the Validation Data
             cnn_model_in_keras_sequential_api_for_image_classification_training_history = \
                 cnn_model_in_keras_sequential_api_for_image_classification_multi_labels_classification \
-                .fit(multi_labels_training_set_pokemon_data_augmentation_generator.x,
-                     multi_labels_training_set_pokemon_data_augmentation_generator.y,
+                .fit(multi_labels_training_set_pokemon_data_augmentation_generator,
                      steps_per_epoch=(NUM_EXAMPLES_FINAL_TRAINING_SET // BATCH_SIZE),
                      epochs=NUM_EPOCHS,
-                     validation_data=(multi_labels_validation_set_pokemon_data_augmentation_generator.x,
-                                      multi_labels_validation_set_pokemon_data_augmentation_generator.y),
+                     validation_data=multi_labels_validation_set_pokemon_data_augmentation_generator,
                      validation_steps=(NUM_EXAMPLES_FINAL_VALIDATION_SET // BATCH_SIZE),
                      batch_size=BATCH_SIZE,
                      callbacks=[pokemon_training_loss_early_stopping_callback,

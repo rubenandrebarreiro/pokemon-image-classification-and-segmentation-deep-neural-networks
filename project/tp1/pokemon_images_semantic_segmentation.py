@@ -52,19 +52,39 @@ import tensorflow as tensorflow
 # Import the Backend Module from the TensorFlow.Python.Keras Python's Module
 from tensorflow.python.keras import backend as keras_backend
 
+# Import the Input the TensorFlow.Keras Python's Module
 from tensorflow.keras import Input
+
+# Import the Model from the TensorFlow.Keras Python's Module,
+# as FunctionalModel alias
 from tensorflow.keras import Model as FunctionalModel
 
+# Import the Convolution 2D Layer from the TensorFlow.Keras.Layers Python's Module
 from tensorflow.keras.layers import Conv2D
-from tensorflow.keras.layers import BatchNormalization
-from tensorflow.keras.layers import Activation
-from tensorflow.keras.layers import Dense
-from tensorflow.keras.layers import SeparableConv2D
-from tensorflow.keras.layers import MaxPooling2D
-from tensorflow.keras.layers import Conv2DTranspose
-from tensorflow.keras.layers import UpSampling2D
-from tensorflow.keras.layers import add
 
+# Import the Batch Normalization Layer from the TensorFlow.Keras.Layers Python's Module
+from tensorflow.keras.layers import BatchNormalization
+
+# Import the Activation Layer from the TensorFlow.Keras.Layers Python's Module
+from tensorflow.keras.layers import Activation
+
+# Import the Dense Layer from the TensorFlow.Keras.Layers Python's Module
+from tensorflow.keras.layers import Dense
+
+# Import the Separable Convolution 2D Layer from the TensorFlow.Keras.Layers Python's Module
+from tensorflow.keras.layers import SeparableConv2D
+
+# Import the Maximum Pooling 2D Layer from the TensorFlow.Keras.Layers Python's Module
+from tensorflow.keras.layers import MaxPooling2D
+
+# Import the Convolution 2D Transpose Layer from the TensorFlow.Keras.Layers Python's Module
+from tensorflow.keras.layers import Conv2DTranspose
+
+# Import the Up Sampling 2D Layer from the TensorFlow.Keras.Layers Python's Module
+from tensorflow.keras.layers import UpSampling2D
+
+# Import the Add Layer from the TensorFlow.Keras.Layers Python's Module
+from tensorflow.keras.layers import add
 
 # Import the Stochastic Gradient Descent (S.G.D.) Optimiser
 # from the TensorFlow.Keras.Optimisers Python's Module
