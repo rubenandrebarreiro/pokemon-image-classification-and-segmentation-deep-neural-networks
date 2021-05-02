@@ -25,27 +25,36 @@ Q1: Explique a arquitectura do seu melhor modelo para o problema de classificaç
 	Justifique também a sua escolha de camadas e de funções de activação para as camadas escondidas.
 R1: The architecture of the best model for the Multi-Class Classification is composed by 5 Blocks of Layers,
 	4 Convolutional Block of Layers and a last Block of Dense and Rectified Linear Unit (ReLU) Activation Function Layers.
+	
 	The Convolutional Blocks of Layers are, mainly, represented by chained layers of Convolutional 2D Layers and
 	Rectified Linear Unit (ReLU) Activation Function Layers, followed by a last Max Pooling 2D Layer:
 	- 1) Convolutional 2D Block: [ Conv2D -> ReLU -> MaxPooling2D ];
 	- 2) and 3) Convolutional 2D Block: [ Conv2D -> ReLU -> Conv2D -> ReLU -> MaxPooling2D ];
 	- 4) Convolutional 2D Block: [ Conv2D -> ReLU -> Conv2D -> ReLU -> Conv2D -> ReLU -> MaxPooling2D ];
 	- 5) Dense Block: [ Flatten -> Dense -> ReLU -> Dense -> ReLU ];
-    The Convolutional 2D Layers of the 4 first Blocks have 32, 64, 128 and 256 Filters, Kernels of 3x3 pixels.
-	The Rectified Linear Unit (ReLU) Activation Function Layesr will set negative values of features, with the value 0.
-	The Max Pooling 2D Layers with a Pool and a Stride of size 2x2, computing the maximum value of the features,
-	in a horizontal and vertical neighborhood of 2 pixels and jumping also 2 pixels, horizontal and vertically,
-	to make the learning process faster, resulting on new inputs to the next convolutional blocks of layers.
+	
+	The Convolutional 2D Layers are used to extract the most important features of the images, by applying kernels,
+	which will analyse semantic correlations of the neighborhood of the pixels being considered, through matrix multiplications.
+	The first Convolutional 2D Layers with less filters extract the high-level features, such as, specific details of the images,
+	while the later Convolutional 2D Layers with more filters extract the low-level features, such as, shapes and edges.
+	The Pooling Layers, are applied to reduce the dimensionality of the feature maps, by computing the maximum value of a kernel, in this case.
+    Since, the Convolutional Neural Networks do not deal well with non-linearity values, because some Activation Functions, such as,
+	the Sigmoid or Softmax Functions, could not provide the best results, when applied directly to some possible negative values resulted from
+	the pooling and kernels applied previously, it is applied a Rectified Linear Unit (ReLU) Activation Function Layer, to set them, as 0.
+	
+	The Convolutional 2D Layers of the 4 first Blocks have 32, 64, 128 and 256 Filters, Kernels of 3x3 pixels.
 	In the 5th Dense Block, the dimensions of the features are first reshaped/reduced by the application of a Flatten Layer,
 	and, the Dense Layers have, both, 512 Units, complemented also by Rectified Linear Unit (ReLU) Activation Function Layers.
 	Additionally, it have some specific optimizations, regarding some optimisers tested, such as, he_uniform initialisers on
 	the Kernels of the Convolutional 2D Layers, for the case of the RMSProp and ADAM optimisers, as also, Dropout Layers of 50%,
 	before the last Rectified Linear Unit (ReLU) Activation Function Layer of the last Block of layers, for the case of
 	the SGD, ADAGrad and ADADelta optimisers, in order to improve the perfomance of them and reduce Overfitting situations.
+	
 	Finally, it is applied a Dense of 10 Units, corresponding to the number of Classes of the data (i.e., the all known types of Pokémons),
 	and, since this is a problem of Multi-Class Classification, it is applied a Softmax Activation Layer, because the output of predictions
 	are interrelated and represented by the distribution of probabilities (with sum equal to 1) of an example belonging to each Class of
 	the problem, where the predicted class corresponds to the maximum probability, computed from the Sofmax function.
+	
 	For the cost function, it is used the categorical_crossentropy that sums the softmax losses for all classes, but since,
 	the real classes are one-hot encoded, and it is pretended to predict only the most likely class, the losses of
 	the other classes will be 0 and only the loss from the prediction of the class of the target should be considered.
@@ -63,7 +72,23 @@ R2: For choosing the best model, it were tested several optimisers, where was us
 	- ADAGrad (Learning Rate = 0.012)
 	- ADADelta (Learning Rate = 0.25)
 	- ADAMax (Learning Rate = 0.001)
+	
+	---- Results of the Multi-Class Classification ----
+    - SGD: [ train_loss = 0.055699862540 ; train_acc = 0.980769217014 | val_loss = 0.070379540324 ; val_acc = 0.979838728905 | test_loss = 0.076016090810 ; test_acc = 0.981999993324 ]
+    - RMSPROP: [ train_loss = 0.000000000000 ; train_acc = 1.000000000000 | val_loss = 0.017119491473 ; val_acc = 0.997983872890 | test_loss = 0.000163406236 ; test_acc = 1.000000000000 ]
+    - ADAM: [ train_loss = 0.000000333333 ; train_acc = 1.000000000000 | val_loss = 0.024172192439 ; val_acc = 0.993951618671 | test_loss = 0.012890382670 ; test_acc = 0.995999991894 ]
+    - ADAGRAD: [ train_loss = 1.110704421997 ; train_acc = 0.580654442310 | val_loss = 0.804827392101 ; val_acc = 0.681451618671 | test_loss = 0.822412729263 ; test_acc = 0.675999999046 ]
+    - ADADELTA: [ train_loss = 0.022236943245 ; train_acc = 0.994833528996 | val_loss = 0.040790319443 ; val_acc = 0.991935491562 | test_loss = 0.015777966008 ; test_acc = 0.995999991894 ]
+    - ADAMAX: [ train_loss = 0.000000051051 ; train_acc = 1.000000000000 | val_loss = 0.052005790174 ; val_acc = 0.993951618671 | test_loss = 0.062345843762 ; test_acc = 0.987999975681 ]
 
+	As the final choice, for the Multi-Class Classification was chosen the ADAM Optimiser, because it guarantees always
+	the best loss and accuracy, in both Training and Validation Sets, as also, its curves during the learning process are very stable,
+	in comparison to the other optimisers tested.
+	
+	multi-class-training-accuracy-values-plot-all-optimisers-20210502213246.png
+	multi-class-training-loss-values-plot-all-optimisers-20210502213246.png
+	multi-class-validation-accuracy-values-plot-all-optimisers-20210502213246.png
+	multi-class-validation-loss-values-plot-all-optimisers-20210502213246.png
 
 Q3: For the multilabel classification problem, explain how you adpated your previous model,
     what experiments you did to optimize the architecture and discuss your results.
@@ -75,10 +100,12 @@ R3: The architecture of the best model for the Multi-Label Classification is mai
     the Multi-Class Classification, with the exception of be applied the he_uniform initialisers on the Kernels of
 	the Convolutional 2D Layers, for all the optimisers tested, instead of only specific ones, as also,
 	the application of a Sigmoid Activation Function Layer, at the end, instead of a Sofmax Activation Function Layer.
+	
 	This is done, because the target values of the labels are not one-encoded and can represent more than one class, at the same time.
 	It is used the binary_crossentropy as cost function, since the output of predictions are independent and should be
 	considered independently, with different probabilities (i.e., [0,1]), being equal to have the sum of
 	multiple Binary Classifications, for the combination of probabilities of each example belonging to each known class.
+	
 	For the Multi-Label Classification problem, in order to choose the best model, it were also tested several optimisers,
 	where was used 50 Epochs for the Training/Fitting process, with Batches of size 16, varying some specific parameters
 	(Learning Rates, Momentums and Decays), regarding each optimiser:
@@ -88,8 +115,25 @@ R3: The architecture of the best model for the Multi-Label Classification is mai
 	- ADAGrad (Learning Rate = 0.012)
 	- ADADelta (Learning Rate = 0.25)
 	- ADAMax (Learning Rate = 0.001)
-
-
+	
+	---- Results of the Multi-Label Classification ----
+	- SGD: [ train_loss = 0.001069058664 ; train_acc = 0.999799072742 | val_loss = 0.022539924830 ; val_acc = 0.992540240288 | test_loss = 0.020673101768 ; test_acc = 0.992599964142 ]
+	- RMSPROP: [ train_loss = 0.030355913565 ; train_acc = 0.996900022030 | val_loss = 0.011305619031 ; val_acc = 0.996370792389 | test_loss = 0.005535294302 ; test_acc = 0.998400032520 ]
+	- ADAM: [ train_loss = 0.000000045715 ; train_acc = 1.000000000000 | val_loss = 0.023529507220 ; val_acc = 0.997177362442 | test_loss = 0.005715264939 ; test_acc = 0.998599946499 ]
+	- ADAGRAD: [ train_loss = 0.036298260093 ; train_acc = 0.991504013538 | val_loss = 0.073388159275 ; val_acc = 0.974395155907 | test_loss = 0.070934206247 ; test_acc = 0.979200005531 ]
+	- ADADELTA: [ train_loss = 0.000439833384 ; train_acc = 0.999885082245 | val_loss = 0.028346372768 ; val_acc = 0.992338597775 | test_loss = 0.018196688965 ; test_acc = 0.994800031185 ]
+	- ADAMAX: [ train_loss = 0.000000008322 ; train_acc = 1.000000000000 | val_loss = 0.066472761333 ; val_acc = 0.991128981113 | test_loss = 0.047654651105 ; test_acc = 0.992199957371 ]
+	
+	As the final choice, for the Multi-Label Classification it was also chosen the ADAM Optimiser,
+	because it guarantees always the best loss and accuracy, in both Training and Validation Sets,
+	as also, its curves during the learning process are very stable, in comparison to the other optimisers tested.
+	
+	multi-label-training-accuracy-values-plot-all-optimisers-20210502215635.png
+	multi-label-training-loss-values-plot-all-optimisers-20210502215635.png
+	multi-label-validation-accuracy-values-plot-all-optimisers-20210502215635.png
+	multi-label-validation-loss-values-plot-all-optimisers-20210502215635.png
+	
+	
 Q4: Explain the architecture of your best model for the semantic segmentation problem,
     including a description and justification of the output activation and loss functions.
 	Also justify your choice of layers and activation functions for the hidden layers.
@@ -152,7 +196,24 @@ R5: For the Semantic Segmentation Problem, it was followed a strategy similar to
 	- ADAGrad (Learning Rate = 0.012)
 	- ADADelta (Learning Rate = 0.25)
 	- ADAMax (Learning Rate = 0.001)
+	
+	Since the images have low resolutions (64 x 64 pixels), as also, the losses and accuracy values converge quickly to
+	very good ratios, in just a few epochs, it was defined only 20 Epochs for this specific Task.
 
+	---- Results of the Image Masking/Semantic Segmentation ----
+	- SGD: [ train_loss = 0.056444995105 ; train_acc = 0.975425720215 | val_loss = 0.062696002424 ; val_acc = 0.972799479961 | test_loss = 0.067778527737 ; test_acc = 0.970558583736 ]
+	- RMSPROP: [ train_loss = 0.029835717753 ; train_acc = 0.987110435963 | val_loss = 0.037425719202 ; val_acc = 0.983849287033 | test_loss = 0.039822924882 ; test_acc = 0.982924818993 ]
+	- ADAM: [ train_loss = 0.026685953140 ; train_acc = 0.988388538361 | val_loss = 0.036387767643 ; val_acc = 0.984977006912 | test_loss = 0.039379898459 ; test_acc = 0.983744144440 ]
+	- ADAGRAD: [ train_loss = 0.058978993446 ; train_acc = 0.974233090878 | val_loss = 0.064832925797 ; val_acc = 0.971858859062 | test_loss = 0.070121228695 ; test_acc = 0.969408214092 ]
+	- ADADELTA: [ train_loss = 0.042653799057 ; train_acc = 0.981540620327 | val_loss = 0.054855480790 ; val_acc = 0.976673722267 | test_loss = 0.058304656297 ; test_acc = 0.974922358990 ]
+	- ADAMAX: [ train_loss = 0.029370801523 ; train_acc = 0.987247288227 | val_loss = 0.038880631328 ; val_acc = 0.983707547188 | test_loss = 0.041635908186 ; test_acc = 0.982420384884 ]
+
+	As the final choice, for the Semantic Segmentation it was also chosen the ADAM Optimiser,
+	because it guarantees always the best loss and accuracy, in both Training and Validation Sets.
+	
+	pokemon-semantic-segmentation-masks-comparison-adam-optimiser.png
+	pokemon-semantic-segmentation-masks-overlay-adam-optimiser.png
+	
 
 Q6: (Optional) Discuss the impact on training and overfitting for the two classification problems when
     using available networks pretrained on ImageNet (e.g. EfficientNetB0, MobileNetV2 or others).
@@ -160,4 +221,45 @@ Q6: (Optional) Discuss the impact on training and overfitting for the two classi
 Q6: (Opcional) Discuta o impacto no treino e sobreajustamento nos dois problemas de classificação se
     usar redes pré-treinadas no dataset ImageNet (e.g. EfficientNetB0, MobileNetV2 or others).
 	Explique como usou estas redes e discuta o efeito que tiveram nos seus modelos.
-R6: 
+R6: The impact on Training and Overfitting for the two classification problems using an available pretrained, such as,
+    MobileNet, in this case, led to considerable high losses and very low accuracies, in the Validation and Testing Sets,
+	resulting to a massive Overfitting, but with better results in the Multi-Label Classification than in Multi-Class Classification.
+	This could be because the Multi-Label Classification can assume that an example can have more than one target value, and maybe,
+	can match better the labels of the images of the Pokémons with the possible labels resulted from the huge amount of
+	examples extracted from the ImageNet Dataset.
+	
+	After the top Layers, were used the following Block of Layers:
+	- [ GlobalAveragePooling2D -> Dense -> ReLU -> Dense -> ReLU -> Dense -> Sofmax/Sigmoid ]
+	
+	It was tried to use Data Augmentation Techniques, in this optional task, using several methods, but with no good results.
+	Another possible solution was to not used all the features extracted of the pretrained Model, using the ImageNet Dataset,
+	but only some part of it, by only freezing the first 20 layers of the Model, reducing the complexity of the Network,
+	and start our Model from there, where it was also used some regularization techniques, such as, he_uniform kernel initialisers, or even,
+	some callbacks, such as, Reduce Learning Rate on Plateau, to decrease the Learning Rate, where the losses start to vary too much.
+	With this methods, were achieved much better results, in comparison to using the whole pretrained model, from MobileNet.
+	
+	---- Results of the Multi-Class Classification, with the ImageNet Weights ----
+	- SGD: [ train_loss = 0.155170083046 ; train_acc = 0.947212338448 | val_loss = 0.191553905606 ; val_acc = 0.927083313465 | test_loss = 0.296933978796 ; test_acc = 0.902000010014 ]
+	- RMSPROP: [ train_loss = 0.088382437825 ; train_acc = 0.973309636116 | val_loss = 0.143062844872 ; val_acc = 0.955729186535 | test_loss = 0.173126041889 ; test_acc = 0.945999979973 ]
+	- ADAM: [ train_loss = 0.100005760789 ; train_acc = 0.965005934238 | val_loss = 0.188152745366 ; val_acc = 0.937500000000 | test_loss = 0.258666753769 ; test_acc = 0.920000016689 ]
+	- ADAGRAD: [ train_loss = 0.186100140214 ; train_acc = 0.936239600182 | val_loss = 0.268001347780 ; val_acc = 0.903645813465 | test_loss = 0.351718187332 ; test_acc = 0.878000020981 ]
+	- ADADELTA: [ train_loss = 0.140738859773 ; train_acc = 0.948695123196 | val_loss = 0.284072965384 ; val_acc = 0.919270813465 | test_loss = 0.229344815016 ; test_acc = 0.920000016689 ]
+	- ADAMAX: [ train_loss = 0.096962556243 ; train_acc = 0.967081844807 | val_loss = 0.215152665973 ; val_acc = 0.924479186535 | test_loss = 0.164468124509 ; test_acc = 0.952000021935 ]
+	
+	multi-class-image-net-training-accuracy-values-plot-all-optimisers-20210502224811.png
+	multi-class-image-net-training-loss-values-plot-all-optimisers-20210502224811.png
+	multi-class-image-net-validation-accuracy-values-plot-all-optimisers-20210502224811.png
+	multi-class-image-net-validation-loss-values-plot-all-optimisers-20210502224811.png
+	
+	---- Results of the Multi-Label Classification, with the ImageNet Weights ----
+	- SGD: [ train_loss = 0.065116345882 ; train_acc = 0.974851727486 | val_loss = 0.099940329790 ; val_acc = 0.964843750000 | test_loss = 0.087530478835 ; test_acc = 0.969400048256 ]
+	- RMSPROP: [ train_loss = 0.016762878746 ; train_acc = 0.993386626244 | val_loss = 0.024001769722 ; val_acc = 0.991666615009 | test_loss = 0.033367678523 ; test_acc = 0.990800023079 ]
+	- ADAM: [ train_loss = 0.017387235537 ; train_acc = 0.993712961674 | val_loss = 0.029223501682 ; val_acc = 0.988281250000 | test_loss = 0.023459017277 ; test_acc = 0.991400003433 ]
+	- ADAGRAD: [ train_loss = 0.091967307031 ; train_acc = 0.964857578278 | val_loss = 0.143549546599 ; val_acc = 0.941927015781 | test_loss = 0.086278848350 ; test_acc = 0.966600000858 ]
+	- ADADELTA: [ train_loss = 0.026848742738 ; train_acc = 0.989827990532 | val_loss = 0.040611635894 ; val_acc = 0.984895884991 | test_loss = 0.048771981150 ; test_acc = 0.981999993324 ]
+	- ADAMAX: [ train_loss = 0.021328575909 ; train_acc = 0.992408156395 | val_loss = 0.035184364766 ; val_acc = 0.985416710377 | test_loss = 0.042952504009 ; test_acc = 0.984199941158 ]
+	
+	multi-label-image-net-training-accuracy-values-plot-all-optimisers-20210502231646.png
+	multi-label-image-net-training-loss-values-plot-all-optimisers-20210502231646.png
+	multi-label-image-net-validation-accuracy-values-plot-all-optimisers-20210502231646.png
+	multi-label-image-net-validation-loss-values-plot-all-optimisers-20210502231646.png
