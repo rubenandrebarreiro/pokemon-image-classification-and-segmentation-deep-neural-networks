@@ -363,35 +363,17 @@ def create_fine_tuned_mobile_net_model_in_keras_functional_api_for_image_classif
         MobileNet(weights='imagenet', include_top=False,
                   input_shape=(IMAGES_HEIGHT, IMAGES_WIDTH, NUM_CHANNELS_RGB))
 
-    # If it is Multi-Class Classification Problem
-    if classification_problem.lower() == 'multi-class':
+    # Set the first 20 Layers of the Pre-Trained MobileNet Model, as not Trainable (i.e., freeze them)
+    for mobile_net_large_base_model_layer in mobile_net_base_model.layers[:20]:
 
-        # Set the first 20 Layers of the Pre-Trained MobileNet Model, as not Trainable (i.e., freeze them)
-        for mobile_net_large_base_model_layer in mobile_net_base_model.layers[:20]:
+        # Set the current Layer of the MobileNet Model, as not Trainable (i.e., freeze it)
+        mobile_net_large_base_model_layer.trainable = False
 
-            # Set the current Layer of the MobileNet Model, as not Trainable (i.e., freeze it)
-            mobile_net_large_base_model_layer.trainable = False
+    # Set the remaining Layers of the Pre-Trained MobileNet Model, as Trainable (i.e., unfreeze them)
+    for mobile_net_large_base_model_layer in mobile_net_base_model.layers[20:]:
 
-        # Set the remaining Layers of the Pre-Trained MobileNet Model, as Trainable (i.e., unfreeze them)
-        for mobile_net_large_base_model_layer in mobile_net_base_model.layers[20:]:
-
-            # Set the current Layer of the MobileNet Model, as Trainable (i.e., do not freeze it)
-            mobile_net_large_base_model_layer.trainable = True
-
-    # If it is Multi-Label Classification Problem
-    if classification_problem.lower() == 'multi-label':
-
-        # Set the first 50 Layers of the Pre-Trained MobileNet Model, as not Trainable (i.e., freeze them)
-        for mobile_net_large_base_model_layer in mobile_net_base_model.layers[:50]:
-
-            # Set the current Layer of the MobileNet Model, as not Trainable (i.e., freeze it)
-            mobile_net_large_base_model_layer.trainable = False
-
-        # Set the remaining Layers of the Pre-Trained MobileNet Model, as Trainable (i.e., unfreeze them)
-        for mobile_net_large_base_model_layer in mobile_net_base_model.layers[50:]:
-
-            # Set the current Layer of the MobileNet Model, as Trainable (i.e., do not freeze it)
-            mobile_net_large_base_model_layer.trainable = True
+        # Set the current Layer of the MobileNet Model, as Trainable (i.e., do not freeze it)
+        mobile_net_large_base_model_layer.trainable = True
 
     # Retrieve the xs (features) from the Input (first layer) of the Base Model,
     # using the Layers of the MobileNet Model and the Weights of the ImageNet Dataset
@@ -1353,6 +1335,7 @@ def execute_mobile_net_model_multi_label_classification_for_all_available_optimi
 
     # For each Optimiser available
     for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
+
         # Print the respective Means (Averages) for the Losses and Accuracies
         # of the predictions made by the current Optimiser on the Testing Set
         print(' - %s: [ train_loss = %.12f ; train_binary_acc = %.12f |'
