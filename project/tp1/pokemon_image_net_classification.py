@@ -32,6 +32,8 @@ import os as operative_system
 import logging as logging
 
 # Disable all the Warnings from the Logging Library
+from keras.callbacks import ReduceLROnPlateau
+
 logging.disable(logging.WARNING)
 
 # Disable all the Debugging Logs from TensorFlow Library
@@ -70,9 +72,6 @@ from tensorflow.keras.layers import GlobalAveragePooling2D
 
 # Import the Dense Layer from the TensorFlow.Keras.Layers Python's Module
 from tensorflow.keras.layers import Dense
-
-# Import the Dropout Layer from the TensorFlow.Keras.Layers Python's Module
-from tensorflow.keras.layers import Dropout
 
 # Import the Activation Layer from the TensorFlow.Keras.Layers Python's Module
 from tensorflow.keras.layers import Activation
@@ -192,7 +191,7 @@ from project.tp1.libs.parameters_and_arguments import \
 # Import the Size of the Batch for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
 # from the Parameters and Arguments Python's Custom Module
-from project.tp1.libs.parameters_and_arguments import BATCH_SIZE
+from project.tp1.libs.parameters_and_arguments import BATCH_SIZE_2
 
 # Import the Number of Classes for the Datasets from the Pokemons' Data
 # from the Parameters and Arguments Python's Custom Module
@@ -304,12 +303,17 @@ def create_fine_tuned_mobile_net_model_in_keras_functional_api_for_image_classif
         MobileNet(weights='imagenet', include_top=False,
                   input_shape=(IMAGES_HEIGHT, IMAGES_WIDTH, NUM_CHANNELS_RGB))
 
-    # First, it will be trained only the top layers (which were randomly initialized)
-    # (i.e., Freeze all convolutional MobileNet Layers)
-    for mobile_net_large_base_model_layer in mobile_net_base_model.layers:
+    # Set the last 10 Layers of the Pre-Trained MobileNet Model, as Trainable (i.e., unfreeze them)
+    for mobile_net_large_base_model_layer in mobile_net_base_model.layers[:20]:
 
-        # Set the current Layer of the MobileNet Model, as not Trainable (i.e., Freeze it)
+        # Set the current Layer of the MobileNet Model, as not Trainable (i.e., do not Freeze it)
         mobile_net_large_base_model_layer.trainable = False
+
+    # Set the last 10 Layers of the Pre-Trained MobileNet Model, as Trainable (i.e., unfreeze them)
+    for mobile_net_large_base_model_layer in mobile_net_base_model.layers[20:]:
+
+        # Set the current Layer of the MobileNet Model, as not Trainable (i.e., do not Freeze it)
+        mobile_net_large_base_model_layer.trainable = True
 
     # Retrieve the xs (features) from the Input (first layer) of the Base Model,
     # using the Layers of the MobileNet Model and the Weights of the ImageNet Dataset
@@ -323,21 +327,25 @@ def create_fine_tuned_mobile_net_model_in_keras_functional_api_for_image_classif
     # using the Layers of the MobileNet Model and the Weights of the ImageNet Dataset
     xs_features_layer = GlobalAveragePooling2D()(xs_features_layer)
 
-    # Add a Dense Layer with 1024 Units to the Base Model,
+    # Add a Dense Layer with 2048 Units to the Base Model,
     # using the Layers of the MobileNet Model and the Weights of the ImageNet Dataset
-    xs_features_layer = Dense(1024)(xs_features_layer)
-
-    # Add a Dropout Layer of 50%, for the Regularization of Hyper-Parameters, to the Base Model,
-    # using the Layers of the MobileNet Model and the Weights of the ImageNet Dataset
-    xs_features_layer = Dropout(0.5)(xs_features_layer)
+    xs_features_layer = Dense(2048, kernel_initializer='he_uniform')(xs_features_layer)
 
     # Add a ReLU (Rectified Linear Unit) Activation Function Layer to the Base Model,
     # using the Layers of the MobileNet Model and the Weights of the ImageNet Dataset
     xs_features_layer = Activation('relu')(xs_features_layer)
 
-    # Add a Dense Layer with 10 Units (Number of Classes) to the Base Model,
+    # Add a Dense Layer with 2048 Units to the Base Model,
     # using the Layers of the MobileNet Model and the Weights of the ImageNet Dataset
-    xs_features_layer = Dense(NUM_CLASSES_POKEMON_TYPES)(xs_features_layer)
+    xs_features_layer = Dense(2048, kernel_initializer='he_uniform')(xs_features_layer)
+
+    # Add a ReLU (Rectified Linear Unit) Activation Function Layer to the Base Model,
+    # using the Layers of the MobileNet Model and the Weights of the ImageNet Dataset
+    xs_features_layer = Activation('relu')(xs_features_layer)
+
+    # Add a Dense Layer with 10 (Number of Classes) Units to the Base Model,
+    # using the Layers of the MobileNet Model and the Weights of the ImageNet Dataset
+    xs_features_layer = Dense(NUM_CLASSES_POKEMON_TYPES, kernel_initializer='he_uniform')(xs_features_layer)
 
     # Initialise the xs (features) extracted from the Base Model,
     # using the Layers of the MobileNet Model and the Weights of the ImageNet Dataset
@@ -478,7 +486,7 @@ def execute_mobile_net_model_multi_class_classification_for_all_available_optimi
     # for the Training Set of the Multi-Classes Problem, in Image Classification
     multi_classes_training_set_pokemon_data_augmentation_generator = \
         multi_classes_training_image_data_generator_for_preprocessing_with_data_augmentation \
-        .flow(x=xs_features_training_set_pokemon, batch_size=BATCH_SIZE,
+        .flow(x=xs_features_training_set_pokemon, batch_size=BATCH_SIZE_2,
               y=ys_classes_training_set_pokemon, shuffle=True)
 
     # Create the Images' Data Generator for Pre-Processing with Data Augmentation,
@@ -491,7 +499,7 @@ def execute_mobile_net_model_multi_class_classification_for_all_available_optimi
     # for the Training Set of the Multi-Classes Problem, in Image Classification
     multi_classes_validation_set_pokemon_data_augmentation_generator = \
         multi_classes_validation_image_data_generator_for_preprocessing_with_data_augmentation \
-        .flow(x=xs_features_validation_set_pokemon, batch_size=BATCH_SIZE,
+        .flow(x=xs_features_validation_set_pokemon, batch_size=BATCH_SIZE_2,
               y=ys_classes_validation_set_pokemon, shuffle=True)
 
     # Create the need Early Stopping Callbacks for
@@ -502,6 +510,12 @@ def execute_mobile_net_model_multi_class_classification_for_all_available_optimi
         pokemon_validation_loss_early_stopping_callback, \
         pokemon_validation_accuracy_early_stopping_callback = \
         create_early_stopping_callbacks()
+
+    # Create the need Reduce Learning Rate on Plateau for
+    # the Model for a feed-forward Convolution Neural Network (C.N.N.),
+    # for the Pokemons' Data, in Image Classification
+    reduce_learning_rate_on_plateau_callback = \
+        ReduceLROnPlateau(monitor='val_loss', patience=4, cooldown=2, rate=0.6, min_lr=1e-18, verbose=1)
 
     # Create a list for the Training Losses for all the Optimisers used
     optimisers_training_loss_history = []
@@ -589,25 +603,24 @@ def execute_mobile_net_model_multi_class_classification_for_all_available_optimi
         # the Model for the feed-forward Convolution Neural Network (C.N.N.)
         print(f'\nFitting/Training the Model for '
               f'the feed-forward Convolution Neural Network (C.N.N.) for {NUM_EPOCHS} Epochs '
-              f'with a Batch Size of {BATCH_SIZE} and\nan Initial Learning Rate of '
+              f'with a Batch Size of {BATCH_SIZE_2} and\nan Initial Learning Rate of '
               f'{INITIAL_LEARNING_RATES[num_optimiser]}...\n')
 
         # Train/Fit the Model for the feed-forward Convolution Neural Network (C.N.N.) for the given NUM_EPOCHS,
         # with the Training Set for the Training Data and the Validation Set for the Validation Data
         cnn_model_in_keras_sequential_api_for_image_classification_training_history = \
             fine_tuned_cnn_model_in_keras_functional_api_for_image_classification_multi_classes_classification \
-            .fit(multi_classes_training_set_pokemon_data_augmentation_generator.x,
-                 multi_classes_training_set_pokemon_data_augmentation_generator.y,
-                 steps_per_epoch=(NUM_EXAMPLES_FINAL_TRAINING_SET // BATCH_SIZE),
+            .fit(multi_classes_training_set_pokemon_data_augmentation_generator,
+                 steps_per_epoch=(NUM_EXAMPLES_FINAL_TRAINING_SET // BATCH_SIZE_2),
                  epochs=NUM_EPOCHS,
-                 validation_data=(multi_classes_validation_set_pokemon_data_augmentation_generator.x,
-                                  multi_classes_validation_set_pokemon_data_augmentation_generator.y),
-                 validation_steps=(NUM_EXAMPLES_FINAL_VALIDATION_SET // BATCH_SIZE),
-                 batch_size=BATCH_SIZE,
+                 validation_data=multi_classes_validation_set_pokemon_data_augmentation_generator,
+                 validation_steps=(NUM_EXAMPLES_FINAL_VALIDATION_SET // BATCH_SIZE_2),
+                 batch_size=BATCH_SIZE_2,
                  callbacks=[pokemon_training_loss_early_stopping_callback,
                             pokemon_training_accuracy_early_stopping_callback,
                             pokemon_validation_loss_early_stopping_callback,
                             pokemon_validation_accuracy_early_stopping_callback,
+                            reduce_learning_rate_on_plateau_callback,
                             tensorboard_callback])
 
         # the use of High-Performance Computing (with CPUs and GPUs) is set to True
@@ -716,7 +729,7 @@ def execute_mobile_net_model_multi_class_classification_for_all_available_optimi
         ys_classes_testing_set_pokemon_predicted = \
             fine_tuned_cnn_model_in_keras_functional_api_for_image_classification_multi_classes_classification \
             .predict(x=xs_features_testing_set_pokemon,
-                     batch_size=BATCH_SIZE, verbose=1)
+                     batch_size=BATCH_SIZE_2, verbose=1)
 
         # Retrieve the Categorical Cross-Entropy for the Classes' Predictions on the Testing Set,
         # using the Model for the feed-forward Convolution Neural Network (C.N.N.),
@@ -910,7 +923,7 @@ def execute_mobile_net_model_multi_label_classification_for_all_available_optimi
     # for the Training Set of the Multi-Labels Problem, in Image Classification
     multi_labels_training_set_pokemon_data_augmentation_generator = \
         multi_labels_training_image_data_generator_for_preprocessing_with_data_augmentation \
-        .flow(x=xs_features_training_set_pokemon, batch_size=BATCH_SIZE,
+        .flow(x=xs_features_training_set_pokemon, batch_size=BATCH_SIZE_2,
               y=ys_labels_training_set_pokemon, shuffle=True)
 
     # Create the Images' Data Generator for Pre-Processing with Data Augmentation,
@@ -923,7 +936,7 @@ def execute_mobile_net_model_multi_label_classification_for_all_available_optimi
     # for the Training Set of the Multi-Labels Problem, in Image Classification
     multi_labels_validation_set_pokemon_data_augmentation_generator = \
         multi_labels_validation_image_data_generator_for_preprocessing_with_data_augmentation \
-        .flow(x=xs_features_validation_set_pokemon, batch_size=BATCH_SIZE,
+        .flow(x=xs_features_validation_set_pokemon, batch_size=BATCH_SIZE_2,
               y=ys_labels_validation_set_pokemon, shuffle=True)
 
     # Create the need Early Stopping Callbacks for
@@ -934,6 +947,12 @@ def execute_mobile_net_model_multi_label_classification_for_all_available_optimi
         pokemon_validation_loss_early_stopping_callback, \
         pokemon_validation_accuracy_early_stopping_callback = \
         create_early_stopping_callbacks()
+
+    # Create the need Reduce Learning Rate on Plateau for
+    # the Model for a feed-forward Convolution Neural Network (C.N.N.),
+    # for the Pokemons' Data, in Image Classification
+    reduce_learning_rate_on_plateau_callback = \
+        ReduceLROnPlateau(monitor='val_loss', patience=4, cooldown=2, rate=0.6, min_lr=1e-18, verbose=1)
 
     # Create a list for the Training Losses for all the Optimisers used
     optimisers_training_loss_history = []
@@ -1021,25 +1040,24 @@ def execute_mobile_net_model_multi_label_classification_for_all_available_optimi
         # the Model for the feed-forward Convolution Neural Network (C.N.N.)
         print(f'\nFitting/Training the Model for '
               f'the feed-forward Convolution Neural Network (C.N.N.) for {NUM_EPOCHS} Epochs '
-              f'with a Batch Size of {BATCH_SIZE} and\nan Initial Learning Rate of '
+              f'with a Batch Size of {BATCH_SIZE_2} and\nan Initial Learning Rate of '
               f'{INITIAL_LEARNING_RATES[num_optimiser]}...\n')
 
         # Train/Fit the Model for the feed-forward Convolution Neural Network (C.N.N.) for the given NUM_EPOCHS,
         # with the Training Set for the Training Data and the Validation Set for the Validation Data
         cnn_model_in_keras_sequential_api_for_image_classification_training_history = \
             fine_tuned_cnn_model_in_keras_functional_api_for_image_classification_multi_labels_classification \
-            .fit(multi_labels_training_set_pokemon_data_augmentation_generator.x,
-                 multi_labels_training_set_pokemon_data_augmentation_generator.y,
-                 steps_per_epoch=(NUM_EXAMPLES_FINAL_TRAINING_SET // BATCH_SIZE),
+            .fit(multi_labels_training_set_pokemon_data_augmentation_generator,
+                 steps_per_epoch=(NUM_EXAMPLES_FINAL_TRAINING_SET // BATCH_SIZE_2),
                  epochs=NUM_EPOCHS,
-                 validation_data=(multi_labels_validation_set_pokemon_data_augmentation_generator.x,
-                                  multi_labels_validation_set_pokemon_data_augmentation_generator.y),
-                 validation_steps=(NUM_EXAMPLES_FINAL_VALIDATION_SET // BATCH_SIZE),
-                 batch_size=BATCH_SIZE,
+                 validation_data=multi_labels_validation_set_pokemon_data_augmentation_generator,
+                 validation_steps=(NUM_EXAMPLES_FINAL_VALIDATION_SET // BATCH_SIZE_2),
+                 batch_size=BATCH_SIZE_2,
                  callbacks=[pokemon_training_loss_early_stopping_callback,
                             pokemon_training_accuracy_early_stopping_callback,
                             pokemon_validation_loss_early_stopping_callback,
                             pokemon_validation_accuracy_early_stopping_callback,
+                            reduce_learning_rate_on_plateau_callback,
                             tensorboard_callback])
 
         # the use of High-Performance Computing (with CPUs and GPUs) is set to True
@@ -1148,7 +1166,7 @@ def execute_mobile_net_model_multi_label_classification_for_all_available_optimi
         ys_labels_testing_set_pokemon_predicted = \
             fine_tuned_cnn_model_in_keras_functional_api_for_image_classification_multi_labels_classification \
             .predict(x=xs_features_testing_set_pokemon,
-                     batch_size=BATCH_SIZE, verbose=1)
+                     batch_size=BATCH_SIZE_2, verbose=1)
 
         # Retrieve the Categorical Cross-Entropy for the Labels' Predictions on the Testing Set,
         # using the Model for the feed-forward Convolution Neural Network (C.N.N.),
