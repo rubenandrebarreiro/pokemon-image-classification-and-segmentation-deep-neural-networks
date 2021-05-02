@@ -249,7 +249,7 @@ from project.tp1.libs.visualization_plotting import \
 # Function to create the need Early Stopping Callbacks for
 # the Model for a feed-forward Convolution Neural Network (C.N.N.),
 # for the Pokemons' Data, in Image Multi-Class and Multi-Label Problem
-def create_early_stopping_callbacks(classification_problem):
+def create_early_stopping_callbacks(problem):
 
     # Initialise the Early Stopping Callbacks for the Training and Validation Accuracies
     training_accuracy_early_stopping_callback = validation_accuracy_early_stopping_callback = None
@@ -268,7 +268,7 @@ def create_early_stopping_callbacks(classification_problem):
         )
 
     # If it is the Multi-Class Classification Problem
-    if classification_problem.lower() == 'multi-class':
+    if problem.lower() == 'multi-class':
 
         # Create the Callback for Early Stopping, related to
         # the Accuracy of the Fitting/Training with Training Set
@@ -284,7 +284,7 @@ def create_early_stopping_callbacks(classification_problem):
             )
 
     # If it is the Multi-Label Classification Problem
-    elif classification_problem.lower() == 'multi-label':
+    elif problem.lower() == 'multi-label':
 
         # Create the Callback for Early Stopping, related to
         # the Accuracy of the Fitting/Training with Training Set
@@ -313,7 +313,7 @@ def create_early_stopping_callbacks(classification_problem):
         )
 
     # If it is the Multi-Class Classification Problem
-    if classification_problem.lower() == 'multi-class':
+    if problem.lower() == 'multi-class':
 
         # Create the Callback for Early Stopping, related to
         # the Accuracy of the Fitting/Training with Validation Set
@@ -329,7 +329,7 @@ def create_early_stopping_callbacks(classification_problem):
             )
 
     # If it is the Multi-Label Classification Problem
-    elif classification_problem.lower() == 'multi-label':
+    elif problem.lower() == 'multi-label':
 
         # Create the Callback for Early Stopping, related to
         # the Accuracy of the Fitting/Training with Validation Set
