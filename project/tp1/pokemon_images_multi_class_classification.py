@@ -334,21 +334,29 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # --- 1st Block of Layers for the Model for
     # the feed-forward Convolution Neural Network (C.N.N.) ---
 
-    # Add a 1st Convolution 2D Layer, for the Input features of the Data/Images of
-    # the Pokemons' Dataset given to the Model of the feed-forward
-    # Convolution Neural Network (C.N.N.), using 32 Filters of a Kernel 3x3,
-    # Same Padding and an Input Shape of (64 x 64 pixels), as also,
-    # 3 Input Dimensions (for each Color Channel - RGB Color)
-    # It is being used the ADAptive GRADient algorithm (ADA.GRAD.) Optimiser
+    # If the current Optimiser is the RMSProp or ADAM
     if (optimiser_id == AVAILABLE_OPTIMISERS_LIST[1]) or (optimiser_id == AVAILABLE_OPTIMISERS_LIST[2]):
 
+        # Add a 1st Convolution 2D Layer, for the Input features of the Data/Images of
+        # the Pokemons' Dataset given to the Model of the feed-forward
+        # Convolution Neural Network (C.N.N.), using 32 Filters of a Kernel 3x3,
+        # Same Padding and an Input Shape of (64 x 64 pixels), as also,
+        # 3 Input Dimensions (for each Color Channel - RGB Color)
+        # It is being used the ADAptive GRADient algorithm (ADA.GRAD.) Optimiser
         convolution_neural_network_tensorflow_keras_sequential_model \
             .add(Conv2D(NUM_FILTERS_PER_BLOCK[0], (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
                         padding='same', kernel_initializer='he_uniform',
                         input_shape=(IMAGES_HEIGHT, IMAGES_WIDTH) + (NUM_CHANNELS_RGB, )))
 
+    # If the current Optimiser is not the RMSProp or ADAM
     else:
 
+        # Add a 1st Convolution 2D Layer, for the Input features of the Data/Images of
+        # the Pokemons' Dataset given to the Model of the feed-forward
+        # Convolution Neural Network (C.N.N.), using 32 Filters of a Kernel 3x3,
+        # Same Padding and an Input Shape of (64 x 64 pixels), as also,
+        # 3 Input Dimensions (for each Color Channel - RGB Color)
+        # It is being used the ADAptive GRADient algorithm (ADA.GRAD.) Optimiser
         convolution_neural_network_tensorflow_keras_sequential_model \
             .add(Conv2D(NUM_FILTERS_PER_BLOCK[0], (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
                         padding='same', input_shape=(IMAGES_HEIGHT, IMAGES_WIDTH) + (NUM_CHANNELS_RGB, )))
@@ -371,18 +379,24 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # --- 2nd Block of Layers for the Model for
     # the feed-forward Convolution Neural Network (C.N.N.) ---
 
-    # Add a 2nd Convolution 2D Layer, for the previous features of the Data/Images of
-    # the Pokemons' Dataset given to the Model of the feed-forward
-    # Convolution Neural Network (C.N.N.), resulted from the previous layer,
-    # using 64 Filters of a Kernel 3x3 and Same Padding
+    # If the current Optimiser is the RMSProp or ADAM
     if (optimiser_id == AVAILABLE_OPTIMISERS_LIST[1]) or (optimiser_id == AVAILABLE_OPTIMISERS_LIST[2]):
 
+        # Add a 2nd Convolution 2D Layer, for the previous features of the Data/Images of
+        # the Pokemons' Dataset given to the Model of the feed-forward
+        # Convolution Neural Network (C.N.N.), resulted from the previous layer,
+        # using 64 Filters of a Kernel 3x3 and Same Padding
         convolution_neural_network_tensorflow_keras_sequential_model \
             .add(Conv2D(NUM_FILTERS_PER_BLOCK[1], (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
                         padding='same', kernel_initializer='he_uniform'))
 
+    # If the current Optimiser is not the RMSProp or ADAM
     else:
 
+        # Add a 2nd Convolution 2D Layer, for the previous features of the Data/Images of
+        # the Pokemons' Dataset given to the Model of the feed-forward
+        # Convolution Neural Network (C.N.N.), resulted from the previous layer,
+        # using 64 Filters of a Kernel 3x3 and Same Padding
         convolution_neural_network_tensorflow_keras_sequential_model \
             .add(Conv2D(NUM_FILTERS_PER_BLOCK[1], (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
                         padding='same'))
@@ -394,18 +408,24 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     convolution_neural_network_tensorflow_keras_sequential_model \
         .add(Activation('relu'))
 
-    # Add a 3rd Convolution 2D Layer, for the previous features of the Data/Images of
-    # the Pokemons' Dataset given to the Model of the feed-forward
-    # Convolution Neural Network (C.N.N.), resulted from the previous layer,
-    # using 64 Filters of a Kernel 3x3 and Same Padding
+    # If the current Optimiser is the RMSProp or ADAM
     if (optimiser_id == AVAILABLE_OPTIMISERS_LIST[1]) or (optimiser_id == AVAILABLE_OPTIMISERS_LIST[2]):
 
+        # Add a 3rd Convolution 2D Layer, for the previous features of the Data/Images of
+        # the Pokemons' Dataset given to the Model of the feed-forward
+        # Convolution Neural Network (C.N.N.), resulted from the previous layer,
+        # using 64 Filters of a Kernel 3x3 and Same Padding
         convolution_neural_network_tensorflow_keras_sequential_model \
             .add(Conv2D(NUM_FILTERS_PER_BLOCK[1], (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
                         padding='same', kernel_initializer='he_uniform'))
 
+    # If the current Optimiser is not the RMSProp or ADAM
     else:
 
+        # Add a 3rd Convolution 2D Layer, for the previous features of the Data/Images of
+        # the Pokemons' Dataset given to the Model of the feed-forward
+        # Convolution Neural Network (C.N.N.), resulted from the previous layer,
+        # using 64 Filters of a Kernel 3x3 and Same Padding
         convolution_neural_network_tensorflow_keras_sequential_model \
             .add(Conv2D(NUM_FILTERS_PER_BLOCK[1], (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
                         padding='same'))
@@ -428,18 +448,24 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # --- 3rd Block of Layers for the Model for
     # the feed-forward Convolution Neural Network (C.N.N.) ---
 
-    # Add a 4th Convolution 2D Layer, for the previous features of the Data/Images of
-    # the Pokemons' Dataset given to the Model of the feed-forward
-    # Convolution Neural Network (C.N.N.), resulted from the previous layer,
-    # using 128 Filters of a Kernel 3x3 and Same Padding
+    # If the current Optimiser is the RMSProp or ADAM
     if (optimiser_id == AVAILABLE_OPTIMISERS_LIST[1]) or (optimiser_id == AVAILABLE_OPTIMISERS_LIST[2]):
 
+        # Add a 4th Convolution 2D Layer, for the previous features of the Data/Images of
+        # the Pokemons' Dataset given to the Model of the feed-forward
+        # Convolution Neural Network (C.N.N.), resulted from the previous layer,
+        # using 128 Filters of a Kernel 3x3 and Same Padding
         convolution_neural_network_tensorflow_keras_sequential_model \
             .add(Conv2D(NUM_FILTERS_PER_BLOCK[2], (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
                         padding='same', kernel_initializer='he_uniform'))
 
+    # If the current Optimiser is not the RMSProp or ADAM
     else:
 
+        # Add a 4th Convolution 2D Layer, for the previous features of the Data/Images of
+        # the Pokemons' Dataset given to the Model of the feed-forward
+        # Convolution Neural Network (C.N.N.), resulted from the previous layer,
+        # using 128 Filters of a Kernel 3x3 and Same Padding
         convolution_neural_network_tensorflow_keras_sequential_model \
             .add(Conv2D(NUM_FILTERS_PER_BLOCK[2], (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
                         padding='same'))
@@ -451,18 +477,24 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     convolution_neural_network_tensorflow_keras_sequential_model \
         .add(Activation('relu'))
 
-    # Add a 5th Convolution 2D Layer, for the previous features of the Data/Images of
-    # the Pokemons' Dataset given to the Model of the feed-forward
-    # Convolution Neural Network (C.N.N.), resulted from the previous layer,
-    # using 128 Filters of a Kernel 3x3 and Same Padding
+    # If the current Optimiser is the RMSProp or ADAM
     if (optimiser_id == AVAILABLE_OPTIMISERS_LIST[1]) or (optimiser_id == AVAILABLE_OPTIMISERS_LIST[2]):
 
+        # Add a 5th Convolution 2D Layer, for the previous features of the Data/Images of
+        # the Pokemons' Dataset given to the Model of the feed-forward
+        # Convolution Neural Network (C.N.N.), resulted from the previous layer,
+        # using 128 Filters of a Kernel 3x3 and Same Padding
         convolution_neural_network_tensorflow_keras_sequential_model \
             .add(Conv2D(NUM_FILTERS_PER_BLOCK[2], (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
                         padding='same', kernel_initializer='he_uniform'))
 
+    # If the current Optimiser is the not RMSProp or ADAM
     else:
 
+        # Add a 5th Convolution 2D Layer, for the previous features of the Data/Images of
+        # the Pokemons' Dataset given to the Model of the feed-forward
+        # Convolution Neural Network (C.N.N.), resulted from the previous layer,
+        # using 128 Filters of a Kernel 3x3 and Same Padding
         convolution_neural_network_tensorflow_keras_sequential_model \
             .add(Conv2D(NUM_FILTERS_PER_BLOCK[2], (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
                         padding='same'))
@@ -485,18 +517,24 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # --- 4th Block of Layers for the Model for
     # the feed-forward Convolution Neural Network (C.N.N.) ---
 
-    # Add a 6th Convolution 2D Layer, for the previous features of the Data/Images of
-    # the Pokemons' Dataset given to the Model of the feed-forward
-    # Convolution Neural Network (C.N.N.), resulted from the previous layer,
-    # using 128 Filters of a Kernel 3x3 and Same Padding
+    # If the current Optimiser is the RMSProp or ADAM
     if (optimiser_id == AVAILABLE_OPTIMISERS_LIST[1]) or (optimiser_id == AVAILABLE_OPTIMISERS_LIST[2]):
 
+        # Add a 6th Convolution 2D Layer, for the previous features of the Data/Images of
+        # the Pokemons' Dataset given to the Model of the feed-forward
+        # Convolution Neural Network (C.N.N.), resulted from the previous layer,
+        # using 128 Filters of a Kernel 3x3 and Same Padding
         convolution_neural_network_tensorflow_keras_sequential_model \
             .add(Conv2D(NUM_FILTERS_PER_BLOCK[3], (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
                         padding='same', kernel_initializer='he_uniform'))
 
+    # If the current Optimiser is not the RMSProp or ADAM
     else:
 
+        # Add a 6th Convolution 2D Layer, for the previous features of the Data/Images of
+        # the Pokemons' Dataset given to the Model of the feed-forward
+        # Convolution Neural Network (C.N.N.), resulted from the previous layer,
+        # using 128 Filters of a Kernel 3x3 and Same Padding
         convolution_neural_network_tensorflow_keras_sequential_model \
             .add(Conv2D(NUM_FILTERS_PER_BLOCK[3], (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
                         padding='same'))
@@ -508,18 +546,24 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     convolution_neural_network_tensorflow_keras_sequential_model \
         .add(Activation('relu'))
 
-    # Add a 7th Convolution 2D Layer, for the previous features of the Data/Images of
-    # the Pokemons' Dataset given to the Model of the feed-forward
-    # Convolution Neural Network (C.N.N.), resulted from the previous layer,
-    # using 128 Filters of a Kernel 3x3 and Same Padding
+    # If the current Optimiser is the RMSProp or ADAM
     if (optimiser_id == AVAILABLE_OPTIMISERS_LIST[1]) or (optimiser_id == AVAILABLE_OPTIMISERS_LIST[2]):
 
+        # Add a 7th Convolution 2D Layer, for the previous features of the Data/Images of
+        # the Pokemons' Dataset given to the Model of the feed-forward
+        # Convolution Neural Network (C.N.N.), resulted from the previous layer,
+        # using 128 Filters of a Kernel 3x3 and Same Padding
         convolution_neural_network_tensorflow_keras_sequential_model \
             .add(Conv2D(NUM_FILTERS_PER_BLOCK[3], (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
                         padding='same', kernel_initializer='he_uniform'))
 
+    # If the current Optimiser is not the RMSProp or ADAM
     else:
 
+        # Add a 7th Convolution 2D Layer, for the previous features of the Data/Images of
+        # the Pokemons' Dataset given to the Model of the feed-forward
+        # Convolution Neural Network (C.N.N.), resulted from the previous layer,
+        # using 128 Filters of a Kernel 3x3 and Same Padding
         convolution_neural_network_tensorflow_keras_sequential_model \
             .add(Conv2D(NUM_FILTERS_PER_BLOCK[3], (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
                         padding='same'))
@@ -531,18 +575,24 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     convolution_neural_network_tensorflow_keras_sequential_model \
         .add(Activation('relu'))
 
-    # Add a 8th Convolution 2D Layer, for the previous features of the Data/Images of
-    # the Pokemons' Dataset given to the Model of the feed-forward
-    # Convolution Neural Network (C.N.N.), resulted from the previous layer,
-    # using 128 Filters of a Kernel 3x3 and Same Padding
+    # If the current Optimiser is the RMSProp or ADAM
     if (optimiser_id == AVAILABLE_OPTIMISERS_LIST[1]) or (optimiser_id == AVAILABLE_OPTIMISERS_LIST[2]):
 
+        # Add a 8th Convolution 2D Layer, for the previous features of the Data/Images of
+        # the Pokemons' Dataset given to the Model of the feed-forward
+        # Convolution Neural Network (C.N.N.), resulted from the previous layer,
+        # using 128 Filters of a Kernel 3x3 and Same Padding
         convolution_neural_network_tensorflow_keras_sequential_model \
             .add(Conv2D(NUM_FILTERS_PER_BLOCK[3], (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
                         padding='same', kernel_initializer='he_uniform'))
 
+    # If the current Optimiser is not the RMSProp or ADAM
     else:
 
+        # Add a 8th Convolution 2D Layer, for the previous features of the Data/Images of
+        # the Pokemons' Dataset given to the Model of the feed-forward
+        # Convolution Neural Network (C.N.N.), resulted from the previous layer,
+        # using 128 Filters of a Kernel 3x3 and Same Padding
         convolution_neural_network_tensorflow_keras_sequential_model \
             .add(Conv2D(NUM_FILTERS_PER_BLOCK[3], (KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
                         padding='same'))
@@ -645,44 +695,38 @@ def create_optimiser(optimiser_id):
     # It is being used the Stochastic Gradient Descent (S.G.D.) Optimiser
     if optimiser_id == AVAILABLE_OPTIMISERS_LIST[0]:
 
-        # Initialise the Stochastic Gradient Descent (S.G.D.) Optimiser,
-        # with the Learning Rate of 0.5% and Momentum of 90%
+        # Initialise the Stochastic Gradient Descent (S.G.D.) Optimiser
         optimiser = SGD(learning_rate=INITIAL_LEARNING_RATES[0],
                         momentum=MOMENTUM_1, decay=DECAY_1)
 
     # It is being used the Root Mean Squared Prop (R.M.S. PROP) Optimiser
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[1]:
 
-        # Initialise the Root Mean Squared Prop (R.M.S. PROP) Optimiser,
-        # with the Learning Rate of 0.5% and Momentum of 90%
+        # Initialise the Root Mean Squared Prop (R.M.S. PROP) Optimiser
         optimiser = RMSprop(learning_rate=INITIAL_LEARNING_RATES[1], momentum=MOMENTUM_2)
 
     # It is being used the ADAptive Moment estimation (ADA.M.) Optimiser
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[2]:
 
-        # Initialise the ADAptive Moment estimation (ADA.M.) Optimiser,
-        # with the Learning Rate of 0.5%
+        # Initialise the ADAptive Moment estimation (ADA.M.) Optimiser
         optimiser = Adam(learning_rate=INITIAL_LEARNING_RATES[2], decay=DECAY_1)
 
     # It is being used the ADAptive GRADient algorithm (ADA.GRAD.) Optimiser
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[3]:
 
-        # Initialise the ADAptive GRADient algorithm (ADA.GRAD.) Optimiser,
-        # with the Learning Rate of 0.5%
+        # Initialise the ADAptive GRADient algorithm (ADA.GRAD.) Optimiser
         optimiser = Adagrad(learning_rate=INITIAL_LEARNING_RATES[3])
 
     # It is being used the ADAptive DELTA algorithm (ADA.DELTA) Optimiser
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[4]:
 
-        # Initialise the ADAptive DELTA algorithm (ADA.DELTA) Optimiser,
-        # with the Learning Rate of 0.5%
+        # Initialise the ADAptive DELTA algorithm (ADA.DELTA) Optimiser
         optimiser = Adadelta(learning_rate=INITIAL_LEARNING_RATES[4])
 
     # It is being used the ADAptive DELTA algorithm (ADA.DELTA) Optimiser
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[5]:
 
-        # Initialise the ADAptive MAX algorithm (ADA.MAX.) Optimiser,
-        # with the Learning Rate of 0.5%
+        # Initialise the ADAptive MAX algorithm (ADA.MAX.) Optimiser
         optimiser = Adamax(learning_rate=INITIAL_LEARNING_RATES[5])
 
     # Return the Optimiser to be used for

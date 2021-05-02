@@ -531,7 +531,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     convolution_neural_network_tensorflow_keras_sequential_model \
         .add(Dense(NUM_UNITS_LAST_DENSE_LAYER_1))
 
-    # It is being used the ADAptive GRADient algorithm (ADA.GRAD.) Optimiser
+    # It is being used the SGD, ADAGrad or ADADelta Optimisers
     if ((optimiser_id == AVAILABLE_OPTIMISERS_LIST[0]) or
             (optimiser_id == AVAILABLE_OPTIMISERS_LIST[3]) or
             (optimiser_id == AVAILABLE_OPTIMISERS_LIST[4])):
@@ -581,8 +581,7 @@ def create_optimiser(optimiser_id):
     # It is being used the Stochastic Gradient Descent (S.G.D.) Optimiser
     if optimiser_id == AVAILABLE_OPTIMISERS_LIST[0]:
 
-        # Initialise the Stochastic Gradient Descent (S.G.D.) Optimiser,
-        # with the Learning Rate of 0.5% and Momentum of 90%
+        # Initialise the Stochastic Gradient Descent (S.G.D.) Optimiser
         optimiser = SGD(learning_rate=INITIAL_LEARNING_RATES[0],
                         momentum=MOMENTUM_1, decay=DECAY_1,
                         nesterov=True)
@@ -590,36 +589,31 @@ def create_optimiser(optimiser_id):
     # It is being used the Root Mean Squared Prop (R.M.S. PROP) Optimiser
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[1]:
 
-        # Initialise the Root Mean Squared Prop (R.M.S. PROP) Optimiser,
-        # with the Learning Rate of 0.5% and Momentum of 90%
+        # Initialise the Root Mean Squared Prop (R.M.S. PROP) Optimiser
         optimiser = RMSprop(learning_rate=INITIAL_LEARNING_RATES[1], momentum=MOMENTUM_2)
 
     # It is being used the ADAptive Moment estimation (ADA.M.) Optimiser
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[2]:
 
-        # Initialise the ADAptive Moment estimation (ADA.M.) Optimiser,
-        # with the Learning Rate of 0.5%
+        # Initialise the ADAptive Moment estimation (ADA.M.) Optimiser
         optimiser = Adam(learning_rate=INITIAL_LEARNING_RATES[2])
 
     # It is being used the ADAptive GRADient algorithm (ADA.GRAD.) Optimiser
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[3]:
 
-        # Initialise the ADAptive GRADient algorithm (ADA.GRAD.) Optimiser,
-        # with the Learning Rate of 0.5%
+        # Initialise the ADAptive GRADient algorithm (ADA.GRAD.) Optimiser
         optimiser = Adagrad(learning_rate=INITIAL_LEARNING_RATES[3])
 
     # It is being used the ADAptive DELTA algorithm (ADA.DELTA) Optimiser
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[4]:
 
-        # Initialise the ADAptive DELTA algorithm (ADA.DELTA) Optimiser,
-        # with the Learning Rate of 0.5%
+        # Initialise the ADAptive DELTA algorithm (ADA.DELTA) Optimiser
         optimiser = Adadelta(learning_rate=INITIAL_LEARNING_RATES[4])
 
-    # It is being used the ADAptive DELTA algorithm (ADA.DELTA) Optimiser
+    # It is being used the ADAptive MAX algorithm (ADA.MAX.) Optimiser
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[5]:
 
-        # Initialise the ADAptive MAX algorithm (ADA.MAX.) Optimiser,
-        # with the Learning Rate of 0.5%
+        # Initialise the ADAptive MAX algorithm (ADA.MAX.) Optimiser
         optimiser = Adamax(learning_rate=INITIAL_LEARNING_RATES[5])
 
     # Return the Optimiser to be used for
