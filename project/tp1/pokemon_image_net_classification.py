@@ -603,7 +603,7 @@ def execute_mobile_net_model_multi_class_classification_for_all_available_optimi
     optimisers_true_testing_accuracy_means = []
 
     # For each Optimiser available
-    for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
+    for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS - 5):
 
         # Print the initial information line
         print('--------- START OF THE EXECUTION FOR THE %s OPTIMISER ---------'
@@ -694,7 +694,7 @@ def execute_mobile_net_model_multi_class_classification_for_all_available_optimi
         # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
         plot_training_and_validation_losses(
             cnn_model_in_keras_sequential_api_for_image_classification_training_history,
-            AVAILABLE_OPTIMISERS_LIST[num_optimiser], now_date_time, 'Multi-Class'
+            AVAILABLE_OPTIMISERS_LIST[num_optimiser], now_date_time, 'Multi-Class', image_net_pre_trained=True
         )
 
         # Plot the Training's and Validation's Accuracies,
@@ -702,7 +702,7 @@ def execute_mobile_net_model_multi_class_classification_for_all_available_optimi
         # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
         plot_training_and_validation_accuracies(
             cnn_model_in_keras_sequential_api_for_image_classification_training_history,
-            AVAILABLE_OPTIMISERS_LIST[num_optimiser], now_date_time, 'Multi-Class'
+            AVAILABLE_OPTIMISERS_LIST[num_optimiser], now_date_time, 'Multi-Class', image_net_pre_trained=True
         )
 
         # Retrieve the History of the Training Losses for the current Optimiser
@@ -898,7 +898,7 @@ def execute_mobile_net_model_multi_class_classification_for_all_available_optimi
           'the Testing Set,\nregarding the several Optimisers available ------\n')
 
     # For each Optimiser available
-    for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
+    for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS - 5):
 
         # Print the respective Means (Averages) for the Losses and Accuracies
         # of the predictions made by the current Optimiser on the Testing Set
@@ -1039,7 +1039,7 @@ def execute_mobile_net_model_multi_label_classification_for_all_available_optimi
     optimisers_true_testing_accuracy_means = []
 
     # For each Optimiser available
-    for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
+    for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS - 5):
 
         # Print the initial information line
         print('--------- START OF THE EXECUTION FOR THE %s OPTIMISER ---------'
@@ -1130,7 +1130,7 @@ def execute_mobile_net_model_multi_label_classification_for_all_available_optimi
         # for the Pokemons' Data, in Image Classification, for the Multi-Label Problem
         plot_training_and_validation_losses(
             cnn_model_in_keras_sequential_api_for_image_classification_training_history,
-            AVAILABLE_OPTIMISERS_LIST[num_optimiser], now_date_time, 'Multi-Label'
+            AVAILABLE_OPTIMISERS_LIST[num_optimiser], now_date_time, 'Multi-Label', image_net_pre_trained=True
         )
 
         # Plot the Training's and Validation's Accuracies,
@@ -1138,7 +1138,7 @@ def execute_mobile_net_model_multi_label_classification_for_all_available_optimi
         # for the Pokemons' Data, in Image Classification, for the Multi-Label Problem
         plot_training_and_validation_accuracies(
             cnn_model_in_keras_sequential_api_for_image_classification_training_history,
-            AVAILABLE_OPTIMISERS_LIST[num_optimiser], now_date_time, 'Multi-Label'
+            AVAILABLE_OPTIMISERS_LIST[num_optimiser], now_date_time, 'Multi-Label', image_net_pre_trained=True
         )
 
         # Retrieve the History of the Training Losses for the current Optimiser
@@ -1334,7 +1334,7 @@ def execute_mobile_net_model_multi_label_classification_for_all_available_optimi
           'the Testing Set,\nregarding the several Optimisers available, using the ImageNet Weights ------\n')
 
     # For each Optimiser available
-    for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
+    for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS - 5):
 
         # Print the respective Means (Averages) for the Losses and Accuracies
         # of the predictions made by the current Optimiser on the Testing Set
