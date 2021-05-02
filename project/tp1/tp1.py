@@ -152,6 +152,8 @@ optimisers_training_loss_means_mobile_net_multi_class, \
 # # using ImageNet Weights, for all the Available Optimisers
 print('------------------------------------------------------------------------------------')
 
+
+"""
 # Print the logging for the execution of
 # the Model of the Multi-Label Classification, with MobileNet Pre-Trained Model,
 # using ImageNet Weights, for all the Available Optimisers
@@ -174,6 +176,8 @@ optimisers_training_loss_means_mobile_net_multi_label, \
 # the Model of the Multi-Label Classification, with MobileNet Pre-Trained Model,
 # # using ImageNet Weights, for all the Available Optimisers
 print('------------------------------------------------------------------------------------')
+
+"""
 
 """
 # Print the logging for the execution of
@@ -265,6 +269,7 @@ for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
              optimisers_true_testing_loss_means_mobile_net_multi_class[num_optimiser],
              optimisers_true_testing_accuracy_means_mobile_net_multi_class[num_optimiser]))
 
+"""
 
 # Print the logging for the results of the Multi-Label Classification Problem, with ImageNet Weights
 print('\n')
@@ -285,3 +290,4 @@ for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
              optimisers_validation_accuracy_means_mobile_net_multi_label[num_optimiser],
              optimisers_true_testing_loss_means_mobile_net_multi_label[num_optimiser],
              optimisers_true_testing_accuracy_means_mobile_net_multi_label[num_optimiser]))
+"""

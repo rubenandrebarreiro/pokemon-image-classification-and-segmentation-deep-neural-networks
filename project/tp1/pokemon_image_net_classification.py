@@ -33,6 +33,7 @@ import logging as logging
 
 # Disable all the Warnings from the Logging Library
 from keras.callbacks import ReduceLROnPlateau
+from keras.layers import Dropout
 
 logging.disable(logging.WARNING)
 
@@ -115,6 +116,14 @@ from tensorflow.keras.metrics import categorical_crossentropy
 # Import the Categorical Accuracy from
 # the TensorFlow.Keras.Metrics Python's Module
 from tensorflow.keras.metrics import categorical_accuracy
+
+# Import the Binary Cross-Entropy from
+# the TensorFlow.Keras.Metrics Python's Module
+from tensorflow.keras.metrics import binary_crossentropy
+
+# Import the Binary Accuracy from
+# the TensorFlow.Keras.Metrics Python's Module
+from tensorflow.keras.metrics import binary_accuracy
 
 # Import the boolean flag, to keep information about
 # the use of High-Performance Computing (with CPUs and GPUs)
@@ -303,17 +312,35 @@ def create_fine_tuned_mobile_net_model_in_keras_functional_api_for_image_classif
         MobileNet(weights='imagenet', include_top=False,
                   input_shape=(IMAGES_HEIGHT, IMAGES_WIDTH, NUM_CHANNELS_RGB))
 
-    # Set the last 10 Layers of the Pre-Trained MobileNet Model, as Trainable (i.e., unfreeze them)
-    for mobile_net_large_base_model_layer in mobile_net_base_model.layers[:20]:
+    # If it is Multi-Class Classification Problem
+    if classification_problem.lower() == 'multi-class':
 
-        # Set the current Layer of the MobileNet Model, as not Trainable (i.e., do not Freeze it)
-        mobile_net_large_base_model_layer.trainable = False
+        # Set the last 10 Layers of the Pre-Trained MobileNet Model, as Trainable (i.e., unfreeze them)
+        for mobile_net_large_base_model_layer in mobile_net_base_model.layers[:20]:
 
-    # Set the last 10 Layers of the Pre-Trained MobileNet Model, as Trainable (i.e., unfreeze them)
-    for mobile_net_large_base_model_layer in mobile_net_base_model.layers[20:]:
+            # Set the current Layer of the MobileNet Model, as not Trainable (i.e., do not Freeze it)
+            mobile_net_large_base_model_layer.trainable = False
 
-        # Set the current Layer of the MobileNet Model, as not Trainable (i.e., do not Freeze it)
-        mobile_net_large_base_model_layer.trainable = True
+        # Set the last 10 Layers of the Pre-Trained MobileNet Model, as Trainable (i.e., unfreeze them)
+        for mobile_net_large_base_model_layer in mobile_net_base_model.layers[20:]:
+
+            # Set the current Layer of the MobileNet Model, as not Trainable (i.e., do not Freeze it)
+            mobile_net_large_base_model_layer.trainable = True
+
+    # If it is Multi-Label Classification Problem
+    if classification_problem.lower() == 'multi-label':
+
+        # Set the last 10 Layers of the Pre-Trained MobileNet Model, as Trainable (i.e., unfreeze them)
+        for mobile_net_large_base_model_layer in mobile_net_base_model.layers[:20]:
+
+            # Set the current Layer of the MobileNet Model, as not Trainable (i.e., do not Freeze it)
+            mobile_net_large_base_model_layer.trainable = False
+
+        # Set the last 10 Layers of the Pre-Trained MobileNet Model, as Trainable (i.e., unfreeze them)
+        for mobile_net_large_base_model_layer in mobile_net_base_model.layers[20:]:
+
+            # Set the current Layer of the MobileNet Model, as not Trainable (i.e., do not Freeze it)
+            mobile_net_large_base_model_layer.trainable = True
 
     # Retrieve the xs (features) from the Input (first layer) of the Base Model,
     # using the Layers of the MobileNet Model and the Weights of the ImageNet Dataset
@@ -326,6 +353,8 @@ def create_fine_tuned_mobile_net_model_in_keras_functional_api_for_image_classif
     # Add a Global Spatial Average Pooling 2D Layer to the Base Model,
     # using the Layers of the MobileNet Model and the Weights of the ImageNet Dataset
     xs_features_layer = GlobalAveragePooling2D()(xs_features_layer)
+
+    xs_features_layer = Dropout(0.25)(xs_features_layer)
 
     # Add a Dense Layer with 2048 Units to the Base Model,
     # using the Layers of the MobileNet Model and the Weights of the ImageNet Dataset
@@ -391,7 +420,7 @@ def create_optimiser(optimiser_id):
         # Initialise the Stochastic Gradient Descent (S.G.D.) Optimiser,
         # with the Learning Rate of 0.5% and Momentum of 90%
         optimiser = SGD(learning_rate=INITIAL_LEARNING_RATES[0],
-                        momentum=MOMENTUM_1, decay=(INITIAL_LEARNING_RATES[0] / NUM_EPOCHS))
+                        momentum=MOMENTUM_1, decay=0.00001)
 
     # It is being used the Root Mean Squared Prop (R.M.S. PROP) Optimiser
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[1]:
@@ -1172,15 +1201,15 @@ def execute_mobile_net_model_multi_label_classification_for_all_available_optimi
         # using the Model for the feed-forward Convolution Neural Network (C.N.N.),
         # fitted/trained previously with the Training and Validation Sets
         true_testing_loss = \
-            categorical_crossentropy(ys_labels_testing_set_pokemon,
-                                     ys_labels_testing_set_pokemon_predicted)
+            binary_crossentropy(ys_labels_testing_set_pokemon,
+                                ys_labels_testing_set_pokemon_predicted)
 
         # Retrieve the Categorical Accuracy for the Labels' Predictions on the Testing Set,
         # using the Model for the feed-forward Convolution Neural Network (C.N.N.),
         # fitted/trained previously with the Training and Validation Sets
         true_testing_accuracy = \
-            categorical_accuracy(ys_labels_testing_set_pokemon,
-                                 ys_labels_testing_set_pokemon_predicted)
+            binary_accuracy(ys_labels_testing_set_pokemon,
+                            ys_labels_testing_set_pokemon_predicted)
 
         # Just print a blank line, for a better and clearer presentation of the results
         print('\n')
