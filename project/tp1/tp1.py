@@ -71,7 +71,6 @@ from pokemon_image_net_classification import \
     execute_mobile_net_model_multi_label_classification_for_all_available_optimisers
 
 
-"""
 # Print the initial separator
 print('------------------------------------------------------------------------------------')
 
@@ -128,7 +127,8 @@ optimisers_training_loss_means_semantic_segmentation, \
 # Print a separator, for the logging for the execution of
 # the Model of the Image Masking/Semantic Segmentation for all the Available Optimisers
 print('------------------------------------------------------------------------------------')
-"""
+
+
 # Print the logging for the execution of
 # the Model of the Multi-Class Classification, with MobileNet Pre-Trained Model,
 # using ImageNet Weights, for all the Available Optimisers
@@ -176,7 +176,7 @@ optimisers_training_loss_means_mobile_net_multi_label, \
 # using ImageNet Weights, for all the Available Optimisers
 print('------------------------------------------------------------------------------------')
 
-"""
+
 # Print the logging for the execution of
 # the Model of the Image Masking/Semantic Segmentation for all the Available Optimisers
 print('\n\n')
@@ -243,14 +243,13 @@ for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
              optimisers_validation_accuracy_means_semantic_segmentation[num_optimiser],
              optimisers_true_testing_loss_means_semantic_segmentation[num_optimiser],
              optimisers_true_testing_accuracy_means_semantic_segmentation[num_optimiser]))
-"""
 
 # Print the logging for the results of the Multi-Class Classification Problem, with ImageNet Weights
 print('\n')
 print('---- Results of the Multi-Class Classification, with the ImageNet Weights ----')
 
 # For each Optimiser available
-for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS - 5):
+for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
     # Print the respective Means (Averages) for the Losses and Accuracies
     # of the predictions made by the current Optimiser on all the Sets
@@ -271,7 +270,7 @@ print('\n')
 print('---- Results of the Multi-Label Classification, with the ImageNet Weights ----')
 
 # For each Optimiser available
-for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS - 5):
+for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
     # Print the respective Means (Averages) for the Losses and Accuracies
     # of the predictions made by the current Optimiser on all the Sets
