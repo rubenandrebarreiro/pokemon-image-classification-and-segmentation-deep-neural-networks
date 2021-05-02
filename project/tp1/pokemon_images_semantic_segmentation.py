@@ -68,9 +68,6 @@ from tensorflow.keras.layers import BatchNormalization
 # Import the Activation Layer from the TensorFlow.Keras.Layers Python's Module
 from tensorflow.keras.layers import Activation
 
-# Import the Dense Layer from the TensorFlow.Keras.Layers Python's Module
-from tensorflow.keras.layers import Dense
-
 # Import the Separable Convolution 2D Layer from the TensorFlow.Keras.Layers Python's Module
 from tensorflow.keras.layers import SeparableConv2D
 
@@ -265,11 +262,7 @@ from project.tp1.libs.parameters_and_arguments import \
 # Import the Size of the Batch for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
 # from the Parameters and Arguments Python's Custom Module
-from project.tp1.libs.parameters_and_arguments import BATCH_SIZE
-
-# Import the Number of Labels for the Datasets from the Pokemons' Data
-# from the Parameters and Arguments Python's Custom Module
-from project.tp1.libs.parameters_and_arguments import NUM_CLASSES_POKEMON_TYPES
+from project.tp1.libs.parameters_and_arguments import BATCH_SIZE_1
 
 # Import the function to Retrieve the Datasets from the Pokemons' Data,
 # in order to be used to build the model for the Model of
@@ -586,16 +579,10 @@ def create_cnn_model_in_keras_functional_api_for_semantic_segmentation():
     # the Pokemons' Dataset given to the Model of the feed-forward
     # Convolution Neural Network (C.N.N.), resulted from the previous layer,
     # using 64 Filters of a Kernel 3x3 and Same Padding
-    xs_features_layer = Conv2D(NUM_CLASSES_POKEMON_TYPES,
+    xs_features_layer = Conv2D(NUM_CHANNELS_GRAY_SCALE,
                                kernel_size=(KERNEL_RGB_HEIGHT, KERNEL_RGB_WIDTH),
                                kernel_initializer='random_uniform',
                                padding='same')(xs_features_layer)
-
-    # Add a Dense Layer to the features of the Data/Images of
-    # the Pokemons resulted from the previous Layer of
-    # the Model of the feed-forward Convolution Neural Network (C.N.N.),
-    # for a total of 1 Unit (Weights and Biases), for each type of Pokemon
-    xs_features_layer = Dense(NUM_CHANNELS_GRAY_SCALE)(xs_features_layer)
 
     # Add the last Sigmoid as Activation Function Layer,
     # for the features of the Data/Images of the Pokemons resulted from
@@ -725,7 +712,7 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
     # for the xs (features) of the Training Set of the Semantic Segmentation Problem
     features_training_set_pokemon_data_augmentation_generator = \
         features_training_image_data_generator_for_preprocessing_with_data_augmentation \
-        .flow(x=xs_features_training_set_pokemon, batch_size=BATCH_SIZE,
+        .flow(x=xs_features_training_set_pokemon, batch_size=BATCH_SIZE_1,
               y=ys_classes_training_set_pokemon, shuffle=True)
 
     # Create the Images' Data Generator for Pre-Processing with Data Augmentation,
@@ -738,7 +725,7 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
     # for the xs (masks) of the Training Set of the Semantic Segmentation Problem
     masks_training_set_pokemon_data_augmentation_generator = \
         masks_training_image_data_generator_for_preprocessing_with_data_augmentation \
-        .flow(x=ys_masks_training_set_pokemon, batch_size=BATCH_SIZE,
+        .flow(x=ys_masks_training_set_pokemon, batch_size=BATCH_SIZE_1,
               y=ys_classes_training_set_pokemon, shuffle=True)
 
     # Create the Images' Data Generator for Pre-Processing with Data Augmentation,
@@ -751,7 +738,7 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
     # for the xs (features) of the Validation Set of the Semantic Segmentation Problem
     features_validation_set_pokemon_data_augmentation_generator = \
         features_validation_image_data_generator_for_preprocessing_with_data_augmentation \
-        .flow(x=xs_features_validation_set_pokemon, batch_size=BATCH_SIZE,
+        .flow(x=xs_features_validation_set_pokemon, batch_size=BATCH_SIZE_1,
               y=ys_classes_validation_set_pokemon, shuffle=True)
 
     # Create the Images' Data Generator for Pre-Processing with Data Augmentation,
@@ -764,7 +751,7 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
     # for the xs (masks) of the Validation Set of the Semantic Segmentation Problem
     masks_validation_set_pokemon_data_augmentation_generator = \
         masks_validation_image_data_generator_for_preprocessing_with_data_augmentation \
-        .flow(x=ys_masks_validation_set_pokemon, batch_size=BATCH_SIZE,
+        .flow(x=ys_masks_validation_set_pokemon, batch_size=BATCH_SIZE_1,
               y=ys_classes_validation_set_pokemon, shuffle=True)
 
     # Generate Images' Set, for the several sets
@@ -871,7 +858,7 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
         # the Model for the feed-forward Convolution Neural Network (C.N.N.)
         print(f'\nFitting/Training the Model for '
               f'the feed-forward Convolution Neural Network (C.N.N.) for {NUM_EPOCHS} Epochs '
-              f'with a Batch Size of {BATCH_SIZE} and\nan Initial Learning Rate of '
+              f'with a Batch Size of {BATCH_SIZE_1} and\nan Initial Learning Rate of '
               f'{INITIAL_LEARNING_RATES[num_optimiser]}...\n')
 
         # Train/Fit the Model for the feed-forward Convolution Neural Network (C.N.N.) for the given NUM_EPOCHS,
@@ -880,12 +867,12 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
             cnn_model_in_keras_functional_api_for_semantic_segmentation_masking \
             .fit(features_training_set_pokemon_data_augmentation_generator.x,
                  masks_training_set_pokemon_data_augmentation_generator.x,
-                 steps_per_epoch=(NUM_EXAMPLES_FINAL_TRAINING_SET // BATCH_SIZE),
+                 steps_per_epoch=(NUM_EXAMPLES_FINAL_TRAINING_SET // BATCH_SIZE_1),
                  epochs=NUM_EPOCHS,
                  validation_data=(features_validation_set_pokemon_data_augmentation_generator.x,
                                   masks_validation_set_pokemon_data_augmentation_generator.x),
-                 validation_steps=(NUM_EXAMPLES_FINAL_VALIDATION_SET // BATCH_SIZE),
-                 batch_size=BATCH_SIZE,
+                 validation_steps=(NUM_EXAMPLES_FINAL_VALIDATION_SET // BATCH_SIZE_1),
+                 batch_size=BATCH_SIZE_1,
                  callbacks=[pokemon_training_loss_early_stopping_callback,
                             pokemon_training_accuracy_early_stopping_callback,
                             pokemon_validation_loss_early_stopping_callback,
@@ -996,7 +983,7 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
         ys_masks_testing_set_pokemon_predicted = \
             cnn_model_in_keras_functional_api_for_semantic_segmentation_masking \
             .predict(x=xs_features_testing_set_pokemon,
-                     batch_size=BATCH_SIZE, verbose=1)
+                     batch_size=BATCH_SIZE_1, verbose=1)
 
         # Convert the Images of the predicted Masks for the Testing Set to Pictures
         images_to_pic(('files\\images\\figures\\testing\\predictions\\masks\\'
