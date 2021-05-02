@@ -220,7 +220,7 @@ from project.tp1.libs.parameters_and_arguments import \
 # Import the Size of the Batch for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
 # from the Parameters and Arguments Python's Custom Module
-from project.tp1.libs.parameters_and_arguments import BATCH_SIZE
+from project.tp1.libs.parameters_and_arguments import BATCH_SIZE_1
 
 # Import the Number of Labels for the Datasets from the Pokemons' Data
 # from the Parameters and Arguments Python's Custom Module
@@ -710,7 +710,7 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers():
     # for the Training Set of the Multi-Labels Problem, in Image Classification
     multi_labels_training_set_pokemon_data_augmentation_generator = \
         multi_labels_training_image_data_generator_for_preprocessing_with_data_augmentation \
-        .flow(x=xs_features_training_set_pokemon, batch_size=BATCH_SIZE,
+        .flow(x=xs_features_training_set_pokemon, batch_size=BATCH_SIZE_1,
               y=ys_labels_training_set_pokemon, shuffle=True)
 
     # Create the Images' Data Generator for Pre-Processing with Data Augmentation,
@@ -723,7 +723,7 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers():
     # for the Training Set of the Multi-Labels Problem, in Image Classification
     multi_labels_validation_set_pokemon_data_augmentation_generator = \
         multi_labels_validation_image_data_generator_for_preprocessing_with_data_augmentation \
-        .flow(x=xs_features_validation_set_pokemon, batch_size=BATCH_SIZE,
+        .flow(x=xs_features_validation_set_pokemon, batch_size=BATCH_SIZE_1,
               y=ys_labels_validation_set_pokemon, shuffle=True)
 
     # Create the need Early Stopping Callbacks for
@@ -830,7 +830,7 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers():
             # the Model for the feed-forward Convolution Neural Network (C.N.N.)
             print(f'\nFitting/Training the Model for '
                   f'the feed-forward Convolution Neural Network (C.N.N.) for {NUM_EPOCHS} Epochs '
-                  f'with a Batch Size of {BATCH_SIZE} and\nan Initial Learning Rate of '
+                  f'with a Batch Size of {BATCH_SIZE_1} and\nan Initial Learning Rate of '
                   f'{INITIAL_LEARNING_RATES[num_optimiser]}...\n')
 
             # Train/Fit the Model for the feed-forward Convolution Neural Network (C.N.N.) for the given NUM_EPOCHS,
@@ -838,11 +838,11 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers():
             cnn_model_in_keras_sequential_api_for_image_classification_training_history = \
                 cnn_model_in_keras_sequential_api_for_image_classification_multi_labels_classification \
                 .fit(multi_labels_training_set_pokemon_data_augmentation_generator,
-                     steps_per_epoch=(NUM_EXAMPLES_FINAL_TRAINING_SET // BATCH_SIZE),
+                     steps_per_epoch=(NUM_EXAMPLES_FINAL_TRAINING_SET // BATCH_SIZE_1),
                      epochs=NUM_EPOCHS,
                      validation_data=multi_labels_validation_set_pokemon_data_augmentation_generator,
-                     validation_steps=(NUM_EXAMPLES_FINAL_VALIDATION_SET // BATCH_SIZE),
-                     batch_size=BATCH_SIZE,
+                     validation_steps=(NUM_EXAMPLES_FINAL_VALIDATION_SET // BATCH_SIZE_1),
+                     batch_size=BATCH_SIZE_1,
                      callbacks=[pokemon_training_loss_early_stopping_callback,
                                 pokemon_training_accuracy_early_stopping_callback,
                                 pokemon_validation_loss_early_stopping_callback,
@@ -956,7 +956,7 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers():
             ys_labels_testing_set_pokemon_predicted = \
                 cnn_model_in_keras_sequential_api_for_image_classification_multi_labels_classification \
                 .predict(x=xs_features_testing_set_pokemon,
-                         batch_size=BATCH_SIZE, verbose=1)
+                         batch_size=BATCH_SIZE_1, verbose=1)
 
             # Retrieve the Binary Cross-Entropy for the Classes' Predictions on the Testing Set,
             # using the Model for the feed-forward Convolution Neural Network (C.N.N.),
