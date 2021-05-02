@@ -603,7 +603,7 @@ def execute_mobile_net_model_multi_class_classification_for_all_available_optimi
     optimisers_true_testing_accuracy_means = []
 
     # For each Optimiser available
-    for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS - 5):
+    for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
         # Print the initial information line
         print('--------- START OF THE EXECUTION FOR THE %s OPTIMISER ---------'
@@ -898,7 +898,7 @@ def execute_mobile_net_model_multi_class_classification_for_all_available_optimi
           'the Testing Set,\nregarding the several Optimisers available ------\n')
 
     # For each Optimiser available
-    for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS - 5):
+    for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
         # Print the respective Means (Averages) for the Losses and Accuracies
         # of the predictions made by the current Optimiser on the Testing Set
@@ -1039,7 +1039,7 @@ def execute_mobile_net_model_multi_label_classification_for_all_available_optimi
     optimisers_true_testing_accuracy_means = []
 
     # For each Optimiser available
-    for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS - 5):
+    for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
         # Print the initial information line
         print('--------- START OF THE EXECUTION FOR THE %s OPTIMISER ---------'
@@ -1334,7 +1334,7 @@ def execute_mobile_net_model_multi_label_classification_for_all_available_optimi
           'the Testing Set,\nregarding the several Optimisers available, using the ImageNet Weights ------\n')
 
     # For each Optimiser available
-    for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS - 5):
+    for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
         # Print the respective Means (Averages) for the Losses and Accuracies
         # of the predictions made by the current Optimiser on the Testing Set

@@ -174,7 +174,7 @@ DECAY_2 = 0.00001
 
 # The Number of Epochs #1 for the Optimiser for
 # the Model of the feed-forward Convolution Neural Network (C.N.N.)
-NUM_EPOCHS_1 = 50
+NUM_EPOCHS_1 = 1
 
 # The Number of Epochs #2 for the Optimiser for
 # the Model of the feed-forward Convolution Neural Network (C.N.N.)
