@@ -132,9 +132,13 @@ TUPLE_SAMPLING_HEIGHT = 2
 # the feed-forward Convolution Neural Network (C.N.N.)
 TUPLE_SAMPLING_WIDTH = 2
 
-# The Number of Units of the last Dens Layer for the Model of
+# The Number of Units of the last Dense Layer #1 for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
-NUM_UNITS_LAST_DENSE_LAYER = 512
+NUM_UNITS_LAST_DENSE_LAYER_1 = 512
+
+# The Number of Units of the last Dense Layer #2 for the Model of
+# the feed-forward Convolution Neural Network (C.N.N.)
+NUM_UNITS_LAST_DENSE_LAYER_2 = 2048
 
 # The Optimisers available to use for the the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
@@ -160,13 +164,17 @@ MOMENTUM_1 = 0.9
 # the Model of the feed-forward Convolution Neural Network (C.N.N.)
 MOMENTUM_2 = 0.0
 
+# The Decay #1 for the Optimiser used for
+# the Model of the feed-forward Convolution Neural Network (C.N.N.)
+DECAY_1 = 0.0001
+
+# The Decay #2 for the Optimiser used for
+# the Model of the feed-forward Convolution Neural Network (C.N.N.)
+DECAY_2 = 0.00001
+
 # The Number of Epochs for the Optimiser for
 # the Model of the feed-forward Convolution Neural Network (C.N.N.)
 NUM_EPOCHS = 50
-
-# The Number of Last Epochs to be discarded for the Early Stopping for
-# the Model of the feed-forward Convolution Neural Network (C.N.N.)
-NUM_LAST_EPOCHS_TO_BE_DISCARDED_FOR_EARLY_STOPPING = 0
 
 # The Size of the Batch for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
@@ -178,12 +186,3 @@ BATCH_SIZE_2 = 128
 
 # The Number of Classes for the Datasets from the Pokemons' Data
 NUM_CLASSES_POKEMON_TYPES = len(loadtxt('./dataset/pokemon_types.txt', dtype='str'))
-
-# The Models available to use for the
-# feed-forward Convolution Neural Network (C.N.N.)
-# rjr AVAILABLE_MODELS_LIST = ['MODEL0', 'MODEL1']
-AVAILABLE_MODELS_LIST = ['MODEL0']
-
-# The Number of Optimisers available to use for the the Model of
-# the feed-forward Convolution Neural Network (C.N.N.)
-NUM_AVAILABLE_MODELS = len(AVAILABLE_MODELS_LIST)

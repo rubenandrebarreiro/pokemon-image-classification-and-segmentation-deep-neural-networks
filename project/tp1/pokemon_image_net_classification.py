@@ -32,9 +32,6 @@ import os as operative_system
 import logging as logging
 
 # Disable all the Warnings from the Logging Library
-from keras.callbacks import ReduceLROnPlateau
-from keras.layers import Dropout
-
 logging.disable(logging.WARNING)
 
 # Disable all the Debugging Logs from TensorFlow Library
@@ -105,6 +102,10 @@ from tensorflow.keras.optimizers import Adamax
 # the TensorFlow.Keras.Optimisers Python's Module
 from tensorflow.keras.callbacks import EarlyStopping
 
+# Import the Reduce Learning Rate on Plateau from
+# the TensorFlow.Keras.Callbacks Python's Module
+from tensorflow.keras.callbacks import ReduceLROnPlateau
+
 # Import the TensorBoard from
 # the TensorFlow.Keras.Callbacks Python's Module
 from tensorflow.keras.callbacks import TensorBoard
@@ -156,10 +157,15 @@ from project.tp1.libs.parameters_and_arguments import IMAGES_HEIGHT
 # from the Parameters and Arguments Python's Custom Module
 from project.tp1.libs.parameters_and_arguments import IMAGES_WIDTH
 
-# Import the Number of Filters for the Model of
+# Import the Number of RGB Channels for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
 # from the Parameters and Arguments Python's Custom Module
 from project.tp1.libs.parameters_and_arguments import NUM_CHANNELS_RGB
+
+# Import the Number of Units of the last Dense Layer #2 for the Model of
+# the feed-forward Convolution Neural Network (C.N.N.)
+# from the Parameters and Arguments Python's Custom Module
+from project.tp1.libs.parameters_and_arguments import NUM_UNITS_LAST_DENSE_LAYER_2
 
 # Import the Optimisers available to use for the the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
@@ -186,16 +192,20 @@ from project.tp1.libs.parameters_and_arguments import MOMENTUM_1
 # from the Parameters and Arguments Python's Custom Module
 from project.tp1.libs.parameters_and_arguments import MOMENTUM_2
 
+# Import the Decay #1 for the Optimisers used for
+# the Model of the feed-forward Convolution Neural Network (C.N.N.)
+# from the Parameters and Arguments Python's Custom Module
+from project.tp1.libs.parameters_and_arguments import DECAY_1
+
+# Import the Decay #2 for the Optimiser used for
+# the Model of the feed-forward Convolution Neural Network (C.N.N.)
+# from the Parameters and Arguments Python's Custom Module
+from project.tp1.libs.parameters_and_arguments import DECAY_2
+
 # Import the Number of Epochs for the Optimiser for
 # the Model of the feed-forward Convolution Neural Network (C.N.N.)
 # from the Parameters and Arguments Python's Custom Module
 from project.tp1.libs.parameters_and_arguments import NUM_EPOCHS
-
-# Import the Number of Last Epochs to be discarded for the Early Stopping for
-# the Model of the feed-forward Convolution Neural Network (C.N.N.)
-# from the Parameters and Arguments Python's Custom Module
-from project.tp1.libs.parameters_and_arguments import \
-    NUM_LAST_EPOCHS_TO_BE_DISCARDED_FOR_EARLY_STOPPING
 
 # Import the Size of the Batch for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
@@ -238,8 +248,11 @@ from project.tp1.libs.visualization_plotting import \
 
 # Function to create the need Early Stopping Callbacks for
 # the Model for a feed-forward Convolution Neural Network (C.N.N.),
-# for the Pokemons' Data, in Image Classification
-def create_early_stopping_callbacks():
+# for the Pokemons' Data, in Image Multi-Class and Multi-Label Problem
+def create_early_stopping_callbacks(classification_problem):
+
+    # Initialise the Early Stopping Callbacks for the Training and Validation Accuracies
+    training_accuracy_early_stopping_callback = validation_accuracy_early_stopping_callback = None
 
     # Create the Callback for Early Stopping, related to
     # the Loss Cost of the Fitting/Training with Training Set
@@ -247,51 +260,89 @@ def create_early_stopping_callbacks():
         EarlyStopping(
             monitor='loss',
             min_delta=1e-6,
-            patience=(NUM_EPOCHS - NUM_LAST_EPOCHS_TO_BE_DISCARDED_FOR_EARLY_STOPPING),
+            patience=NUM_EPOCHS,
             verbose=1,
             mode='min',
-            baseline=0.08,
+            baseline=0.12,
             restore_best_weights=True
         )
 
-    # Create the Callback for Early Stopping, related to
-    # the Accuracy of the Fitting/Training with Training Set
-    training_accuracy_early_stopping_callback = \
-        EarlyStopping(
-            monitor='loss',
-            min_delta=1e-6,
-            patience=(NUM_EPOCHS - NUM_LAST_EPOCHS_TO_BE_DISCARDED_FOR_EARLY_STOPPING),
-            verbose=1,
-            mode='min',
-            baseline=0.96,
-            restore_best_weights=True
-        )
+    # If it is the Multi-Class Classification Problem
+    if classification_problem.lower() == 'multi-class':
+
+        # Create the Callback for Early Stopping, related to
+        # the Accuracy of the Fitting/Training with Training Set
+        training_accuracy_early_stopping_callback = \
+            EarlyStopping(
+                monitor='accuracy',
+                min_delta=1e-6,
+                patience=NUM_EPOCHS,
+                verbose=1,
+                mode='max',
+                baseline=0.94,
+                restore_best_weights=True
+            )
+
+    # If it is the Multi-Label Classification Problem
+    elif classification_problem.lower() == 'multi-label':
+
+        # Create the Callback for Early Stopping, related to
+        # the Accuracy of the Fitting/Training with Training Set
+        training_accuracy_early_stopping_callback = \
+            EarlyStopping(
+                monitor='binary_accuracy',
+                min_delta=1e-6,
+                patience=NUM_EPOCHS,
+                verbose=1,
+                mode='max',
+                baseline=0.94,
+                restore_best_weights=True
+            )
 
     # Create the Callback for Early Stopping, related to
     # the Loss Cost of the Fitting/Training with Validation Set
     validation_loss_early_stopping_callback = \
         EarlyStopping(
-            monitor='loss',
+            monitor='val_loss',
             min_delta=1e-6,
-            patience=(NUM_EPOCHS - NUM_LAST_EPOCHS_TO_BE_DISCARDED_FOR_EARLY_STOPPING),
+            patience=NUM_EPOCHS,
             verbose=1,
             mode='min',
-            baseline=0.08,
+            baseline=0.16,
             restore_best_weights=True
         )
 
-    # Create the Callback for Early Stopping, related to
-    # the Accuracy of the Fitting/Training with Validation Set
-    validation_accuracy_early_stopping_callback = \
-        EarlyStopping(
-            monitor='loss',
-            min_delta=1e-6,
-            patience=(NUM_EPOCHS - NUM_LAST_EPOCHS_TO_BE_DISCARDED_FOR_EARLY_STOPPING),
-            verbose=1,
-            mode='min',
-            baseline=0.96,
-            restore_best_weights=True
-        )
+    # If it is the Multi-Class Classification Problem
+    if classification_problem.lower() == 'multi-class':
+
+        # Create the Callback for Early Stopping, related to
+        # the Accuracy of the Fitting/Training with Validation Set
+        validation_accuracy_early_stopping_callback = \
+            EarlyStopping(
+                monitor='val_accuracy',
+                min_delta=1e-6,
+                patience=NUM_EPOCHS,
+                verbose=1,
+                mode='max',
+                baseline=0.92,
+                restore_best_weights=True
+            )
+
+    # If it is the Multi-Label Classification Problem
+    elif classification_problem.lower() == 'multi-label':
+
+        # Create the Callback for Early Stopping, related to
+        # the Accuracy of the Fitting/Training with Validation Set
+        validation_accuracy_early_stopping_callback = \
+            EarlyStopping(
+                monitor='val_binary_accuracy',
+                min_delta=1e-6,
+                patience=NUM_EPOCHS,
+                verbose=1,
+                mode='max',
+                baseline=0.92,
+                restore_best_weights=True
+            )
 
     # Return need Early Stopping Callbacks for
     # the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -315,31 +366,31 @@ def create_fine_tuned_mobile_net_model_in_keras_functional_api_for_image_classif
     # If it is Multi-Class Classification Problem
     if classification_problem.lower() == 'multi-class':
 
-        # Set the last 10 Layers of the Pre-Trained MobileNet Model, as Trainable (i.e., unfreeze them)
+        # Set the first 20 Layers of the Pre-Trained MobileNet Model, as not Trainable (i.e., freeze them)
         for mobile_net_large_base_model_layer in mobile_net_base_model.layers[:20]:
 
-            # Set the current Layer of the MobileNet Model, as not Trainable (i.e., do not Freeze it)
+            # Set the current Layer of the MobileNet Model, as not Trainable (i.e., freeze it)
             mobile_net_large_base_model_layer.trainable = False
 
-        # Set the last 10 Layers of the Pre-Trained MobileNet Model, as Trainable (i.e., unfreeze them)
+        # Set the remaining Layers of the Pre-Trained MobileNet Model, as Trainable (i.e., unfreeze them)
         for mobile_net_large_base_model_layer in mobile_net_base_model.layers[20:]:
 
-            # Set the current Layer of the MobileNet Model, as not Trainable (i.e., do not Freeze it)
+            # Set the current Layer of the MobileNet Model, as Trainable (i.e., do not freeze it)
             mobile_net_large_base_model_layer.trainable = True
 
     # If it is Multi-Label Classification Problem
     if classification_problem.lower() == 'multi-label':
 
-        # Set the last 10 Layers of the Pre-Trained MobileNet Model, as Trainable (i.e., unfreeze them)
-        for mobile_net_large_base_model_layer in mobile_net_base_model.layers[:20]:
+        # Set the first 50 Layers of the Pre-Trained MobileNet Model, as not Trainable (i.e., freeze them)
+        for mobile_net_large_base_model_layer in mobile_net_base_model.layers[:50]:
 
-            # Set the current Layer of the MobileNet Model, as not Trainable (i.e., do not Freeze it)
+            # Set the current Layer of the MobileNet Model, as not Trainable (i.e., freeze it)
             mobile_net_large_base_model_layer.trainable = False
 
-        # Set the last 10 Layers of the Pre-Trained MobileNet Model, as Trainable (i.e., unfreeze them)
-        for mobile_net_large_base_model_layer in mobile_net_base_model.layers[20:]:
+        # Set the remaining Layers of the Pre-Trained MobileNet Model, as Trainable (i.e., unfreeze them)
+        for mobile_net_large_base_model_layer in mobile_net_base_model.layers[50:]:
 
-            # Set the current Layer of the MobileNet Model, as not Trainable (i.e., do not Freeze it)
+            # Set the current Layer of the MobileNet Model, as Trainable (i.e., do not freeze it)
             mobile_net_large_base_model_layer.trainable = True
 
     # Retrieve the xs (features) from the Input (first layer) of the Base Model,
@@ -354,11 +405,9 @@ def create_fine_tuned_mobile_net_model_in_keras_functional_api_for_image_classif
     # using the Layers of the MobileNet Model and the Weights of the ImageNet Dataset
     xs_features_layer = GlobalAveragePooling2D()(xs_features_layer)
 
-    xs_features_layer = Dropout(0.25)(xs_features_layer)
-
     # Add a Dense Layer with 2048 Units to the Base Model,
     # using the Layers of the MobileNet Model and the Weights of the ImageNet Dataset
-    xs_features_layer = Dense(2048, kernel_initializer='he_uniform')(xs_features_layer)
+    xs_features_layer = Dense(NUM_UNITS_LAST_DENSE_LAYER_2, kernel_initializer='he_uniform')(xs_features_layer)
 
     # Add a ReLU (Rectified Linear Unit) Activation Function Layer to the Base Model,
     # using the Layers of the MobileNet Model and the Weights of the ImageNet Dataset
@@ -366,7 +415,7 @@ def create_fine_tuned_mobile_net_model_in_keras_functional_api_for_image_classif
 
     # Add a Dense Layer with 2048 Units to the Base Model,
     # using the Layers of the MobileNet Model and the Weights of the ImageNet Dataset
-    xs_features_layer = Dense(2048, kernel_initializer='he_uniform')(xs_features_layer)
+    xs_features_layer = Dense(NUM_UNITS_LAST_DENSE_LAYER_2, kernel_initializer='he_uniform')(xs_features_layer)
 
     # Add a ReLU (Rectified Linear Unit) Activation Function Layer to the Base Model,
     # using the Layers of the MobileNet Model and the Weights of the ImageNet Dataset
@@ -397,7 +446,8 @@ def create_fine_tuned_mobile_net_model_in_keras_functional_api_for_image_classif
     # Create the final Fine-Tuned Functional Model, with Input and Outputs of the Base Model,
     # using the Layers of the MobileNet Model and the Weights of the ImageNet Dataset
     fine_tuned_cnn_model_keras_functional_api = \
-        FunctionalModel(inputs=xs_features_initial_input, outputs=xs_features_final_output)
+        FunctionalModel(name='%s-classification-mobile-net-image-net-weights' % (classification_problem.lower()),
+                        inputs=xs_features_initial_input, outputs=xs_features_final_output)
 
     # Return the final Fine-Tuned Functional Model, with Input and Outputs of the Base Model,
     # using the Layers of the MobileNet Model and the Weights of the ImageNet Dataset
@@ -417,45 +467,39 @@ def create_optimiser(optimiser_id):
     # It is being used the Stochastic Gradient Descent (S.G.D.) Optimiser
     if optimiser_id == AVAILABLE_OPTIMISERS_LIST[0]:
 
-        # Initialise the Stochastic Gradient Descent (S.G.D.) Optimiser,
-        # with the Learning Rate of 0.5% and Momentum of 90%
+        # Initialise the Stochastic Gradient Descent (S.G.D.) Optimiser
         optimiser = SGD(learning_rate=INITIAL_LEARNING_RATES[0],
-                        momentum=MOMENTUM_1, decay=0.00001)
+                        momentum=MOMENTUM_1, decay=DECAY_2)
 
     # It is being used the Root Mean Squared Prop (R.M.S. PROP) Optimiser
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[1]:
 
-        # Initialise the Root Mean Squared Prop (R.M.S. PROP) Optimiser,
-        # with the Learning Rate of 0.5% and Momentum of 90%
+        # Initialise the Root Mean Squared Prop (R.M.S. PROP) Optimiser
         optimiser = RMSprop(learning_rate=INITIAL_LEARNING_RATES[1], momentum=MOMENTUM_2)
 
     # It is being used the ADAptive Moment estimation (ADA.M.) Optimiser
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[2]:
 
-        # Initialise the ADAptive Moment estimation (ADA.M.) Optimiser,
-        # with the Learning Rate of 0.5%
+        # Initialise the ADAptive Moment estimation (ADA.M.) Optimiser
         optimiser = Adam(learning_rate=INITIAL_LEARNING_RATES[2],
-                         decay=(INITIAL_LEARNING_RATES[0] / NUM_EPOCHS))
+                         decay=DECAY_1)
 
     # It is being used the ADAptive GRADient algorithm (ADA.GRAD.) Optimiser
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[3]:
 
-        # Initialise the ADAptive GRADient algorithm (ADA.GRAD.) Optimiser,
-        # with the Learning Rate of 0.5%
+        # Initialise the ADAptive GRADient algorithm (ADA.GRAD.) Optimiser
         optimiser = Adagrad(learning_rate=INITIAL_LEARNING_RATES[3])
 
     # It is being used the ADAptive DELTA algorithm (ADA.DELTA) Optimiser
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[4]:
 
-        # Initialise the ADAptive DELTA algorithm (ADA.DELTA) Optimiser,
-        # with the Learning Rate of 0.5%
+        # Initialise the ADAptive DELTA algorithm (ADA.DELTA) Optimiser
         optimiser = Adadelta(learning_rate=INITIAL_LEARNING_RATES[4])
 
-    # It is being used the ADAptive DELTA algorithm (ADA.DELTA) Optimiser
+    # It is being used the ADAptive MAX algorithm (ADA.MAX.) Optimiser
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[5]:
 
-        # Initialise the ADAptive MAX algorithm (ADA.MAX.) Optimiser,
-        # with the Learning Rate of 0.5%
+        # Initialise the ADAptive MAX algorithm (ADA.MAX.) Optimiser
         optimiser = Adamax(learning_rate=INITIAL_LEARNING_RATES[5])
 
     # Return the Optimiser to be used for
@@ -515,8 +559,8 @@ def execute_mobile_net_model_multi_class_classification_for_all_available_optimi
     # for the Training Set of the Multi-Classes Problem, in Image Classification
     multi_classes_training_set_pokemon_data_augmentation_generator = \
         multi_classes_training_image_data_generator_for_preprocessing_with_data_augmentation \
-        .flow(x=xs_features_training_set_pokemon, batch_size=BATCH_SIZE_2,
-              y=ys_classes_training_set_pokemon, shuffle=True)
+        .flow(x=xs_features_training_set_pokemon, y=ys_classes_training_set_pokemon,
+              batch_size=BATCH_SIZE_2, shuffle=True)
 
     # Create the Images' Data Generator for Pre-Processing with Data Augmentation,
     # for the Validation Set of the Multi-Classes Problem, in Image Classification
@@ -528,8 +572,8 @@ def execute_mobile_net_model_multi_class_classification_for_all_available_optimi
     # for the Training Set of the Multi-Classes Problem, in Image Classification
     multi_classes_validation_set_pokemon_data_augmentation_generator = \
         multi_classes_validation_image_data_generator_for_preprocessing_with_data_augmentation \
-        .flow(x=xs_features_validation_set_pokemon, batch_size=BATCH_SIZE_2,
-              y=ys_classes_validation_set_pokemon, shuffle=True)
+        .flow(x=xs_features_validation_set_pokemon, y=ys_classes_validation_set_pokemon,
+              batch_size=BATCH_SIZE_2, shuffle=True)
 
     # Create the need Early Stopping Callbacks for
     # the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -538,7 +582,7 @@ def execute_mobile_net_model_multi_class_classification_for_all_available_optimi
         pokemon_training_accuracy_early_stopping_callback, \
         pokemon_validation_loss_early_stopping_callback, \
         pokemon_validation_accuracy_early_stopping_callback = \
-        create_early_stopping_callbacks()
+        create_early_stopping_callbacks('Multi-Class')
 
     # Create the need Reduce Learning Rate on Plateau for
     # the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -592,7 +636,7 @@ def execute_mobile_net_model_multi_class_classification_for_all_available_optimi
         # Set the specific Log Directory,
         # according to the current executing Optimiser and the current Date and Time (timestamp)
         logs_directory = '%s\\image-net-pre-trained-multi-classes-%s-optimiser-%s\\' \
-            % (root_logs_directory, AVAILABLE_OPTIMISERS_LIST[num_optimiser].lower(), now_date_time)
+                         % (root_logs_directory, AVAILABLE_OPTIMISERS_LIST[num_optimiser].lower(), now_date_time)
 
         # Set the Root Directory for the Weights of the TensorBoard and TensorFlow
         root_weights_directory = 'files\\weights'
@@ -837,7 +881,6 @@ def execute_mobile_net_model_multi_class_classification_for_all_available_optimi
 
         # the use of High-Performance Computing (with CPUs and GPUs) is set to True
         if TENSORFLOW_KERAS_HPC_BACKEND_SESSION:
-
             # Clear the current session of the Keras' Backend
             keras_backend.clear_session()
 
@@ -952,8 +995,8 @@ def execute_mobile_net_model_multi_label_classification_for_all_available_optimi
     # for the Training Set of the Multi-Labels Problem, in Image Classification
     multi_labels_training_set_pokemon_data_augmentation_generator = \
         multi_labels_training_image_data_generator_for_preprocessing_with_data_augmentation \
-        .flow(x=xs_features_training_set_pokemon, batch_size=BATCH_SIZE_2,
-              y=ys_labels_training_set_pokemon, shuffle=True)
+        .flow(x=xs_features_training_set_pokemon, y=ys_labels_training_set_pokemon,
+              batch_size=BATCH_SIZE_2, shuffle=True)
 
     # Create the Images' Data Generator for Pre-Processing with Data Augmentation,
     # for the Validation Set of the Multi-Labels Problem, in Image Classification
@@ -965,8 +1008,8 @@ def execute_mobile_net_model_multi_label_classification_for_all_available_optimi
     # for the Training Set of the Multi-Labels Problem, in Image Classification
     multi_labels_validation_set_pokemon_data_augmentation_generator = \
         multi_labels_validation_image_data_generator_for_preprocessing_with_data_augmentation \
-        .flow(x=xs_features_validation_set_pokemon, batch_size=BATCH_SIZE_2,
-              y=ys_labels_validation_set_pokemon, shuffle=True)
+        .flow(x=xs_features_validation_set_pokemon, y=ys_labels_validation_set_pokemon,
+              batch_size=BATCH_SIZE_2, shuffle=True)
 
     # Create the need Early Stopping Callbacks for
     # the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -975,7 +1018,7 @@ def execute_mobile_net_model_multi_label_classification_for_all_available_optimi
         pokemon_training_accuracy_early_stopping_callback, \
         pokemon_validation_loss_early_stopping_callback, \
         pokemon_validation_accuracy_early_stopping_callback = \
-        create_early_stopping_callbacks()
+        create_early_stopping_callbacks('Multi-Label')
 
     # Create the need Reduce Learning Rate on Plateau for
     # the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -1029,7 +1072,7 @@ def execute_mobile_net_model_multi_label_classification_for_all_available_optimi
         # Set the specific Log Directory,
         # according to the current executing Optimiser and the current Date and Time (timestamp)
         logs_directory = '%s\\image-net-pre-trained-multi-labels-%s-optimiser-%s\\' \
-            % (root_logs_directory, AVAILABLE_OPTIMISERS_LIST[num_optimiser].lower(), now_date_time)
+                         % (root_logs_directory, AVAILABLE_OPTIMISERS_LIST[num_optimiser].lower(), now_date_time)
 
         # Set the Root Directory for the Weights of the TensorBoard and TensorFlow
         root_weights_directory = 'files\\weights'
@@ -1274,7 +1317,6 @@ def execute_mobile_net_model_multi_label_classification_for_all_available_optimi
 
         # the use of High-Performance Computing (with CPUs and GPUs) is set to True
         if TENSORFLOW_KERAS_HPC_BACKEND_SESSION:
-
             # Clear the current session of the Keras' Backend
             keras_backend.clear_session()
 
@@ -1311,7 +1353,6 @@ def execute_mobile_net_model_multi_label_classification_for_all_available_optimi
 
     # For each Optimiser available
     for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
-
         # Print the respective Means (Averages) for the Losses and Accuracies
         # of the predictions made by the current Optimiser on the Testing Set
         print(' - %s: [ train_loss = %.12f ; train_binary_acc = %.12f |'

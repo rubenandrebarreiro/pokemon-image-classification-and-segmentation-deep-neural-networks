@@ -253,12 +253,6 @@ from project.tp1.libs.parameters_and_arguments import MOMENTUM_2
 # from the Parameters and Arguments Python's Custom Module
 from project.tp1.libs.parameters_and_arguments import NUM_EPOCHS
 
-# Import the Number of Last Epochs to be discarded for the Early Stopping for
-# the Model of the feed-forward Convolution Neural Network (C.N.N.)
-# from the Parameters and Arguments Python's Custom Module
-from project.tp1.libs.parameters_and_arguments import \
-    NUM_LAST_EPOCHS_TO_BE_DISCARDED_FOR_EARLY_STOPPING
-
 # Import the Size of the Batch for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
 # from the Parameters and Arguments Python's Custom Module
@@ -315,7 +309,7 @@ from project.tp1.tp1_utils import images_to_pic as images_to_pic
 
 # Function to create the need Early Stopping Callbacks for
 # the Model for a feed-forward Convolution Neural Network (C.N.N.),
-# for the Pokemons' Data, in Semantic Segmentation
+# for the Pokemons' Data, in Image Semantic Segmentation
 def create_early_stopping_callbacks():
 
     # Create the Callback for Early Stopping, related to
@@ -324,7 +318,7 @@ def create_early_stopping_callbacks():
         EarlyStopping(
             monitor='loss',
             min_delta=1e-6,
-            patience=(NUM_EPOCHS - NUM_LAST_EPOCHS_TO_BE_DISCARDED_FOR_EARLY_STOPPING),
+            patience=NUM_EPOCHS,
             verbose=1,
             mode='min',
             baseline=0.08,
@@ -335,11 +329,11 @@ def create_early_stopping_callbacks():
     # the Accuracy of the Fitting/Training with Training Set
     training_accuracy_early_stopping_callback = \
         EarlyStopping(
-            monitor='loss',
+            monitor='accuracy',
             min_delta=1e-6,
-            patience=(NUM_EPOCHS - NUM_LAST_EPOCHS_TO_BE_DISCARDED_FOR_EARLY_STOPPING),
+            patience=NUM_EPOCHS,
             verbose=1,
-            mode='min',
+            mode='max',
             baseline=0.96,
             restore_best_weights=True
         )
@@ -348,9 +342,9 @@ def create_early_stopping_callbacks():
     # the Loss Cost of the Fitting/Training with Validation Set
     validation_loss_early_stopping_callback = \
         EarlyStopping(
-            monitor='loss',
+            monitor='val_loss',
             min_delta=1e-6,
-            patience=(NUM_EPOCHS - NUM_LAST_EPOCHS_TO_BE_DISCARDED_FOR_EARLY_STOPPING),
+            patience=NUM_EPOCHS,
             verbose=1,
             mode='min',
             baseline=0.08,
@@ -361,18 +355,18 @@ def create_early_stopping_callbacks():
     # the Accuracy of the Fitting/Training with Validation Set
     validation_accuracy_early_stopping_callback = \
         EarlyStopping(
-            monitor='loss',
+            monitor='val_accuracy',
             min_delta=1e-6,
-            patience=(NUM_EPOCHS - NUM_LAST_EPOCHS_TO_BE_DISCARDED_FOR_EARLY_STOPPING),
+            patience=NUM_EPOCHS,
             verbose=1,
-            mode='min',
+            mode='max',
             baseline=0.96,
             restore_best_weights=True
         )
 
     # Return need Early Stopping Callbacks for
     # the Model for a feed-forward Convolution Neural Network (C.N.N.),
-    # for the Pokemons' Data, in Semantic Segmentation
+    # for the Pokemons' Data, in Image Classification
     return training_loss_early_stopping_callback, \
         training_accuracy_early_stopping_callback, \
         validation_loss_early_stopping_callback, \

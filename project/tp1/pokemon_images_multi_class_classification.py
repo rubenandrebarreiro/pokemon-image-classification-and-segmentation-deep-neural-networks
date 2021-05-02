@@ -179,7 +179,7 @@ from project.tp1.libs.parameters_and_arguments import STRIDE_WIDTH
 # Import the Number of Units of the last Dens Layer for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
 # from the Parameters and Arguments Python's Custom Module
-from project.tp1.libs.parameters_and_arguments import NUM_UNITS_LAST_DENSE_LAYER
+from project.tp1.libs.parameters_and_arguments import NUM_UNITS_LAST_DENSE_LAYER_1
 
 # Import the Optimisers available to use for the the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
@@ -210,12 +210,6 @@ from project.tp1.libs.parameters_and_arguments import MOMENTUM_2
 # the Model of the feed-forward Convolution Neural Network (C.N.N.)
 # from the Parameters and Arguments Python's Custom Module
 from project.tp1.libs.parameters_and_arguments import NUM_EPOCHS
-
-# Import the Number of Last Epochs to be discarded for the Early Stopping for
-# the Model of the feed-forward Convolution Neural Network (C.N.N.)
-# from the Parameters and Arguments Python's Custom Module
-from project.tp1.libs.parameters_and_arguments import \
-    NUM_LAST_EPOCHS_TO_BE_DISCARDED_FOR_EARLY_STOPPING
 
 # Import the Size of the Batch for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
@@ -258,7 +252,7 @@ from project.tp1.libs.visualization_plotting import \
 
 # Function to create the need Early Stopping Callbacks for
 # the Model for a feed-forward Convolution Neural Network (C.N.N.),
-# for the Pokemons' Data, in Image Classification
+# for the Pokemons' Data, in Image Multi-Class Classification
 def create_early_stopping_callbacks():
 
     # Create the Callback for Early Stopping, related to
@@ -267,7 +261,7 @@ def create_early_stopping_callbacks():
         EarlyStopping(
             monitor='loss',
             min_delta=1e-6,
-            patience=(NUM_EPOCHS - NUM_LAST_EPOCHS_TO_BE_DISCARDED_FOR_EARLY_STOPPING),
+            patience=NUM_EPOCHS,
             verbose=1,
             mode='min',
             baseline=0.08,
@@ -278,11 +272,11 @@ def create_early_stopping_callbacks():
     # the Accuracy of the Fitting/Training with Training Set
     training_accuracy_early_stopping_callback = \
         EarlyStopping(
-            monitor='loss',
+            monitor='accuracy',
             min_delta=1e-6,
-            patience=(NUM_EPOCHS - NUM_LAST_EPOCHS_TO_BE_DISCARDED_FOR_EARLY_STOPPING),
+            patience=NUM_EPOCHS,
             verbose=1,
-            mode='min',
+            mode='max',
             baseline=0.96,
             restore_best_weights=True
         )
@@ -291,9 +285,9 @@ def create_early_stopping_callbacks():
     # the Loss Cost of the Fitting/Training with Validation Set
     validation_loss_early_stopping_callback = \
         EarlyStopping(
-            monitor='loss',
+            monitor='val_loss',
             min_delta=1e-6,
-            patience=(NUM_EPOCHS - NUM_LAST_EPOCHS_TO_BE_DISCARDED_FOR_EARLY_STOPPING),
+            patience=NUM_EPOCHS,
             verbose=1,
             mode='min',
             baseline=0.08,
@@ -304,11 +298,11 @@ def create_early_stopping_callbacks():
     # the Accuracy of the Fitting/Training with Validation Set
     validation_accuracy_early_stopping_callback = \
         EarlyStopping(
-            monitor='loss',
+            monitor='val_accuracy',
             min_delta=1e-6,
-            patience=(NUM_EPOCHS - NUM_LAST_EPOCHS_TO_BE_DISCARDED_FOR_EARLY_STOPPING),
+            patience=NUM_EPOCHS,
             verbose=1,
-            mode='min',
+            mode='max',
             baseline=0.96,
             restore_best_weights=True
         )
@@ -580,7 +574,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # the Model of the feed-forward Convolution Neural Network (C.N.N.),
     # for a total of 512 Units (Weights and Biases)
     convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(Dense(NUM_UNITS_LAST_DENSE_LAYER))
+        .add(Dense(NUM_UNITS_LAST_DENSE_LAYER_1))
 
     # Add a Rectified Linear Unit (ReLU) as Activation Function Layer,
     # for the features of the Data/Images of the Pokemons resulted from
@@ -594,7 +588,7 @@ def create_cnn_model_in_keras_sequential_api_for_image_classification(optimiser_
     # the Model of the feed-forward Convolution Neural Network (C.N.N.),
     # for a total of 512 Units (Weights and Biases)
     convolution_neural_network_tensorflow_keras_sequential_model \
-        .add(Dense(NUM_UNITS_LAST_DENSE_LAYER))
+        .add(Dense(NUM_UNITS_LAST_DENSE_LAYER_1))
 
     # It is being used the ADAptive GRADient algorithm (ADA.GRAD.) Optimiser
     if ((optimiser_id == AVAILABLE_OPTIMISERS_LIST[0]) or
