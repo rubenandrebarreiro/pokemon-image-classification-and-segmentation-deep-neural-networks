@@ -96,25 +96,37 @@ Q4: Explain the architecture of your best model for the semantic segmentation pr
 Q4: Explique a arquitectura do seu melhor modelo para o problema de segmentação semântica,
     incluindo uma descrição e justificação das funções de activação à saída da rede e função de custo.
     Justifique também a sua escolha de camadas e de funções de activação para as camadas escondidas.
-R4: The architecture of the besst model for the Semantic Segmentation problem is a Residual Neural Network (ResNet),
-    which was inspired on the architecture of the UNet Model, being composed, first, by the following
-	Convolutional and Separable Convolutional 2D Blocks of Layers, with auxiliary Residual Layers:
-	- 1) Convolutional 2D Block: [ Conv2D -> BatchNormalization -> ReLU ], with 32 Filters;
-	- 2), 3) and 4) Separable Convolutional 2D Blocks, for Edge Detection, with less multiplications, with double layers
-	  of Rectified Linear Units (ReLUs) and Batch Normalizations, followed by a Max Pooling 2D Layer of the current Block and
-	  the projection of Residual inputs through a Convolutional 2D Layer based on the previous Block of Layers,
-	  to skip the operations of the mentioned double layers, in the current Block, followed by the Addition of the tensors of
+R4: The architecture of the best model for the Semantic Segmentation problem is a Convolutional Neural Network,
+    with Residual Layers (short skip connections), which was inspired on the architecture of the UNet Model,
+	being composed, mainly, by two main symmetric processes, the Down-Sampling and Up-Sampling.
+	In the first process, the feature maps are contracted and rescaled into smaller resolutions, with more channels
+	and increasing the depth of the image, while, in the later process, the feature maps are exapanded and rescaled back
+	into bigger resolutions, with less channels and decreasing the depth of the image, resulting in the final segmentation maps.
+	The Down-Sampling and Up-Sampling are iterative/continuous processes, always forming chainings of Layers with their previous Blocks of Layers,
+	through Residual Layers (short skip connections), to increase the precision of the detection of the boundaries of the shapes in the images.
+	
+	First, the Down-Sampling process is composed by the following Blocks of Layers:
+	- 1) Convolutional 2D Block: [ Conv2D -> BatchNormalization -> ReLU ], with 32 Filters
+	    (this is the 1st Convolutional 2D Block, does not have previous Convolutional 2D Block, so it is treated apart);
+	- 2), 3) and 4) Separable Convolutional 2D Blocks, with double layers of Rectified Linear Units (ReLUs) and Batch Normalizations,
+	  followed by a Max Pooling 2D Layer of the current Block and the projection of Residual Connections through a
+	  Convolutional 2D Layer based on the previous Block of Layers, to skip the operations of the mentioned double layers,
+	  in the current Block, for more precise computing of the Edges Detections, followed by the Addition of the tensors of
 	  the projected Convolutional 2D Residual Layer of the previous Block and the Max Pooling Layer of the current Block:
 	  [ ReLU(x) -> SeparableConv2D(x) -> BatchNormalization(x) -> ReLU(x) -> SeparableConv2D(x) -> BatchNormalization(x) ->
 	    -> Max Pooling 2D(x) -> Convolutional 2D(prev_x) -> Add(x, prev_x) ], with 64, 128 and 256 Filters;
-	Then, it is performed the Up Sampling of the previous projected Layers for the samples of the previous Edge Detections,
-	mainly, through the application of Transposed Convolutional 2D Blocks of Layers, followed by the application of the Up Sampling Layers
-	of the current and previous Blocks of Layers, where it is additionally applied a Convolutional 2D Layer on the Residual Up Sampled Layer
-	projected back, before the Addition Layer of the tensors of the Up Sampled Layer of the current Block and the Residual one of
-	the previous Block, following the inverse order of the application of the Filters, before the Up Sampling Blocks of Layers:
+	
+	Then, it is performed the Up-Sampling, mainly, through the application of Transposed Convolutional 2D Blocks of Layers, followed by
+	the application of the Up-Sampling Layers of the current and previous Blocks of Layers, where it is, additionally, applied a Convolutional 2D Layer
+	on the Residual Layer projected back, before the Addition Layer of the tensors of the Up-Sampled Layer of the current Block and
+	the Residual skip connection to the previous Block, following the inverse order of the application of the Filters of the Down-Sampling process.
+	
+	
+	The Up-Sampling process is composed by the following Blocks of Layers:
 	- 5), 6), 7) and 8) Up Sampling/Transposed Convolutional 2D Blocks of Layers:
 	 [ ReLU(x) -> Conv2DTranspose(x) -> BatchNormalization(x) -> ReLU(x) -> Conv2DTranspose(x) -> BatchNormalization(x) -> 
 	   -> UpSampling(x) -> UpSampling(prev_x) -> Conv2D(x_prev) -> Add(x, prev_x) ], with 256, 128, 64 and 32 Filters.
+	
 	At the end, is applied a Convolutional 2D Layer with just 1 Filter, on the last Up Sampled Layer, since the masks for
 	the Semantic Segmentation, are represented in Gray Scale (just 1 Color Channel), followed by a Sigmoid Activation Function Layer,
 	for the Binary Classification of each pixel, individually:
