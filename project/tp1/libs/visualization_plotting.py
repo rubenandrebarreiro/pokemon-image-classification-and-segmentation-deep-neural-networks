@@ -177,7 +177,7 @@ def plot_training_and_validation_losses(
             # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
             # for the Pokemons' Data, in Image Classification, for the Multi-Class and Multi-Label Problem
             py_plot.savefig('files\\images\\plots\\%s-classification-image-net\\loss\\'
-                            'loss-values-plot-%s-optimiser-%s.png'
+                            'image-net-loss-values-plot-%s-optimiser-%s.png'
                             % (problem.lower(), optimiser_id.lower(), now_date_time_format))
 
     # If it is Image Masking, for the Semantic Segmentation Problem
@@ -361,7 +361,7 @@ def plot_training_and_validation_accuracies(
             # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
             # for the Pokemons' Data, in Image Classification, for the Multi-Class and Multi-Label Problem
             py_plot.savefig('files\\images\\plots\\%s-classification-image-net\\accuracy\\'
-                            'accuracy-values-plot-%s-optimiser-%s.png'
+                            'image-net-accuracy-values-plot-%s-optimiser-%s.png'
                             % (problem.lower(), optimiser_id.lower(), now_date_time_format))
 
     # If it is Image Masking, for the Semantic Segmentation Problem
@@ -513,7 +513,7 @@ def plot_subset_metric_all_optimisers(
             # for the Model for a feed-forward Convolution Neural Network (C.N.N.)
             # for the Pokemons' Data, in Image Classification, for the Multi-Class and Multi-Label Problems
             py_plot.savefig('files\\images\\plots\\%s-classification-image-net\\comparison-optimisers\\'
-                            '%s-%s-values-plot-all-optimisers-%s.png'
+                            'image-net-%s-%s-values-plot-all-optimisers-%s.png'
                             % (problem.lower(), subset.lower(), metric.lower(), now_date_time_format))
 
     # If it is Multi-Class Classification Problem or Multi-Label Classification Problem
