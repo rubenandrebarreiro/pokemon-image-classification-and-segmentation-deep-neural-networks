@@ -170,7 +170,11 @@ NUM_LAST_EPOCHS_TO_BE_DISCARDED_FOR_EARLY_STOPPING = 0
 
 # The Size of the Batch for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
-BATCH_SIZE = 16
+BATCH_SIZE_1 = 16
+
+# The Size of the Batch for the Model of
+# the feed-forward Convolution Neural Network (C.N.N.)
+BATCH_SIZE_2 = 128
 
 # The Number of Classes for the Datasets from the Pokemons' Data
 NUM_CLASSES_POKEMON_TYPES = len(loadtxt('./dataset/pokemon_types.txt', dtype='str'))
