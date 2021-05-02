@@ -206,10 +206,15 @@ from project.tp1.libs.parameters_and_arguments import MOMENTUM_1
 # from the Parameters and Arguments Python's Custom Module
 from project.tp1.libs.parameters_and_arguments import MOMENTUM_2
 
+# Import the Decay #1 for the Optimisers used for
+# the Model of the feed-forward Convolution Neural Network (C.N.N.)
+# from the Parameters and Arguments Python's Custom Module
+from project.tp1.libs.parameters_and_arguments import DECAY_1
+
 # Import the Number of Epochs for the Optimiser for
 # the Model of the feed-forward Convolution Neural Network (C.N.N.)
 # from the Parameters and Arguments Python's Custom Module
-from project.tp1.libs.parameters_and_arguments import NUM_EPOCHS
+from project.tp1.libs.parameters_and_arguments import NUM_EPOCHS_1
 
 # Import the Size of the Batch for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
@@ -262,7 +267,7 @@ def create_early_stopping_callbacks():
         EarlyStopping(
             monitor='loss',
             min_delta=1e-6,
-            patience=NUM_EPOCHS,
+            patience=NUM_EPOCHS_1,
             verbose=1,
             mode='min',
             baseline=0.08,
@@ -275,7 +280,7 @@ def create_early_stopping_callbacks():
         EarlyStopping(
             monitor='binary_accuracy',
             min_delta=1e-6,
-            patience=NUM_EPOCHS,
+            patience=NUM_EPOCHS_1,
             verbose=1,
             mode='max',
             baseline=0.96,
@@ -288,7 +293,7 @@ def create_early_stopping_callbacks():
         EarlyStopping(
             monitor='val_loss',
             min_delta=1e-6,
-            patience=NUM_EPOCHS,
+            patience=NUM_EPOCHS_1,
             verbose=1,
             mode='min',
             baseline=0.08,
@@ -301,7 +306,7 @@ def create_early_stopping_callbacks():
         EarlyStopping(
             monitor='val_binary_accuracy',
             min_delta=1e-6,
-            patience=NUM_EPOCHS,
+            patience=NUM_EPOCHS_1,
             verbose=1,
             mode='max',
             baseline=0.96,
@@ -579,7 +584,7 @@ def create_optimiser(optimiser_id):
         # Initialise the Stochastic Gradient Descent (S.G.D.) Optimiser,
         # with the Learning Rate of 0.5% and Momentum of 90%
         optimiser = SGD(learning_rate=INITIAL_LEARNING_RATES[0],
-                        momentum=MOMENTUM_1, decay=(INITIAL_LEARNING_RATES[0] / NUM_EPOCHS),
+                        momentum=MOMENTUM_1, decay=DECAY_1,
                         nesterov=True)
 
     # It is being used the Root Mean Squared Prop (R.M.S. PROP) Optimiser
@@ -784,7 +789,7 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers():
         # Print the Log for the Fitting/Training of
         # the Model for the feed-forward Convolution Neural Network (C.N.N.)
         print(f'\nFitting/Training the Model for '
-              f'the feed-forward Convolution Neural Network (C.N.N.) for {NUM_EPOCHS} Epochs '
+              f'the feed-forward Convolution Neural Network (C.N.N.) for {NUM_EPOCHS_1} Epochs '
               f'with a Batch Size of {BATCH_SIZE_1} and\nan Initial Learning Rate of '
               f'{INITIAL_LEARNING_RATES[num_optimiser]}...\n')
 
@@ -794,7 +799,7 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers():
             cnn_model_in_keras_sequential_api_for_image_classification_multi_labels_classification \
             .fit(multi_labels_training_set_pokemon_data_augmentation_generator,
                  steps_per_epoch=(NUM_EXAMPLES_FINAL_TRAINING_SET // BATCH_SIZE_1),
-                 epochs=NUM_EPOCHS,
+                 epochs=NUM_EPOCHS_1,
                  validation_data=multi_labels_validation_set_pokemon_data_augmentation_generator,
                  validation_steps=(NUM_EXAMPLES_FINAL_VALIDATION_SET // BATCH_SIZE_1),
                  batch_size=BATCH_SIZE_1,

@@ -29,7 +29,7 @@ from matplotlib import pyplot as py_plot
 
 # Import the Number of Epochs
 # from the Parameters and Arguments Python's Custom Module
-from project.tp1.libs.parameters_and_arguments import NUM_EPOCHS
+from project.tp1.libs.parameters_and_arguments import NUM_EPOCHS_1
 
 # Import the List of Available Optimisers
 # from the Parameters and Arguments Python's Custom Module
@@ -131,7 +131,7 @@ def plot_training_and_validation_losses(
     # Set the X-Axis of the final Plot for the Loss Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-    py_plot.xlim((0, NUM_EPOCHS))
+    py_plot.xlim((0, NUM_EPOCHS_1))
 
     # Plot the title for the X-Axis for the Number of Epochs,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -315,7 +315,7 @@ def plot_training_and_validation_accuracies(
     # Set the X-Axis of the final Plot for the Accuracy Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-    py_plot.xlim((0, NUM_EPOCHS))
+    py_plot.xlim((0, NUM_EPOCHS_1))
 
     # Plot the title for the X-Axis for the Number of Epochs,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
@@ -466,7 +466,7 @@ def plot_subset_metric_all_optimisers(
     # Set the X-Axis of the final Plot for the Metric Values' Comparison,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
     # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-    py_plot.xlim((0, NUM_EPOCHS))
+    py_plot.xlim((0, NUM_EPOCHS_1))
 
     # Plot the title for the X-Axis for the Number of Epochs,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),

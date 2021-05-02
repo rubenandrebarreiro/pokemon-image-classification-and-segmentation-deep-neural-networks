@@ -248,10 +248,15 @@ from project.tp1.libs.parameters_and_arguments import MOMENTUM_1
 # from the Parameters and Arguments Python's Custom Module
 from project.tp1.libs.parameters_and_arguments import MOMENTUM_2
 
-# Import the Number of Epochs for the Optimiser for
+# Import the Decay #1 for the Optimisers used for
 # the Model of the feed-forward Convolution Neural Network (C.N.N.)
 # from the Parameters and Arguments Python's Custom Module
-from project.tp1.libs.parameters_and_arguments import NUM_EPOCHS
+from project.tp1.libs.parameters_and_arguments import DECAY_1
+
+# Import the Number of Epochs #2 for the Optimiser for
+# the Model of the feed-forward Convolution Neural Network (C.N.N.)
+# from the Parameters and Arguments Python's Custom Module
+from project.tp1.libs.parameters_and_arguments import NUM_EPOCHS_2
 
 # Import the Size of the Batch for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
@@ -318,7 +323,7 @@ def create_early_stopping_callbacks():
         EarlyStopping(
             monitor='loss',
             min_delta=1e-6,
-            patience=NUM_EPOCHS,
+            patience=NUM_EPOCHS_2,
             verbose=1,
             mode='min',
             baseline=0.08,
@@ -329,9 +334,9 @@ def create_early_stopping_callbacks():
     # the Accuracy of the Fitting/Training with Training Set
     training_accuracy_early_stopping_callback = \
         EarlyStopping(
-            monitor='accuracy',
+            monitor='binary_accuracy',
             min_delta=1e-6,
-            patience=NUM_EPOCHS,
+            patience=NUM_EPOCHS_2,
             verbose=1,
             mode='max',
             baseline=0.96,
@@ -344,7 +349,7 @@ def create_early_stopping_callbacks():
         EarlyStopping(
             monitor='val_loss',
             min_delta=1e-6,
-            patience=NUM_EPOCHS,
+            patience=NUM_EPOCHS_2,
             verbose=1,
             mode='min',
             baseline=0.08,
@@ -355,9 +360,9 @@ def create_early_stopping_callbacks():
     # the Accuracy of the Fitting/Training with Validation Set
     validation_accuracy_early_stopping_callback = \
         EarlyStopping(
-            monitor='val_accuracy',
+            monitor='val_binary_accuracy',
             min_delta=1e-6,
-            patience=NUM_EPOCHS,
+            patience=NUM_EPOCHS_2,
             verbose=1,
             mode='max',
             baseline=0.96,
@@ -612,7 +617,7 @@ def create_optimiser(optimiser_id):
         # Initialise the Stochastic Gradient Descent (S.G.D.) Optimiser,
         # with the Learning Rate of 0.5% and Momentum of 90%
         optimiser = SGD(learning_rate=INITIAL_LEARNING_RATES[0],
-                        momentum=MOMENTUM_1, decay=(INITIAL_LEARNING_RATES[0] / NUM_EPOCHS))
+                        momentum=MOMENTUM_1, decay=DECAY_1)
 
     # It is being used the Root Mean Squared Prop (R.M.S. PROP) Optimiser
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[1]:
@@ -627,7 +632,7 @@ def create_optimiser(optimiser_id):
         # Initialise the ADAptive Moment estimation (ADA.M.) Optimiser,
         # with the Learning Rate of 0.5%
         optimiser = Adam(learning_rate=INITIAL_LEARNING_RATES[2],
-                         decay=(INITIAL_LEARNING_RATES[0] / NUM_EPOCHS))
+                         decay=DECAY_1)
 
     # It is being used the ADAptive GRADient algorithm (ADA.GRAD.) Optimiser
     elif optimiser_id == AVAILABLE_OPTIMISERS_LIST[3]:
@@ -851,7 +856,7 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
         # Print the Log for the Fitting/Training of
         # the Model for the feed-forward Convolution Neural Network (C.N.N.)
         print(f'\nFitting/Training the Model for '
-              f'the feed-forward Convolution Neural Network (C.N.N.) for {NUM_EPOCHS} Epochs '
+              f'the feed-forward Convolution Neural Network (C.N.N.) for {NUM_EPOCHS_2} Epochs '
               f'with a Batch Size of {BATCH_SIZE_1} and\nan Initial Learning Rate of '
               f'{INITIAL_LEARNING_RATES[num_optimiser]}...\n')
 
@@ -862,7 +867,7 @@ def execute_model_of_semantic_segmentation_for_all_available_optimisers():
             .fit(features_training_set_pokemon_data_augmentation_generator.x,
                  masks_training_set_pokemon_data_augmentation_generator.x,
                  steps_per_epoch=(NUM_EXAMPLES_FINAL_TRAINING_SET // BATCH_SIZE_1),
-                 epochs=NUM_EPOCHS,
+                 epochs=NUM_EPOCHS_2,
                  validation_data=(features_validation_set_pokemon_data_augmentation_generator.x,
                                   masks_validation_set_pokemon_data_augmentation_generator.x),
                  validation_steps=(NUM_EXAMPLES_FINAL_VALIDATION_SET // BATCH_SIZE_1),

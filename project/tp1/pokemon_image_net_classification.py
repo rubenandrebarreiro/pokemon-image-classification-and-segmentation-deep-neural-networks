@@ -205,7 +205,7 @@ from project.tp1.libs.parameters_and_arguments import DECAY_2
 # Import the Number of Epochs for the Optimiser for
 # the Model of the feed-forward Convolution Neural Network (C.N.N.)
 # from the Parameters and Arguments Python's Custom Module
-from project.tp1.libs.parameters_and_arguments import NUM_EPOCHS
+from project.tp1.libs.parameters_and_arguments import NUM_EPOCHS_1
 
 # Import the Size of the Batch for the Model of
 # the feed-forward Convolution Neural Network (C.N.N.)
@@ -260,7 +260,7 @@ def create_early_stopping_callbacks(classification_problem):
         EarlyStopping(
             monitor='loss',
             min_delta=1e-6,
-            patience=NUM_EPOCHS,
+            patience=NUM_EPOCHS_1,
             verbose=1,
             mode='min',
             baseline=0.12,
@@ -276,7 +276,7 @@ def create_early_stopping_callbacks(classification_problem):
             EarlyStopping(
                 monitor='accuracy',
                 min_delta=1e-6,
-                patience=NUM_EPOCHS,
+                patience=NUM_EPOCHS_1,
                 verbose=1,
                 mode='max',
                 baseline=0.94,
@@ -292,7 +292,7 @@ def create_early_stopping_callbacks(classification_problem):
             EarlyStopping(
                 monitor='binary_accuracy',
                 min_delta=1e-6,
-                patience=NUM_EPOCHS,
+                patience=NUM_EPOCHS_1,
                 verbose=1,
                 mode='max',
                 baseline=0.94,
@@ -305,7 +305,7 @@ def create_early_stopping_callbacks(classification_problem):
         EarlyStopping(
             monitor='val_loss',
             min_delta=1e-6,
-            patience=NUM_EPOCHS,
+            patience=NUM_EPOCHS_1,
             verbose=1,
             mode='min',
             baseline=0.16,
@@ -321,7 +321,7 @@ def create_early_stopping_callbacks(classification_problem):
             EarlyStopping(
                 monitor='val_accuracy',
                 min_delta=1e-6,
-                patience=NUM_EPOCHS,
+                patience=NUM_EPOCHS_1,
                 verbose=1,
                 mode='max',
                 baseline=0.92,
@@ -337,7 +337,7 @@ def create_early_stopping_callbacks(classification_problem):
             EarlyStopping(
                 monitor='val_binary_accuracy',
                 min_delta=1e-6,
-                patience=NUM_EPOCHS,
+                patience=NUM_EPOCHS_1,
                 verbose=1,
                 mode='max',
                 baseline=0.92,
@@ -675,7 +675,7 @@ def execute_mobile_net_model_multi_class_classification_for_all_available_optimi
         # Print the Log for the Fitting/Training of
         # the Model for the feed-forward Convolution Neural Network (C.N.N.)
         print(f'\nFitting/Training the Model for '
-              f'the feed-forward Convolution Neural Network (C.N.N.) for {NUM_EPOCHS} Epochs '
+              f'the feed-forward Convolution Neural Network (C.N.N.) for {NUM_EPOCHS_1} Epochs '
               f'with a Batch Size of {BATCH_SIZE_2} and\nan Initial Learning Rate of '
               f'{INITIAL_LEARNING_RATES[num_optimiser]}...\n')
 
@@ -685,7 +685,7 @@ def execute_mobile_net_model_multi_class_classification_for_all_available_optimi
             fine_tuned_cnn_model_in_keras_functional_api_for_image_classification_multi_classes_classification \
             .fit(multi_classes_training_set_pokemon_data_augmentation_generator,
                  steps_per_epoch=(NUM_EXAMPLES_FINAL_TRAINING_SET // BATCH_SIZE_2),
-                 epochs=NUM_EPOCHS,
+                 epochs=NUM_EPOCHS_1,
                  validation_data=multi_classes_validation_set_pokemon_data_augmentation_generator,
                  validation_steps=(NUM_EXAMPLES_FINAL_VALIDATION_SET // BATCH_SIZE_2),
                  batch_size=BATCH_SIZE_2,
@@ -1111,7 +1111,7 @@ def execute_mobile_net_model_multi_label_classification_for_all_available_optimi
         # Print the Log for the Fitting/Training of
         # the Model for the feed-forward Convolution Neural Network (C.N.N.)
         print(f'\nFitting/Training the Model for '
-              f'the feed-forward Convolution Neural Network (C.N.N.) for {NUM_EPOCHS} Epochs '
+              f'the feed-forward Convolution Neural Network (C.N.N.) for {NUM_EPOCHS_1} Epochs '
               f'with a Batch Size of {BATCH_SIZE_2} and\nan Initial Learning Rate of '
               f'{INITIAL_LEARNING_RATES[num_optimiser]}...\n')
 
@@ -1121,7 +1121,7 @@ def execute_mobile_net_model_multi_label_classification_for_all_available_optimi
             fine_tuned_cnn_model_in_keras_functional_api_for_image_classification_multi_labels_classification \
             .fit(multi_labels_training_set_pokemon_data_augmentation_generator,
                  steps_per_epoch=(NUM_EXAMPLES_FINAL_TRAINING_SET // BATCH_SIZE_2),
-                 epochs=NUM_EPOCHS,
+                 epochs=NUM_EPOCHS_1,
                  validation_data=multi_labels_validation_set_pokemon_data_augmentation_generator,
                  validation_steps=(NUM_EXAMPLES_FINAL_VALIDATION_SET // BATCH_SIZE_2),
                  batch_size=BATCH_SIZE_2,
