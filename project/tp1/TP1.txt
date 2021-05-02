@@ -17,32 +17,135 @@ exemplo.html
 
 PERGUNTAS/QUESTIONS:
 
-Q1: Explain the architecture of your best model for the multiclass classification problem, including a description and justification of the output activation and loss functions. Also justify your choice of layers and activation functions for the hidden layers.
-Q1; Explique a arquitectura do seu melhor modelo para o problema de classificação de multi-classe, incluindo uma descrição e justificação das funções de activação à saída da rede e função de custo. Justifique também a sua escolha de camadas e de funções de activação para as camadas escondidas.
-R1:
+Q1: Explain the architecture of your best model for the multiclass classification problem,
+    including a description and justification of the output activation and loss functions.
+	Also justify your choice of layers and activation functions for the hidden layers.
+Q1: Explique a arquitectura do seu melhor modelo para o problema de classificação de multi-classe,
+    incluindo uma descrição e justificação das funções de activação à saída da rede e função de custo.
+	Justifique também a sua escolha de camadas e de funções de activação para as camadas escondidas.
+R1: The architecture of the best model for the Multi-Class Classification is composed by 5 Blocks of Layers,
+	4 Convolutional Block of Layers and a last Block of Dense and Rectified Linear Unit (ReLU) Activation Function Layers.
+	The Convolutional Blocks of Layers are, mainly, represented by chained layers of Convolutional 2D Layers and
+	Rectified Linear Unit (ReLU) Activation Function Layers, followed by a last Max Pooling 2D Layer:
+	- 1) Convolutional 2D Block: [ Conv2D -> ReLU -> MaxPooling2D ];
+	- 2) and 3) Convolutional 2D Block: [ Conv2D -> ReLU -> Conv2D -> ReLU -> MaxPooling2D ];
+	- 4) Convolutional 2D Block: [ Conv2D -> ReLU -> Conv2D -> ReLU -> Conv2D -> ReLU -> MaxPooling2D ];
+	- 5) Dense Block: [ Flatten -> Dense -> ReLU -> Dense -> ReLU ];
+    The Convolutional 2D Layers of the 4 first Blocks have 32, 64, 128 and 256 Filters, Kernels of 3x3 pixels.
+	The Rectified Linear Unit (ReLU) Activation Function Layesr will set negative values of features, with the value 0.
+	The Max Pooling 2D Layers with a Pool and a Stride of size 2x2, computing the maximum value of the features,
+	in a horizontal and vertical neighborhood of 2 pixels and jumping also 2 pixels, horizontal and vertically,
+	to make the learning process faster, resulting on new inputs to the next convolutional blocks of layers.
+	In the 5th Dense Block, the dimensions of the features are first reshaped/reduced by the application of a Flatten Layer,
+	and, the Dense Layers have, both, 512 Units, complemented also by Rectified Linear Unit (ReLU) Activation Function Layers.
+	Additionally, it have some specific optimizations, regarding some optimisers tested, such as, he_uniform initialisers on
+	the Kernels of the Convolutional 2D Layers, for the case of the RMSProp and ADAM optimisers, as also, Dropout Layers of 50%,
+	before the last Rectified Linear Unit (ReLU) Activation Function Layer of the last Block of layers, for the case of
+	the SGD, ADAGrad and ADADelta optimisers, in order to improve the perfomance of them and reduce Overfitting situations.
+	Finally, it is applied a Dense of 10 Units, corresponding to the number of Classes of the data (i.e., the all known types of Pokémons),
+	and, since this is a problem of Multi-Class Classification, it is applied a Softmax Activation Layer, because the output of predictions
+	are interrelated and represented by the distribution of probabilities (with sum equal to 1) of an example belonging to each Class of
+	the problem, where the predicted class corresponds to the maximum probability, computed from the Sofmax function.
+	For the cost function, it is used the categorical_crossentropy that sums the softmax losses for all classes, but since,
+	the real classes are one-hot encoded, and it is pretended to predict only the most likely class, the losses of
+	the other classes will be 0 and only the loss from the prediction of the class of the target should be considered.
+	
+
+Q2: Discuss and explain how you selected the best model for the multiclass classifcation problem,
+    showing the relevant plots, comparing the different models you tried and evaluating the results you obtained.
+Q2: Discuta e explique como seleccionou o melhor modelo para o problema de classificação multi-classe,
+    mostrando os gráficos relevantes, comparando os diferentes modelos que experimentou e avaliando os resultados obtidos.
+R2: For choosing the best model, it were tested several optimisers, where was used 50 Epochs for the Training/Fitting process,
+    with Batches of size 16, varying some specific parameters (Learning Rates, Momentums and Decays), regarding each optimiser:
+	- SGD (Learning Rate = 0.005, Momentum=0.9, Decay=0.0001)
+	- RMSProp (Learning Rate = 0.0005, Momentum=0.0)
+	- ADAM (Learning Rate = 0.00041, Decay=0.0001)
+	- ADAGrad (Learning Rate = 0.012)
+	- ADADelta (Learning Rate = 0.25)
+	- ADAMax (Learning Rate = 0.001)
 
 
-Q2: Discuss and explain how you selected the best model for the multiclass classifcation problem, showing the relevant plots, comparing the different models you tried and evaluating the results you obtained.
-Q2: Discuta e explique como seleccionou o melhor modelo para o problema de classificação multi-classe, mostrando os gráficos relevantes, comparando os diferentes modelos que experimentou e avaliando os resultados obtidos.
-R2:
+Q3: For the multilabel classification problem, explain how you adpated your previous model,
+    what experiments you did to optimize the architecture and discuss your results.
+	Do not forget to explain your choice of activation and loss functions and why this model differs from the previous one.
+Q3: Para o problema de classificação com múltiplas etiquetas, explique como adaptou o modelo anterior,
+    que experiências fez para optimizar a arquitectura e discuta os resultados.
+	Não se esqueça de explicar a escolha de funções de activação e custo e porque é que este modelo difere do anterior.
+R3: The architecture of the best model for the Multi-Label Classification is mainly adapted from the one used for
+    the Multi-Class Classification, with the exception of be applied the he_uniform initialisers on the Kernels of
+	the Convolutional 2D Layers, for all the optimisers tested, instead of only specific ones, as also,
+	the application of a Sigmoid Activation Function Layer, at the end, instead of a Sofmax Activation Function Layer.
+	This is done, because the target values of the labels are not one-encoded and can represent more than one class, at the same time.
+	It is used the binary_crossentropy as cost function, since the output of predictions are independent and should be
+	considered independently, with different probabilities (i.e., [0,1]), being equal to have the sum of
+	multiple Binary Classifications, for the combination of probabilities of each example belonging to each known class.
+	For the Multi-Label Classification problem, in order to choose the best model, it were also tested several optimisers,
+	where was used 50 Epochs for the Training/Fitting process, with Batches of size 16, varying some specific parameters
+	(Learning Rates, Momentums and Decays), regarding each optimiser:
+	- SGD (Learning Rate = 0.005, Momentum=0.9, Decay=0.0001)
+	- RMSProp (Learning Rate = 0.0005, Momentum=0.0)
+	- ADAM (Learning Rate = 0.00041)
+	- ADAGrad (Learning Rate = 0.012)
+	- ADADelta (Learning Rate = 0.25)
+	- ADAMax (Learning Rate = 0.001)
 
 
-Q3: For the multilabel classification problem, explain how you adpated your previous model, what experiments you did to optimize the architecture and discuss your results. Do not forget to explain your choice of activation and loss functions and why this model differs from the previous one.
-Q3: Para o problema de classificação com múltiplas etiquetas, explique como adaptou o modelo anterior, que experiências fez para optimizar a arquitectura e discuta os resultados. Não se esqueça de explicar a escolha de funções de activação e custo e porque é que este modelo difere do anterior.
-R3:
+Q4: Explain the architecture of your best model for the semantic segmentation problem,
+    including a description and justification of the output activation and loss functions.
+	Also justify your choice of layers and activation functions for the hidden layers.
+Q4: Explique a arquitectura do seu melhor modelo para o problema de segmentação semântica,
+    incluindo uma descrição e justificação das funções de activação à saída da rede e função de custo.
+    Justifique também a sua escolha de camadas e de funções de activação para as camadas escondidas.
+R4: The architecture of the besst model for the Semantic Segmentation problem is a Residual Neural Network (ResNet),
+    which was inspired on the architecture of the UNet Model, being composed, first, by the following
+	Convolutional and Separable Convolutional 2D Blocks of Layers, with auxiliary Residual Layers:
+	- 1) Convolutional 2D Block: [ Conv2D -> BatchNormalization -> ReLU ], with 32 Filters;
+	- 2), 3) and 4) Separable Convolutional 2D Blocks, for Edge Detection, with less multiplications, with double layers
+	  of Rectified Linear Units (ReLUs) and Batch Normalizations, followed by a Max Pooling 2D Layer of the current Block and
+	  the projection of Residual inputs through a Convolutional 2D Layer based on the previous Block of Layers,
+	  to skip the operations of the mentioned double layers, in the current Block, followed by the Addition of the tensors of
+	  the projected Convolutional 2D Residual Layer of the previous Block and the Max Pooling Layer of the current Block:
+	  [ ReLU(x) -> SeparableConv2D(x) -> BatchNormalization(x) -> ReLU(x) -> SeparableConv2D(x) -> BatchNormalization(x) ->
+	    -> Max Pooling 2D(x) -> Convolutional 2D(prev_x) -> Add(x, prev_x) ], with 64, 128 and 256 Filters;
+	Then, it is performed the Up Sampling of the previous projected Layers for the samples of the previous Edge Detections,
+	mainly, through the application of Transposed Convolutional 2D Blocks of Layers, followed by the application of the Up Sampling Layers
+	of the current and previous Blocks of Layers, where it is additionally applied a Convolutional 2D Layer on the Residual Up Sampled Layer
+	projected back, before the Addition Layer of the tensors of the Up Sampled Layer of the current Block and the Residual one of
+	the previous Block, following the inverse order of the application of the Filters, before the Up Sampling Blocks of Layers:
+	- 5), 6), 7) and 8) Up Sampling/Transposed Convolutional 2D Blocks of Layers:
+	 [ ReLU(x) -> Conv2DTranspose(x) -> BatchNormalization(x) -> ReLU(x) -> Conv2DTranspose(x) -> BatchNormalization(x) -> 
+	   -> UpSampling(x) -> UpSampling(prev_x) -> Conv2D(x_prev) -> Add(x, prev_x) ], with 256, 128, 64 and 32 Filters.
+	At the end, is applied a Convolutional 2D Layer with just 1 Filter, on the last Up Sampled Layer, since the masks for
+	the Semantic Segmentation, are represented in Gray Scale (just 1 Color Channel), followed by a Sigmoid Activation Function Layer,
+	for the Binary Classification of each pixel, individually:
+	- 9) [ Conv2D -> Sigmoid ]
+	For the cost function, it is used the binary_crossentropy, since the masks are represented by the white (value 1) or black (value 0),
+	and also, for the location of the Pokémons on the images, it is only required to know if each pixel represents or not a Pokémon.
+	
+	
+Q5: Discuss and explain how you selected the best model for the semantic segmentation problem,
+    showing the relevant plots, comparing the different models you tried and evaluating the results you obtained.
+	Use the auxiliary functions provided to show the correspondence between your predicted segmentation masks and
+	the masks provided in the test set.
+Q5: Discuta e explique como seleccionou o melhor modelo para o problema de segmentação semântica,
+    mostrando os gráficos relevantes, comparando os diferentes modelos que experimentou e avaliando os resultados obtidos.
+	Use as funções auxiliares fornecidas para mostrar a correspondência entre as máscaras de segmentação previstas e
+	as máscaras no conjunto de teste.
+R5: For the Semantic Segmentation Problem, it was followed a strategy similar to the ones used on the problems of
+    the Multi-Class and Multi-Label Classification, where it was tested and tuned several optimisers,
+	varying again some specific parameters (Learning Rates, Momentums and Decays), regarding each optimiser:
+	- SGD (Learning Rate = 0.005, Momentum=0.9, Decay=0.0001)
+	- RMSProp (Learning Rate = 0.0005, Momentum=0.0)
+	- ADAM (Learning Rate = 0.00041)
+	- ADAGrad (Learning Rate = 0.012)
+	- ADADelta (Learning Rate = 0.25)
+	- ADAMax (Learning Rate = 0.001)
 
 
-Q4: Explain the architecture of your best model for the semantic segmentation problem, including a description and justification of the output activation and loss functions. Also justify your choice of layers and activation functions for the hidden layers.
-Q4: Explique a arquitectura do seu melhor modelo para o problema de segmentação semântica, incluindo uma descrição e justificação das funções de activação à saída da rede e função de custo. Justifique também a sua escolha de camadas e de funções de activação para as camadas escondidas.
-R4:
-
-
-Q5: Discuss and explain how you selected the best model for the semantic segmentation problem, showing the relevant plots, comparing the different models you tried and evaluating the results you obtained. Use the auxiliary functions provided to show the correspondence between your predicted segmentation masks and the masks provided in the test set.
-Q5: Discuta e explique como seleccionou o melhor modelo para o problema de segmentação semântica, mostrando os gráficos relevantes, comparando os diferentes modelos que experimentou e avaliando os resultados obtidos. Use as funções auxiliares fornecidas para mostrar a correspondência entre as máscaras de segmentação previstas e as máscaras no conjunto de teste.
-R5:
-
-
-Q6: (Optional) Discuss the impact on training and overfitting for the two classification problems when using available networks pretrained on ImageNet (e.g. EfficientNetB0, MobileNetV2 or others). Explain how you used these networks and discuss the effect they had relative to your models.
-Q6: (Opcional) Discuta o impacto no treino e sobreajustamento nos dois problemas de classificação se usar redes pré-treinadas no dataset ImageNet (e.g. EfficientNetB0, MobileNetV2 or others). Explique como usou estas redes e discuta o efeito que tiveram nos seus modelos.
-R6:
-
+Q6: (Optional) Discuss the impact on training and overfitting for the two classification problems when
+    using available networks pretrained on ImageNet (e.g. EfficientNetB0, MobileNetV2 or others).
+	Explain how you used these networks and discuss the effect they had relative to your models.
+Q6: (Opcional) Discuta o impacto no treino e sobreajustamento nos dois problemas de classificação se
+    usar redes pré-treinadas no dataset ImageNet (e.g. EfficientNetB0, MobileNetV2 or others).
+	Explique como usou estas redes e discuta o efeito que tiveram nos seus modelos.
+R6: 
