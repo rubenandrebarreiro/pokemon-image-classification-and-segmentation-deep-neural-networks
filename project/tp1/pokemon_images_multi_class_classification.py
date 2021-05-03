@@ -1152,7 +1152,7 @@ def execute_model_of_multi_class_classification_for_all_available_optimisers(fin
             print(' - %s: [ train_loss = %.12f ; train_acc = %.12f |'
                   ' val_loss = %.12f ; val_acc = %.12f |'
                   ' test_loss = %.12f ; test_acc = %.12f ]'
-                  % (AVAILABLE_OPTIMISERS_LIST[0],
+                  % (AVAILABLE_OPTIMISERS_LIST[num_optimiser],
                      optimisers_training_loss_means[0],
                      optimisers_training_accuracy_means[0],
                      optimisers_validation_loss_means[0],
