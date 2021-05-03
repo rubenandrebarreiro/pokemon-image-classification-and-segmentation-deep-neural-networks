@@ -396,7 +396,7 @@ def plot_training_and_validation_accuracies(
 # for the Multi-Class, Multi-Label and Semantic Segmentation Problem
 def plot_subset_metric_all_optimisers(
         cnn_model_in_keras_optimisers_metric_history, subset, metric,
-        now_date_time_format, problem, image_net_pre_trained=False,
+        now_date_time_format, problem, image_net_pre_trained=False, final_choice=None,
         plotting_style='seaborn-dark', is_to_show=False):
 
     # Set the Style of the Plots, as 'Seaborn Dark' Style, by default
@@ -411,16 +411,33 @@ def plot_subset_metric_all_optimisers(
     # For each available Optimiser
     for num_current_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
-        # Append the Legend for the the current available Optimiser
-        legends.append('{} [ lr = {} ]'.format(AVAILABLE_OPTIMISERS_LIST[num_current_optimiser],
-                                               INITIAL_LEARNING_RATES[num_current_optimiser]))
+        # Only execute the final choice for the Optimiser
+        if (AVAILABLE_OPTIMISERS_LIST[num_current_optimiser] == final_choice) and (final_choice is not None):
 
-        # Plot the given Metrics' Values for the Subset given,
-        # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
-        # for the Pokemons' Data, in Image Classification,
-        # for the Multi-Class, Multi-Label and Semantic Segmentation Problem
-        py_plot.plot(cnn_model_in_keras_optimisers_metric_history[num_current_optimiser],
-                     '-', color=OPTIMISERS_COLORS_MATPLOTLIB[num_current_optimiser])
+            # Append the Legend for the the current available Optimiser
+            legends.append('{} [ lr = {} ]'.format(AVAILABLE_OPTIMISERS_LIST[num_current_optimiser],
+                                                   INITIAL_LEARNING_RATES[num_current_optimiser]))
+
+            # Plot the given Metrics' Values for the Subset given,
+            # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
+            # for the Pokemons' Data, in Image Classification,
+            # for the Multi-Class, Multi-Label and Semantic Segmentation Problem
+            py_plot.plot(cnn_model_in_keras_optimisers_metric_history[0],
+                         '-', color=OPTIMISERS_COLORS_MATPLOTLIB[num_current_optimiser])
+
+        # Execute all the Optimisers
+        elif final_choice is None:
+
+            # Append the Legend for the the current available Optimiser
+            legends.append('{} [ lr = {} ]'.format(AVAILABLE_OPTIMISERS_LIST[num_current_optimiser],
+                                                   INITIAL_LEARNING_RATES[num_current_optimiser]))
+
+            # Plot the given Metrics' Values for the Subset given,
+            # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
+            # for the Pokemons' Data, in Image Classification,
+            # for the Multi-Class, Multi-Label and Semantic Segmentation Problem
+            py_plot.plot(cnn_model_in_keras_optimisers_metric_history[num_current_optimiser],
+                         '-', color=OPTIMISERS_COLORS_MATPLOTLIB[num_current_optimiser])
 
     # If it is Multi-Class Classification Problem or Multi-Label Classification Problem
     if (problem == 'Multi-Class') or (problem == 'Multi-Label'):

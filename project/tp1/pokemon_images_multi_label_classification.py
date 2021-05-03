@@ -1008,22 +1008,22 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers(fin
     # Plot the Training Loss Values for all the Optimisers
     plot_subset_metric_all_optimisers(optimisers_training_loss_history,
                                       'Training', 'Loss', now_date_time,
-                                      'Multi-Label')
+                                      'Multi-Label', final_choice=final_choice)
 
     # Plot the Training Accuracy Values for all the Optimisers
     plot_subset_metric_all_optimisers(optimisers_training_accuracy_history,
                                       'Training', 'Accuracy', now_date_time,
-                                      'Multi-Label')
+                                      'Multi-Label', final_choice=final_choice)
 
     # Plot the Validation Loss Values for all the Optimisers
     plot_subset_metric_all_optimisers(optimisers_validation_loss_history,
                                       'Validation', 'Loss', now_date_time,
-                                      'Multi-Label')
+                                      'Multi-Label', final_choice=final_choice)
 
     # Plot the Validation Accuracy Values for all the Optimisers
     plot_subset_metric_all_optimisers(optimisers_validation_accuracy_history,
                                       'Validation', 'Accuracy', now_date_time,
-                                      'Multi-Label')
+                                      'Multi-Label', final_choice=final_choice)
 
     # Print the Heading Information about the Losses and Accuracies on the Testing Set
     print('------  Final Results for the Losses and Accuracies on '
@@ -1032,18 +1032,37 @@ def execute_model_of_multi_label_classification_for_all_available_optimisers(fin
     # For each Optimiser available
     for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
-        # Print the respective Means (Averages) for the Losses and Accuracies
-        # of the predictions made by the current Optimiser on the Testing Set
-        print(' - %s: [ train_loss = %.12f ; train_binary_acc = %.12f |'
-              ' val_loss = %.12f ; val_binary_acc = %.12f |'
-              ' test_loss = %.12f ; test_binary_acc = %.12f ]'
-              % (AVAILABLE_OPTIMISERS_LIST[num_optimiser],
-                 optimisers_training_loss_means[num_optimiser],
-                 optimisers_training_accuracy_means[num_optimiser],
-                 optimisers_validation_loss_means[num_optimiser],
-                 optimisers_validation_accuracy_means[num_optimiser],
-                 optimisers_true_testing_loss_means[num_optimiser],
-                 optimisers_true_testing_accuracy_means[num_optimiser]))
+        # Only execute the final choice for the Optimiser
+        if (AVAILABLE_OPTIMISERS_LIST[num_optimiser] == final_choice) and (final_choice is not None):
+
+            # Print the respective Means (Averages) for the Losses and Accuracies
+            # of the predictions made by the current Optimiser on the Testing Set
+            print(' - %s: [ train_loss = %.12f ; train_binary_acc = %.12f |'
+                  ' val_loss = %.12f ; val_binary_acc = %.12f |'
+                  ' test_loss = %.12f ; test_binary_acc = %.12f ]'
+                  % (AVAILABLE_OPTIMISERS_LIST[0],
+                     optimisers_training_loss_means[0],
+                     optimisers_training_accuracy_means[0],
+                     optimisers_validation_loss_means[0],
+                     optimisers_validation_accuracy_means[0],
+                     optimisers_true_testing_loss_means[0],
+                     optimisers_true_testing_accuracy_means[0]))
+
+        # Execute all the Optimisers
+        elif final_choice is None:
+
+            # Print the respective Means (Averages) for the Losses and Accuracies
+            # of the predictions made by the current Optimiser on the Testing Set
+            print(' - %s: [ train_loss = %.12f ; train_binary_acc = %.12f |'
+                  ' val_loss = %.12f ; val_binary_acc = %.12f |'
+                  ' test_loss = %.12f ; test_binary_acc = %.12f ]'
+                  % (AVAILABLE_OPTIMISERS_LIST[num_optimiser],
+                     optimisers_training_loss_means[num_optimiser],
+                     optimisers_training_accuracy_means[num_optimiser],
+                     optimisers_validation_loss_means[num_optimiser],
+                     optimisers_validation_accuracy_means[num_optimiser],
+                     optimisers_true_testing_loss_means[num_optimiser],
+                     optimisers_true_testing_accuracy_means[num_optimiser]))
 
     # Print two break lines, for a better presentation of the output
     print('\n\n')

@@ -227,18 +227,38 @@ print('---- Results of the Multi-Class Classification ----')
 # For each Optimiser available
 for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
-    # Print the respective Means (Averages) for the Losses and Accuracies
-    # of the predictions made by the current Optimiser on all the Sets
-    print(' - %s: [ train_loss = %.12f ; train_acc = %.12f |'
-          ' val_loss = %.12f ; val_acc = %.12f |'
-          ' test_loss = %.12f ; test_acc = %.12f ]'
-          % (AVAILABLE_OPTIMISERS_LIST[num_optimiser],
-             optimisers_training_loss_means_multi_class[num_optimiser],
-             optimisers_training_accuracy_means_multi_class[num_optimiser],
-             optimisers_validation_loss_means_multi_class[num_optimiser],
-             optimisers_validation_accuracy_means_multi_class[num_optimiser],
-             optimisers_true_testing_loss_means_multi_class[num_optimiser],
-             optimisers_true_testing_accuracy_means_multi_class[num_optimiser]))
+    # Only execute the final choice for the Optimiser
+    if (AVAILABLE_OPTIMISERS_LIST[num_optimiser] == FINAL_CHOICE_MULTI_CLASS_CLASSIFICATION) and \
+            (FINAL_CHOICE_MULTI_CLASS_CLASSIFICATION is not None):
+
+        # Print the respective Means (Averages) for the Losses and Accuracies
+        # of the predictions made by the current Optimiser on all the Sets
+        print(' - %s: [ train_loss = %.12f ; train_acc = %.12f |'
+              ' val_loss = %.12f ; val_acc = %.12f |'
+              ' test_loss = %.12f ; test_acc = %.12f ]'
+              % (AVAILABLE_OPTIMISERS_LIST[num_optimiser],
+                 optimisers_training_loss_means_multi_class[0],
+                 optimisers_training_accuracy_means_multi_class[0],
+                 optimisers_validation_loss_means_multi_class[0],
+                 optimisers_validation_accuracy_means_multi_class[0],
+                 optimisers_true_testing_loss_means_multi_class[0],
+                 optimisers_true_testing_accuracy_means_multi_class[0]))
+
+    # Execute all the Optimisers
+    elif FINAL_CHOICE_MULTI_CLASS_CLASSIFICATION is None:
+
+        # Print the respective Means (Averages) for the Losses and Accuracies
+        # of the predictions made by the current Optimiser on all the Sets
+        print(' - %s: [ train_loss = %.12f ; train_acc = %.12f |'
+              ' val_loss = %.12f ; val_acc = %.12f |'
+              ' test_loss = %.12f ; test_acc = %.12f ]'
+              % (AVAILABLE_OPTIMISERS_LIST[num_optimiser],
+                 optimisers_training_loss_means_multi_class[num_optimiser],
+                 optimisers_training_accuracy_means_multi_class[num_optimiser],
+                 optimisers_validation_loss_means_multi_class[num_optimiser],
+                 optimisers_validation_accuracy_means_multi_class[num_optimiser],
+                 optimisers_true_testing_loss_means_multi_class[num_optimiser],
+                 optimisers_true_testing_accuracy_means_multi_class[num_optimiser]))
 
 
 # Print the logging for the results of the Multi-Label Classification Problem
@@ -248,18 +268,38 @@ print('---- Results of the Multi-Label Classification ----')
 # For each Optimiser available
 for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
-    # Print the respective Means (Averages) for the Losses and Accuracies
-    # of the predictions made by the current Optimiser on all the Sets
-    print(' - %s: [ train_loss = %.12f ; train_acc = %.12f |'
-          ' val_loss = %.12f ; val_acc = %.12f |'
-          ' test_loss = %.12f ; test_acc = %.12f ]'
-          % (AVAILABLE_OPTIMISERS_LIST[num_optimiser],
-             optimisers_training_loss_means_multi_label[num_optimiser],
-             optimisers_training_accuracy_means_multi_label[num_optimiser],
-             optimisers_validation_loss_means_multi_label[num_optimiser],
-             optimisers_validation_accuracy_means_multi_label[num_optimiser],
-             optimisers_true_testing_loss_means_multi_label[num_optimiser],
-             optimisers_true_testing_accuracy_means_multi_label[num_optimiser]))
+    # Only execute the final choice for the Optimiser
+    if (AVAILABLE_OPTIMISERS_LIST[num_optimiser] == FINAL_CHOICE_MULTI_LABEL_CLASSIFICATION) and \
+            (FINAL_CHOICE_MULTI_LABEL_CLASSIFICATION is not None):
+
+        # Print the respective Means (Averages) for the Losses and Accuracies
+        # of the predictions made by the current Optimiser on all the Sets
+        print(' - %s: [ train_loss = %.12f ; train_acc = %.12f |'
+              ' val_loss = %.12f ; val_acc = %.12f |'
+              ' test_loss = %.12f ; test_acc = %.12f ]'
+              % (AVAILABLE_OPTIMISERS_LIST[num_optimiser],
+                 optimisers_training_loss_means_multi_label[0],
+                 optimisers_training_accuracy_means_multi_label[0],
+                 optimisers_validation_loss_means_multi_label[0],
+                 optimisers_validation_accuracy_means_multi_label[0],
+                 optimisers_true_testing_loss_means_multi_label[0],
+                 optimisers_true_testing_accuracy_means_multi_label[0]))
+
+    # Execute all the Optimisers
+    elif FINAL_CHOICE_MULTI_LABEL_CLASSIFICATION is None:
+
+        # Print the respective Means (Averages) for the Losses and Accuracies
+        # of the predictions made by the current Optimiser on all the Sets
+        print(' - %s: [ train_loss = %.12f ; train_acc = %.12f |'
+              ' val_loss = %.12f ; val_acc = %.12f |'
+              ' test_loss = %.12f ; test_acc = %.12f ]'
+              % (AVAILABLE_OPTIMISERS_LIST[num_optimiser],
+                 optimisers_training_loss_means_multi_label[num_optimiser],
+                 optimisers_training_accuracy_means_multi_label[num_optimiser],
+                 optimisers_validation_loss_means_multi_label[num_optimiser],
+                 optimisers_validation_accuracy_means_multi_label[num_optimiser],
+                 optimisers_true_testing_loss_means_multi_label[num_optimiser],
+                 optimisers_true_testing_accuracy_means_multi_label[num_optimiser]))
 
 
 # Print the logging for the results of the Image Masking/Semantic Segmentation Problem
@@ -269,18 +309,38 @@ print('---- Results of the Image Masking/Semantic Segmentation ----')
 # For each Optimiser available
 for num_optimiser in range(NUM_AVAILABLE_OPTIMISERS):
 
-    # Print the respective Means (Averages) for the Losses and Accuracies
-    # of the predictions made by the current Optimiser on all the Sets
-    print(' - %s: [ train_loss = %.12f ; train_acc = %.12f |'
-          ' val_loss = %.12f ; val_acc = %.12f |'
-          ' test_loss = %.12f ; test_acc = %.12f ]'
-          % (AVAILABLE_OPTIMISERS_LIST[num_optimiser],
-             optimisers_training_loss_means_semantic_segmentation[num_optimiser],
-             optimisers_training_accuracy_means_semantic_segmentation[num_optimiser],
-             optimisers_validation_loss_means_semantic_segmentation[num_optimiser],
-             optimisers_validation_accuracy_means_semantic_segmentation[num_optimiser],
-             optimisers_true_testing_loss_means_semantic_segmentation[num_optimiser],
-             optimisers_true_testing_accuracy_means_semantic_segmentation[num_optimiser]))
+    # Only execute the final choice for the Optimiser
+    if (AVAILABLE_OPTIMISERS_LIST[num_optimiser] == FINAL_CHOICE_SEMANTIC_SEGMENTATION_CLASSIFICATION) and \
+            (FINAL_CHOICE_SEMANTIC_SEGMENTATION_CLASSIFICATION is not None):
+
+        # Print the respective Means (Averages) for the Losses and Accuracies
+        # of the predictions made by the current Optimiser on all the Sets
+        print(' - %s: [ train_loss = %.12f ; train_acc = %.12f |'
+              ' val_loss = %.12f ; val_acc = %.12f |'
+              ' test_loss = %.12f ; test_acc = %.12f ]'
+              % (AVAILABLE_OPTIMISERS_LIST[num_optimiser],
+                 optimisers_training_loss_means_semantic_segmentation[0],
+                 optimisers_training_accuracy_means_semantic_segmentation[0],
+                 optimisers_validation_loss_means_semantic_segmentation[0],
+                 optimisers_validation_accuracy_means_semantic_segmentation[0],
+                 optimisers_true_testing_loss_means_semantic_segmentation[0],
+                 optimisers_true_testing_accuracy_means_semantic_segmentation[0]))
+
+    # Execute all the Optimisers
+    elif FINAL_CHOICE_SEMANTIC_SEGMENTATION_CLASSIFICATION is None:
+
+        # Print the respective Means (Averages) for the Losses and Accuracies
+        # of the predictions made by the current Optimiser on all the Sets
+        print(' - %s: [ train_loss = %.12f ; train_acc = %.12f |'
+              ' val_loss = %.12f ; val_acc = %.12f |'
+              ' test_loss = %.12f ; test_acc = %.12f ]'
+              % (AVAILABLE_OPTIMISERS_LIST[num_optimiser],
+                 optimisers_training_loss_means_semantic_segmentation[num_optimiser],
+                 optimisers_training_accuracy_means_semantic_segmentation[num_optimiser],
+                 optimisers_validation_loss_means_semantic_segmentation[num_optimiser],
+                 optimisers_validation_accuracy_means_semantic_segmentation[num_optimiser],
+                 optimisers_true_testing_loss_means_semantic_segmentation[num_optimiser],
+                 optimisers_true_testing_accuracy_means_semantic_segmentation[num_optimiser]))
 
 # Is to execute the Pre-Trained Model,
 # for the Multi-Class and Multi-Label Classifications
