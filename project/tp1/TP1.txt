@@ -72,7 +72,14 @@ R2: For choosing the best model, it were tested several optimisers, where was us
 	- ADAGrad (Learning Rate = 0.012)
 	- ADADelta (Learning Rate = 0.25)
 	- ADAMax (Learning Rate = 0.001)
-	
+
+	The Learning Rates was tested for several attempts, adapted according to resulted values of losses and accuracies,
+	i.e., when the losses stopped decreasing and/or the accuracy stopped increasing, with no progress,
+	it was tried a higher value for the Learning Rates, in other hand, when the values oscillate too much,
+	it was tried a lower value for the Learning Rates, and additionally, it was also, combined with Decay values.
+
+	Additionally, it was tried some Regularization techniques, to deal with it Overfitting Situations, regarding some Optimisers.
+
 	---- Results of the Multi-Class Classification ----
     - SGD: [ train_loss = 0.055699862540 ; train_acc = 0.980769217014 | val_loss = 0.070379540324 ; val_acc = 0.979838728905 | test_loss = 0.076016090810 ; test_acc = 0.981999993324 ]
     - RMSPROP: [ train_loss = 0.000000000000 ; train_acc = 1.000000000000 | val_loss = 0.017119491473 ; val_acc = 0.997983872890 | test_loss = 0.000163406236 ; test_acc = 1.000000000000 ]
@@ -115,6 +122,13 @@ R3: The architecture of the best model for the Multi-Label Classification is mai
 	- ADAGrad (Learning Rate = 0.012)
 	- ADADelta (Learning Rate = 0.25)
 	- ADAMax (Learning Rate = 0.001)
+
+	The Learning Rates was tested for several attempts, adapted according to resulted values of losses and accuracies,
+	i.e., when the losses stopped decreasing and/or the accuracy stopped increasing, with no progress,
+	it was tried a higher value for the Learning Rates, in other hand, when the values oscillate too much,
+	it was tried a lower value for the Learning Rates, and additionally, it was also, combined with Decay values.
+
+	Additionally, it was tried some Regularization techniques, to deal with it Overfitting Situations, regarding some Optimisers.
 	
 	---- Results of the Multi-Label Classification ----
 	- SGD: [ train_loss = 0.001069058664 ; train_acc = 0.999799072742 | val_loss = 0.022539924830 ; val_acc = 0.992540240288 | test_loss = 0.020673101768 ; test_acc = 0.992599964142 ]
@@ -144,7 +158,7 @@ R4: The architecture of the best model for the Semantic Segmentation problem is 
     with Residual Layers (short skip connections), which was inspired on the architecture of the UNet Model,
 	being composed, mainly, by two main symmetric processes, the Down-Sampling and Up-Sampling.
 	In the first process, the feature maps are contracted and rescaled into smaller resolutions, with more channels
-	and increasing the depth of the image, while, in the later process, the feature maps are exapanded and rescaled back
+	and increasing the depth of the image, while, in the later process, the feature maps are expanded and rescaled back
 	into bigger resolutions, with less channels and decreasing the depth of the image, resulting in the final segmentation maps.
 	The Down-Sampling and Up-Sampling are iterative/continuous processes, always forming chainings of Layers with their previous Blocks of Layers,
 	through Residual Layers (short skip connections), to increase the precision of the detection of the boundaries of the shapes in the images.
@@ -234,7 +248,7 @@ R6: The impact on Training and Overfitting for the two classification problems u
 	It was tried to use Data Augmentation Techniques, in this optional task, using several methods, but with no good results.
 	Another possible solution was to not used all the features extracted of the pretrained Model, using the ImageNet Dataset,
 	but only some part of it, by only freezing the first 20 layers of the Model, reducing the complexity of the Network,
-	and start our Model from there, where it was also used some regularization techniques, such as, he_uniform kernel initialisers, or even,
+	and start our Model from there, where it was also used some regularization techniques, such as, he_uniform kernel initializers, or even,
 	some callbacks, such as, Reduce Learning Rate on Plateau, to decrease the Learning Rate, where the losses start to vary too much.
 	With this methods, were achieved much better results, in comparison to using the whole pretrained model, from MobileNet.
 	

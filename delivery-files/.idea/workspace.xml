@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="808305a7-d992-41f9-9087-7698ce219b42" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/delivery-files.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TP1.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dataset/data.npz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dataset/labels.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dataset/pokemon_types.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/images_set_generator.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/parameters_and_arguments.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/preprocessing_utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/visualization_plotting.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pokemon-semantic-segmentation-masks-comparison-adam-optimiser.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pokemon-semantic-segmentation-masks-overlay-adam-optimiser.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pokemon_image_net_classification.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pokemon_images_multi_class_classification.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pokemon_images_multi_label_classification.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pokemon_images_semantic_segmentation.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tp1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tp1_42648_49067.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tp1_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/tp1/TP1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../project/tp1/TP1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/tp1/libs/visualization_plotting.py" beforeDir="false" afterPath="$PROJECT_DIR$/../project/tp1/libs/visualization_plotting.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/tp1/multi-class-image-net-training-accuracy-values-plot-all-optimisers-20210502224811.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/tp1/multi-class-image-net-training-loss-values-plot-all-optimisers-20210502224811.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/tp1/multi-class-image-net-validation-accuracy-values-plot-all-optimisers-20210502224811.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/tp1/multi-class-image-net-validation-loss-values-plot-all-optimisers-20210502224811.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/tp1/multi-class-training-accuracy-values-plot-all-optimisers-20210502213246.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/tp1/multi-class-training-loss-values-plot-all-optimisers-20210502213246.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/tp1/multi-class-validation-accuracy-values-plot-all-optimisers-20210502213246.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/tp1/multi-class-validation-loss-values-plot-all-optimisers-20210502213246.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/tp1/multi-label-image-net-training-accuracy-values-plot-all-optimisers-20210502231646.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/tp1/multi-label-image-net-training-loss-values-plot-all-optimisers-20210502231646.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/tp1/multi-label-image-net-validation-accuracy-values-plot-all-optimisers-20210502231646.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/tp1/multi-label-image-net-validation-loss-values-plot-all-optimisers-20210502231646.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/tp1/multi-label-training-accuracy-values-plot-all-optimisers-20210502215635.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/tp1/multi-label-training-loss-values-plot-all-optimisers-20210502215635.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/tp1/multi-label-validation-accuracy-values-plot-all-optimisers-20210502215635.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/tp1/multi-label-validation-loss-values-plot-all-optimisers-20210502215635.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/tp1/pokemon-semantic-segmentation-masks-comparison-adam-optimiser.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/tp1/pokemon-semantic-segmentation-masks-overlay-adam-optimiser.png" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1s509zCZ3ThneS5dhF23VCeCQLh" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration name="tp1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="delivery-files" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tp1.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.tp1" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="808305a7-d992-41f9-9087-7698ce219b42" name="Default Changelist" comment="" />
+      <created>1620146995207</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1620146995207</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

@@ -27,9 +27,13 @@ Visualization/Potting Module for the the Project
 # Import PyPlot from the Matplotlib Python's Library
 from matplotlib import pyplot as py_plot
 
-# Import the Number of Epochs
+# Import the Number of Epochs #1
 # from the Parameters and Arguments Python's Custom Module
 from project.tp1.libs.parameters_and_arguments import NUM_EPOCHS_1
+
+# Import the Number of Epochs #2
+# from the Parameters and Arguments Python's Custom Module
+from project.tp1.libs.parameters_and_arguments import NUM_EPOCHS_2
 
 # Import the List of Available Optimisers
 # from the Parameters and Arguments Python's Custom Module
@@ -469,6 +473,11 @@ def plot_subset_metric_all_optimisers(
                           'the Pokemon Images/Data Classification, for the %s Problem\n'
                           'with all Optimisers, using ImageNet Weights' % (subset, metric, problem))
 
+        # Set the X-Axis of the final Plot for the Metric Values' Comparison,
+        # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
+        # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
+        py_plot.xlim((0, NUM_EPOCHS_1))
+
     # If it is Image Masking, for the Semantic Segmentation Problem
     elif problem == 'Semantic-Segmentation':
 
@@ -480,10 +489,10 @@ def plot_subset_metric_all_optimisers(
                       'Convolution Neural Network (C.N.N.) for the Pokemon Images/Data Masking,\n'
                       'for the %s Problem with all Optimisers' % (subset, metric, problem))
 
-    # Set the X-Axis of the final Plot for the Metric Values' Comparison,
-    # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
-    # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
-    py_plot.xlim((0, NUM_EPOCHS_1))
+        # Set the X-Axis of the final Plot for the Metric Values' Comparison,
+        # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
+        # for the Pokemons' Data, in Image Classification, for the Multi-Class Problem
+        py_plot.xlim((0, NUM_EPOCHS_2))
 
     # Plot the title for the X-Axis for the Number of Epochs,
     # for the Model for a feed-forward Convolution Neural Network (C.N.N.),
