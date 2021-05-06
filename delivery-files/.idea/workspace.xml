@@ -1,7 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="808305a7-d992-41f9-9087-7698ce219b42" name="Default Changelist" comment="Final Version added" />
+    <list default="true" id="808305a7-d992-41f9-9087-7698ce219b42" name="Default Changelist" comment="Final Version added">
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505095953/events.out.tfevents.1620208793.LAPTOP-KQSV23IL.14944.0.v2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505095953/train/events.out.tfevents.1620208793.LAPTOP-KQSV23IL.14944.1.v2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505095953/train/events.out.tfevents.1620208801.LAPTOP-KQSV23IL.profile-empty" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505095953/train/plugins/profile/2021_05_05_10_00_01/LAPTOP-KQSV23IL.input_pipeline.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505095953/train/plugins/profile/2021_05_05_10_00_01/LAPTOP-KQSV23IL.kernel_stats.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505095953/train/plugins/profile/2021_05_05_10_00_01/LAPTOP-KQSV23IL.memory_profile.json.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505095953/train/plugins/profile/2021_05_05_10_00_01/LAPTOP-KQSV23IL.overview_page.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505095953/train/plugins/profile/2021_05_05_10_00_01/LAPTOP-KQSV23IL.tensorflow_stats.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505095953/train/plugins/profile/2021_05_05_10_00_01/LAPTOP-KQSV23IL.trace.json.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505095953/train/plugins/profile/2021_05_05_10_00_01/LAPTOP-KQSV23IL.xplane.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505095953/validation/events.out.tfevents.1620208805.LAPTOP-KQSV23IL.14944.2.v2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505101026/events.out.tfevents.1620209427.LAPTOP-KQSV23IL.3640.0.v2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505101026/train/events.out.tfevents.1620209427.LAPTOP-KQSV23IL.3640.1.v2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505101026/train/events.out.tfevents.1620209431.LAPTOP-KQSV23IL.profile-empty" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505101026/train/plugins/profile/2021_05_05_10_10_31/LAPTOP-KQSV23IL.input_pipeline.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505101026/train/plugins/profile/2021_05_05_10_10_31/LAPTOP-KQSV23IL.kernel_stats.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505101026/train/plugins/profile/2021_05_05_10_10_31/LAPTOP-KQSV23IL.memory_profile.json.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505101026/train/plugins/profile/2021_05_05_10_10_31/LAPTOP-KQSV23IL.overview_page.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505101026/train/plugins/profile/2021_05_05_10_10_31/LAPTOP-KQSV23IL.tensorflow_stats.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505101026/train/plugins/profile/2021_05_05_10_10_31/LAPTOP-KQSV23IL.trace.json.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505101026/train/plugins/profile/2021_05_05_10_10_31/LAPTOP-KQSV23IL.xplane.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505101026/validation/events.out.tfevents.1620209434.LAPTOP-KQSV23IL.3640.2.v2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505101710/events.out.tfevents.1620209830.LAPTOP-KQSV23IL.23168.0.v2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505101710/train/events.out.tfevents.1620209831.LAPTOP-KQSV23IL.23168.1.v2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505101710/train/events.out.tfevents.1620209835.LAPTOP-KQSV23IL.profile-empty" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505101710/train/plugins/profile/2021_05_05_10_17_15/LAPTOP-KQSV23IL.input_pipeline.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505101710/train/plugins/profile/2021_05_05_10_17_15/LAPTOP-KQSV23IL.kernel_stats.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505101710/train/plugins/profile/2021_05_05_10_17_15/LAPTOP-KQSV23IL.memory_profile.json.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505101710/train/plugins/profile/2021_05_05_10_17_15/LAPTOP-KQSV23IL.overview_page.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505101710/train/plugins/profile/2021_05_05_10_17_15/LAPTOP-KQSV23IL.tensorflow_stats.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505101710/train/plugins/profile/2021_05_05_10_17_15/LAPTOP-KQSV23IL.trace.json.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505101710/train/plugins/profile/2021_05_05_10_17_15/LAPTOP-KQSV23IL.xplane.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505101710/validation/events.out.tfevents.1620209838.LAPTOP-KQSV23IL.23168.2.v2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505102210/events.out.tfevents.1620210130.LAPTOP-KQSV23IL.15272.0.v2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505102210/train/events.out.tfevents.1620210131.LAPTOP-KQSV23IL.15272.1.v2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505102210/train/events.out.tfevents.1620210135.LAPTOP-KQSV23IL.profile-empty" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505102210/train/plugins/profile/2021_05_05_10_22_15/LAPTOP-KQSV23IL.input_pipeline.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505102210/train/plugins/profile/2021_05_05_10_22_15/LAPTOP-KQSV23IL.kernel_stats.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505102210/train/plugins/profile/2021_05_05_10_22_15/LAPTOP-KQSV23IL.memory_profile.json.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505102210/train/plugins/profile/2021_05_05_10_22_15/LAPTOP-KQSV23IL.overview_page.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505102210/train/plugins/profile/2021_05_05_10_22_15/LAPTOP-KQSV23IL.tensorflow_stats.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505102210/train/plugins/profile/2021_05_05_10_22_15/LAPTOP-KQSV23IL.trace.json.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505102210/train/plugins/profile/2021_05_05_10_22_15/LAPTOP-KQSV23IL.xplane.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505102210/validation/events.out.tfevents.1620210138.LAPTOP-KQSV23IL.15272.2.v2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505102607/events.out.tfevents.1620210367.LAPTOP-KQSV23IL.13928.0.v2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505102607/train/events.out.tfevents.1620210367.LAPTOP-KQSV23IL.13928.1.v2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505102607/train/events.out.tfevents.1620210372.LAPTOP-KQSV23IL.profile-empty" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505102607/train/plugins/profile/2021_05_05_10_26_12/LAPTOP-KQSV23IL.input_pipeline.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505102607/train/plugins/profile/2021_05_05_10_26_12/LAPTOP-KQSV23IL.kernel_stats.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505102607/train/plugins/profile/2021_05_05_10_26_12/LAPTOP-KQSV23IL.memory_profile.json.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505102607/train/plugins/profile/2021_05_05_10_26_12/LAPTOP-KQSV23IL.overview_page.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505102607/train/plugins/profile/2021_05_05_10_26_12/LAPTOP-KQSV23IL.tensorflow_stats.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505102607/train/plugins/profile/2021_05_05_10_26_12/LAPTOP-KQSV23IL.trace.json.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505102607/train/plugins/profile/2021_05_05_10_26_12/LAPTOP-KQSV23IL.xplane.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-classes-adam-optimiser-20210505102607/validation/events.out.tfevents.1620210376.LAPTOP-KQSV23IL.13928.2.v2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-labels-adam-optimiser-20210505100321/events.out.tfevents.1620209001.LAPTOP-KQSV23IL.14944.3.v2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-labels-adam-optimiser-20210505100321/train/events.out.tfevents.1620209002.LAPTOP-KQSV23IL.14944.4.v2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-labels-adam-optimiser-20210505100321/train/events.out.tfevents.1620209005.LAPTOP-KQSV23IL.profile-empty" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-labels-adam-optimiser-20210505100321/train/plugins/profile/2021_05_05_10_03_25/LAPTOP-KQSV23IL.input_pipeline.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-labels-adam-optimiser-20210505100321/train/plugins/profile/2021_05_05_10_03_25/LAPTOP-KQSV23IL.kernel_stats.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-labels-adam-optimiser-20210505100321/train/plugins/profile/2021_05_05_10_03_25/LAPTOP-KQSV23IL.memory_profile.json.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-labels-adam-optimiser-20210505100321/train/plugins/profile/2021_05_05_10_03_25/LAPTOP-KQSV23IL.overview_page.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-labels-adam-optimiser-20210505100321/train/plugins/profile/2021_05_05_10_03_25/LAPTOP-KQSV23IL.tensorflow_stats.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-labels-adam-optimiser-20210505100321/train/plugins/profile/2021_05_05_10_03_25/LAPTOP-KQSV23IL.trace.json.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-labels-adam-optimiser-20210505100321/train/plugins/profile/2021_05_05_10_03_25/LAPTOP-KQSV23IL.xplane.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-labels-adam-optimiser-20210505100321/validation/events.out.tfevents.1620209010.LAPTOP-KQSV23IL.14944.5.v2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-labels-adam-optimiser-20210505102959/events.out.tfevents.1620210599.LAPTOP-KQSV23IL.13928.3.v2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-labels-adam-optimiser-20210505102959/train/events.out.tfevents.1620210600.LAPTOP-KQSV23IL.13928.4.v2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-labels-adam-optimiser-20210505102959/train/events.out.tfevents.1620210604.LAPTOP-KQSV23IL.profile-empty" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-labels-adam-optimiser-20210505102959/train/plugins/profile/2021_05_05_10_30_04/LAPTOP-KQSV23IL.input_pipeline.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-labels-adam-optimiser-20210505102959/train/plugins/profile/2021_05_05_10_30_04/LAPTOP-KQSV23IL.kernel_stats.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-labels-adam-optimiser-20210505102959/train/plugins/profile/2021_05_05_10_30_04/LAPTOP-KQSV23IL.memory_profile.json.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-labels-adam-optimiser-20210505102959/train/plugins/profile/2021_05_05_10_30_04/LAPTOP-KQSV23IL.overview_page.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-labels-adam-optimiser-20210505102959/train/plugins/profile/2021_05_05_10_30_04/LAPTOP-KQSV23IL.tensorflow_stats.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-labels-adam-optimiser-20210505102959/train/plugins/profile/2021_05_05_10_30_04/LAPTOP-KQSV23IL.trace.json.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-labels-adam-optimiser-20210505102959/train/plugins/profile/2021_05_05_10_30_04/LAPTOP-KQSV23IL.xplane.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/model-multi-labels-adam-optimiser-20210505102959/validation/events.out.tfevents.1620210608.LAPTOP-KQSV23IL.13928.5.v2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/multi-class-classification-accuracy-values-plot-adam-optimiser-20210505102607.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/multi-class-classification-loss-values-plot-adam-optimiser-20210505102607.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/multi-class-classification-training-accuracy-values-plot-all-optimisers-comparison-20210505102956.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/multi-class-classification-training-loss-values-plot-all-optimisers-comparison-20210505102956.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/multi-class-classification-validation-accuracy-values-plot-all-optimisers-comparison-20210505102956.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/multi-class-classification-validation-loss-values-plot-all-optimisers-comparison-20210505102956.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/multi-class-model/keras_metadata.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/multi-class-model/saved_model.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/multi-class-model/variables/variables.data-00000-of-00001" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/multi-class-model/variables/variables.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pokemon_images_multi_class_classification.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon_images_multi_class_classification.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -94,6 +184,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
